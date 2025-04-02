@@ -22,7 +22,7 @@ if store_name:
         st.subheader(f"Results for '{store_name}':")
 
         # Selecting the relevant columns: store_id and company_name
-        results = filtered_data[['store_id', 'company_name']]  # Using the correct column names
+        results = filtered_data[['store_id', 'company_name', 'last_login_at', 'role_name']]  # Using the correct column names
         st.dataframe(results)  # Show the filtered data for columns A and B
     else:
         st.write("No matching stores found.")
