@@ -1,28 +1,39 @@
 import streamlit as st
 import pandas as pd
 
-# Load the CSV data (ensure 'merged_df.csv' is in the same directory as this script)
+# Load the CSV data
 data = pd.read_csv('merged_df.csv')
-
-# Print the column names for debugging (you can remove this line once everything works)
-st.write("Columns available in the dataset:", data.columns.tolist())
 
 # Title of the app
 st.title("Store Information Search")
 
 # Search input
-store_name = st.text_input("Enter Store Name:", "")
+store_name = st.text_input("Enter Store Name (case insensitive):", "")
 
 # Displaying related information
 if store_name:
-    # Filter data based on the search input in the store_name column
-    filtered_data = data[data['store_name'].str.contains(store_name, case=False, na=False)]
+    # Filter data based on the search input (look for exact match in a case-insensitive manner)
+    filtered_data = data[data['store_name'].str.lower() == store_name.lower()]
 
     if not filtered_data.empty:
         st.subheader(f"Results for '{store_name}':")
 
-        # Selecting the relevant columns: store_id and company_name
-        results = filtered_data[['store_id', 'company_name', 'last_login_at', 'role_name']]  # Using the correct column names
-        st.dataframe(results)  # Show the filtered data for columns A and B
+        # Create two columns for layout
+        col1, col2 = st.columns(2)
+
+        # Left Column: Display store_id, company_name, full_address
+        with col1:
+            st.write("### Store Information")
+            st.write(f"**Store ID:** {filtered_data['store_id'].values[0]}")
+            st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
+            st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
+
+        # Right Column: Display email, last_login_at, role_name
+        with col2:
+            st.write("### Additional Information")
+            st.write(f"**Email:** {filtered_data['email'].values[0]}")
+            st.write(f"**Last Login At:** {filtered_data['last_login_at'].values[0]}")
+            st.write(f"**Role Name:** {filtered_data['role_name'].values[0]}")
+            
     else:
-        st.write("No matching stores found.")
+        st.write("No matching store found.")
