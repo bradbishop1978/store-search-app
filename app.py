@@ -7,7 +7,7 @@ data = pd.read_csv('merged_df.csv')
 # Title of the app
 st.title("Store Information Search")
 
-# Input for store name with an empty value to manage selected store
+# Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", "")
 
 # Check to see if there are matching stores based on user input
@@ -22,13 +22,11 @@ if store_name:  # Check if the search box is not empty
         # Show suggested stores
         st.subheader("Suggested Stores:")
         for index, row in matching_stores.iterrows():
-            # Create a button for each suggested store
-            if st.button(f"{row['store_name']}"):
+            # Create a button for each suggested store with a unique key
+            if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
                 store_name = row['store_name']  # Set the store_name to the selected store
-
-        # Clear displayed suggestions if a suggestion is chosen
-        # This is done through re-running the script with the current `store_name`
-        st.session_state.selected_store = store_name  # Save selected store
+                # Store the selected store in session state
+                st.session_state.selected_store = store_name
             
 # Display information if a specific store has been chosen
 if 'selected_store' in st.session_state and st.session_state.selected_store:
