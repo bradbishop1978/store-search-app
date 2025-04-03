@@ -92,7 +92,7 @@ if st.session_state.selected_store:
 
         with col2:
             st.write("### Login Info")
-            st.write("**Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-')) 
+            st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-')) 
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
             st.write("**Login since:**", days_since_last_login(last_login_at))
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
