@@ -47,31 +47,33 @@ if st.session_state.selected_store:
         # Create a full-width container for columns
         with st.container():
             # Create columns that span full width
-            col1, col2, col3, col4 = st.columns([5, 5, 5, 5])  # Adjust proportions as needed
+            col1, col2, col3, col4 = st.columns([3, 2, 1, 1])  # Adjust proportions as needed
 
             with col1:
                 st.write("### Store Information")
-                st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
-                st.write(f"**Store ID:** [**{filtered_data['store_id'].values[0]}**](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].values[0]})")
-                st.write(f"**Company ID:** {filtered_data['company_id'].values[0]}")
-                st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
+                st.write(f"**Company Name:** {filtered_data['company_name'].iloc[0]}")
+                st.write(f"**Store ID:** [**{filtered_data['store_id'].iloc[0]}**](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
+                st.write(f"**Company ID:** {filtered_data['company_id'].iloc[0]}")
+                st.write(f"**Full Address:** {filtered_data['full_address'].iloc[0]}")
 
             with col2:
                 st.write("### LSP Login Info")
-                st.write(f"**Email:** {filtered_data['store_email'].values[0]}")
-                st.write(f"**Password:** (Sensitive Info)")  # If applicable, add a field here.
-            
+                st.write(f"**Email:** {filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else 'Not available'}")
+                st.write(f"**Last Login At:** {filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else 'Not available'}")
+                st.write(f"**Role Name:** {filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else 'Not available'}")
+                st.write(f"**Phone Number:** {filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else 'Not available'}")
+
             with col3:
                 st.write("### DSP Info")
-                st.write(f"**UberEats ID:** {filtered_data.get('ubereats_id', 'Not available')}")
-                st.write(f"**DoorDash ID:** {filtered_data.get('doordash_id', 'Not available')}")
-                st.write(f"**GrubHub ID:** {filtered_data.get('grubhub_id', 'Not available')}")
+                st.write(f"**UberEats ID:** {filtered_data['ubereats_id'].iloc[0] if 'ubereats_id' in filtered_data.columns else 'Not available'}")
+                st.write(f"**DoorDash ID:** {filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else 'Not available'}")
+                st.write(f"**GrubHub ID:** {filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else 'Not available'}")
 
             with col4:
                 st.write("### Additional Details")
-                st.write(f"**Store Email:** {filtered_data.get('store_email', 'Not available')}")
-                st.write(f"**Store Phone:** {filtered_data.get('store_phone', 'Not available')}")
-                st.write(f"**Created Date:** {filtered_data.get('created_date', 'Not available')}")
-                st.write(f"**Store Status:** {filtered_data.get('store_status', 'Not available')}")
+                st.write(f"**Store Email:** {filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else 'Not available'}")
+                st.write(f"**Store Phone:** {filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else 'Not available'}")
+                st.write(f"**Created Date:** {filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else 'Not available'}")
+                st.write(f"**Store Status:** {filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else 'Not available'}")
     else:
         st.write("No matching store found.")
