@@ -5,10 +5,10 @@ from datetime import datetime
 # Use the raw URL of your logo here
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"  # update with your actual URL
 
-# Display title with logo
+# Display title alongside logo
 st.markdown(
     f"<h1 style='display:inline;'>Store Information Search</h1> "
-    f"<img src='{logo_url}' style='height:50px; vertical-align: middle;'>",
+    f"<img src='{logo_url}' style='height:50px; vertical-align: middle; display:inline;'>",
     unsafe_allow_html=True
 )
 
