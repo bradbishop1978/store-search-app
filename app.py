@@ -44,46 +44,34 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Inject custom CSS to extend columns
-        st.markdown(
-            """
-            <style>
-                .column {
-                    flex: 1;
-                    min-width: 200px;  /* Adjust minimum width as needed */
-                    padding: 10px;     /* Padding around the columns */
-                }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
+        # Create a full-width container for columns
+        with st.container():
+            # Create columns that span full width
+            col1, col2, col3, col4 = st.columns([3, 3, 3, 3])  # Adjust proportions as needed
 
-        # Create a layout with custom widths
-        col1, col2, col3, col4 = st.columns([2, 2, 1, 1])
+            with col1:
+                st.write("### Store Information")
+                st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
+                st.write(f"**Store ID:** [**{filtered_data['store_id'].values[0]}**](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].values[0]})")
+                st.write(f"**Company ID:** {filtered_data['company_id'].values[0]}")
+                st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
 
-        with col1:
-            st.write("### Store Information")
-            st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
-            st.write(f"**Store ID:** [**{filtered_data['store_id'].values[0]}**](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].values[0]})")
-            st.write(f"**Company ID:** {filtered_data['company_id'].values[0]}")
-            st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
+            with col2:
+                st.write("### LSP Login Info")
+                st.write(f"**Email:** {filtered_data['store_email'].values[0]}")
+                st.write(f"**Password:** (Sensitive Info)")  # If applicable, add a field here.
+            
+            with col3:
+                st.write("### DSP Info")
+                st.write(f"**UberEats ID:** {filtered_data.get('ubereats_id', 'Not available')}")
+                st.write(f"**DoorDash ID:** {filtered_data.get('doordash_id', 'Not available')}")
+                st.write(f"**GrubHub ID:** {filtered_data.get('grubhub_id', 'Not available')}")
 
-        with col2:
-            st.write("### LSP Login Info")
-            st.write(f"**Email:** {filtered_data['store_email'].values[0]}")
-            st.write(f"**Password:** (Sensitive Info)")  # If applicable, add a field here.
-        
-        with col3:
-            st.write("### DSP Info")
-            st.write(f"**UberEats ID:** {filtered_data.get('ubereats_id', 'Not available')}")
-            st.write(f"**DoorDash ID:** {filtered_data.get('doordash_id', 'Not available')}")
-            st.write(f"**GrubHub ID:** {filtered_data.get('grubhub_id', 'Not available')}")
-
-        with col4:
-            st.write("### Additional Details")
-            st.write(f"**Store Email:** {filtered_data.get('store_email', 'Not available')}")
-            st.write(f"**Store Phone:** {filtered_data.get('store_phone', 'Not available')}")
-            st.write(f"**Created Date:** {filtered_data.get('created_date', 'Not available')}")
-            st.write(f"**Store Status:** {filtered_data.get('store_status', 'Not available')}")
+            with col4:
+                st.write("### Additional Details")
+                st.write(f"**Store Email:** {filtered_data.get('store_email', 'Not available')}")
+                st.write(f"**Store Phone:** {filtered_data.get('store_phone', 'Not available')}")
+                st.write(f"**Created Date:** {filtered_data.get('created_date', 'Not available')}")
+                st.write(f"**Store Status:** {filtered_data.get('store_status', 'Not available')}")
     else:
         st.write("No matching store found.")
