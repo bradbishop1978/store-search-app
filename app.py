@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from datetime import datetime
 
 # Load CSV data
 data = pd.read_csv('merged_df.csv')
@@ -25,7 +26,7 @@ if store_name != st.session_state.store_name_input:
 if store_name:
     input_lower = store_name.lower()
     matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
-    
+
     if st.session_state.selected_store == "":
         if not matching_stores.empty:
             st.subheader("Suggested Stores:")
@@ -45,6 +46,14 @@ def format_value(value):
     if isinstance(value, float) and value.is_integer():  # Check if float is essentially an integer
         return str(int(value))  # Convert to int for no decimal
     return str(value)  # Return as string for all other types
+
+# Helper function to format dates
+def format_date(date_str):
+    try:
+        dt = pd.to_datetime(date_str)  # Convert string to datetime
+        return dt.strftime('%m/%d/%Y')  # Format to MM/DD/YYYY
+    except Exception:
+        return "-"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -79,7 +88,7 @@ if st.session_state.selected_store:
             st.write("### Additional Details")
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
-            st.write("**Created Date:**", format_value(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
+            st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))  # Format the created date
             st.write("**Store Status:**", format_value(filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'))
 
     else:
