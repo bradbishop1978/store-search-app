@@ -63,8 +63,8 @@ def format_date(date_str):
 
 # Helper function to calculate days since last login
 def days_since_last_login(last_login_str):
-    if last_login_str == "-":
-        return "-"
+    if pd.isna(last_login_str) or last_login_str == "-":  # Check for NaN or dash
+        return "Not logged in"  # Return this message if blank
     try:
         last_login = pd.to_datetime(last_login_str)  # Convert last_login to datetime
         last_login_naive = last_login.tz_localize(None)  # Remove timezone (make naive)
@@ -72,7 +72,7 @@ def days_since_last_login(last_login_str):
         return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"  # Formatted output
     except Exception as e:
         st.write(f"Error parsing last login date: {e}")  # Debugging output
-        return "-"
+        return "Not logged in"  # Also handle exceptions by returning "Not logged in"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -85,16 +85,16 @@ if st.session_state.selected_store:
 
         with col1:
             st.write("### Store Info")
-            st.write("**Company Name:**", format_value(filtered_data['company_name'].iloc[0]))
-            st.write("**Store ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
-            st.write("**Company ID:**", format_value(filtered_data['company_id'].iloc[0]))
-            st.write("**Full Address:**", format_value(filtered_data['full_address'].iloc[0]))
+            st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0]))
+            st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
+            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0]))
+            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0]))
 
         with col2:
-            st.write("### Login Details")
+            st.write("### Login Info")
             st.write("**Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-')) 
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
-            st.write("**Last Login At:**", days_since_last_login(last_login_at))
+            st.write("**Login since:**", days_since_last_login(last_login_at))
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
             st.write("**Phone Number:**", format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
@@ -105,7 +105,7 @@ if st.session_state.selected_store:
             st.write("**GrubHub ID:**", format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
         with col4:
-            st.write("### Additional Details")
+            st.write("### Additional info")
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))  # Format the created date
