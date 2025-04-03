@@ -47,7 +47,7 @@ if st.session_state.selected_store:
         # Create a full-width container for columns
         with st.container():
             # Create columns that span full width
-            col1, col2, col3, col4 = st.columns([3, 3, 3, 3])  # Adjust proportions as needed
+            col1, col2, col3, col4 = st.columns([5, 5, 5, 5])  # Adjust proportions as needed
 
             with col1:
                 st.write("### Store Information")
