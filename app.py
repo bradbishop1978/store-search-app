@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
+# Correct raw URL of your logo
+logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
+
 # Use Markdown with HTML for inline logo (using a div container for better control)
 st.markdown(
     f"<div style='display: flex; align-items: center;'>"
