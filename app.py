@@ -2,6 +2,15 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
+# Use the raw URL of your logo here
+logo_url = "https://raw.githubusercontent.com/username/repository/main/Primary Logo.png"  # update with your actual URL
+
+# Display title with logo
+st.markdown(
+    f"<h1 style='display:inline;'>Store Information Search</h1> "
+    f"<img src='{logo_url}' style='height:50px; vertical-align: middle;'>",
+    unsafe_allow_html=True
+)
 # Load CSV data
 data = pd.read_csv('merged_df.csv')
 
