@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 # Use the raw URL of your logo here
-logo_url = "https://raw.githubusercontent.com/username/repository/main/Primary Logo.png"  # update with your actual URL
+logo_url = "https://github.com/bradbishop1978/store-search-app/blob/main/Primary%20Logo.jpg"  # update with your actual URL
 
 # Display title with logo
 st.markdown(
