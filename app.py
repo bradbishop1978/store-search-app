@@ -58,6 +58,7 @@ if st.session_state.selected_store:
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
+            st.write("### Store Info")
             st.write("**Company Name:**") 
             st.write(format_value(filtered_data['company_name'].iloc[0]))
             st.write("**Store ID:**")
@@ -68,6 +69,7 @@ if st.session_state.selected_store:
             st.write(format_value(filtered_data['full_address'].iloc[0]))
 
         with col2:
+            st.write("### Login Details")
             st.write("**Email:**")
             st.write(format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-')) 
             st.write("**Last Login At:**")
@@ -78,6 +80,7 @@ if st.session_state.selected_store:
             st.write(format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
         with col3:
+            st.write("### DSP ID")
             st.write("**UberEats ID:**")
             st.write(format_value(filtered_data['ubereats_id'].iloc[0] if 'ubereats_id' in filtered_data.columns else '-'))
             st.write("**DoorDash ID:**")
@@ -86,6 +89,7 @@ if st.session_state.selected_store:
             st.write(format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
         with col4:
+            st.write("### Additional Details")
             st.write("**Store Email:**")
             st.write(format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**")
