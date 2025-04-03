@@ -7,7 +7,7 @@ data = pd.read_csv('merged_df.csv')
 # Title of the app
 st.title("Store Information Search")
 
-# Initialize selected_store and input in session state
+# Initialize session state for selected store and input
 if 'selected_store' not in st.session_state:
     st.session_state.selected_store = ""  # Initialize the selected store
 
@@ -17,7 +17,7 @@ if 'store_name_input' not in st.session_state:
 # Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
-# Check to see if there are matching stores based on user input
+# Check for a matching store based on user input
 if store_name:  # Check if the search box is not empty
     input_lower = store_name.lower()
     
@@ -63,6 +63,7 @@ if st.session_state.selected_store:
     else:
         st.write("No matching store found.")
 
-# Optional: Reset the selected store if nothing is in the input
+# Reset the selected store in session state if the input is empty
 if store_name == "":
-    del st.session_state.selected_store
+    st.session_state.selected_store = ""  # Clear the selected store if input is empty
+    st.session_state.store_name_input = ""  # Clear the input as well
