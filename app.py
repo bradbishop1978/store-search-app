@@ -7,7 +7,7 @@ data = pd.read_csv('merged_df.csv')
 # Title of the app
 st.title("Store Information Search")
 
-# Initialize session state for selected store and input
+# Initialize selected_store and input in session state
 if 'selected_store' not in st.session_state:
     st.session_state.selected_store = ""  # Initialize the selected store
 
@@ -17,11 +17,16 @@ if 'store_name_input' not in st.session_state:
 # Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
-# Check for a matching store based on user input
+# Reset the session state if the user starts typing a new query
+if store_name != st.session_state.store_name_input:
+    st.session_state.selected_store = ""  # Clear previous selection
+    st.session_state.store_name_input = store_name  # Update current input
+
+# Suggest stores as the user types
 if store_name:  # Check if the search box is not empty
     input_lower = store_name.lower()
     
-    # Suggest stores as the user types
+    # Suggest stores
     matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
     
     # Only show suggested stores if no selection has been made
@@ -34,9 +39,6 @@ if store_name:  # Check if the search box is not empty
                     # Update session state with selected store and input
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']  # Update input field
-
-# Set the input value from session state
-store_name = st.session_state.store_name_input
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -62,8 +64,3 @@ if st.session_state.selected_store:
             st.write(f"**Role Name:** {filtered_data['role_name'].values[0]}")
     else:
         st.write("No matching store found.")
-
-# Reset the selected store in session state if the input is empty
-if store_name == "":
-    st.session_state.selected_store = ""  # Clear the selected store if input is empty
-    st.session_state.store_name_input = ""  # Clear the input as well
