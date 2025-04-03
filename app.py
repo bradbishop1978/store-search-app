@@ -8,7 +8,7 @@ logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/ma
 # Display title alongside logo
 st.markdown(
     f"<h1 style='display:inline;'>Store Information Search</h1> "
-    f"<img src='{logo_url}' style='height:50px; vertical-align: middle; display:inline;'>",
+    f"<img src='{logo_url}' style='height:30px; vertical-align: middle; display:inline;'>",
     unsafe_allow_html=True
 )
 
