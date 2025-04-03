@@ -46,6 +46,13 @@ def format_value(value):
         return str(int(value))  # Convert to int for no decimal
     return str(value)  # Return as string for all other types
 
+# Helper function to handle store status display
+def format_store_status(status):
+    # Check if the status is NaN or an empty string
+    if pd.isna(status) or status == "":
+        return "LSM Active"
+    return status  # Otherwise return the actual status
+
 # Helper function to format dates
 def format_date(date_str):
     try:
@@ -102,7 +109,10 @@ if st.session_state.selected_store:
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))  # Format the created date
-            st.write("**Store Status:**", format_value(filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else 'Active'))
+            
+            # Using the format_store_status function
+            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
+            st.write("**Store Status:**", format_store_status(store_status))
 
     else:
         st.write("No matching store found.")
