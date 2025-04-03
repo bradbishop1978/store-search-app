@@ -2,13 +2,12 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
-# Use the raw URL of your logo here
-logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"  # update with your actual URL
-
-# Display title alongside logo
+# Use Markdown with HTML for inline logo (using a div container for better control)
 st.markdown(
-    f"<h1 style='display:inline;'>Store Information Search</h1> "
-    f"<img src='{logo_url}' style='height:30px; vertical-align: middle; display:inline;'>",
+    f"<div style='display: flex; align-items: center;'>"
+    f"<h1 style='margin-right: 10px;'>Store Information Search</h1>"
+    f"<img src='{logo_url}' style='height:50px;'>"
+    f"</div>",
     unsafe_allow_html=True
 )
 
