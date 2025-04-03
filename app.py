@@ -26,7 +26,7 @@ if store_name:
             st.write("### Store Information")
             store_id = filtered_data['store_id'].values[0]  # Get the store ID
             store_url = f"https://www.lulastoremanager.com/stores/{store_id}"  # Construct the URL
-            st.markdown(f"**Store ID:** [{store_id}]({store_url})")  # Create a clickable link
+            st.markdown(f"**Store ID:** [**{store_id}**]({store_url})")  # Create a clickable link with bold text
             st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
             st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
 
