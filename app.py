@@ -52,36 +52,32 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Create a full-width container for columns
-        with st.container():
-            # Create columns that span full width
-            col1, col2, col3, col4 = st.columns([10, 10, 10, 10])  # Adjust proportions as needed
+        st.write("### Store Details")
 
-            with col1:
-                st.write("### Store Information")
-                st.write(f"**Company Name:** {format_value(filtered_data['company_name'].iloc[0])}")
-                st.write(f"**Store ID:** [**{format_value(filtered_data['store_id'].iloc[0])}**](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
-                st.write(f"**Company ID:** {format_value(filtered_data['company_id'].iloc[0])}")
-                st.write(f"**Full Address:** {format_value(filtered_data['full_address'].iloc[0])}")
+        # Create a data structure for display
+        detailed_info = {
+            "Company Name": format_value(filtered_data['company_name'].iloc[0]),
+            "Store ID": f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})",
+            "Company ID": format_value(filtered_data['company_id'].iloc[0]),
+            "Full Address": format_value(filtered_data['full_address'].iloc[0]),
+            "Email": format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'),
+            "Last Login At": format_value(filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'),
+            "Role Name": format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'),
+            "Phone Number": format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'),
+            "UberEats ID": format_value(filtered_data['ubereats_id'].iloc[0] if 'ubereats_id' in filtered_data.columns else '-'),
+            "DoorDash ID": format_value(filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else '-'),
+            "GrubHub ID": format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'),
+            "Store Email": format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'),
+            "Store Phone": format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'),
+            "Created Date": format_value(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'),
+            "Store Status": format_value(filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'),
+        }
 
-            with col2:
-                st.write("### LSP Login Info")
-                st.write(f"**Email:** {format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-')}") 
-                st.write(f"**Last Login At:** {format_value(filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-')}")
-                st.write(f"**Role Name:** {format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-')}")
-                st.write(f"**Phone Number:** {format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-')}")
-                
-            with col3:
-                st.write("### DSP Info")
-                st.write(f"**UberEats ID:** {format_value(filtered_data['ubereats_id'].iloc[0] if 'ubereats_id' in filtered_data.columns else '-')}")
-                st.write(f"**DoorDash ID:** {format_value(filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else '-')}")
-                st.write(f"**GrubHub ID:** {format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-')}")
-                
-            with col4:
-                st.write("### Additional Details")
-                st.write(f"**Store Email:** {format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-')}")
-                st.write(f"**Store Phone:** {format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-')}")
-                st.write(f"**Created Date:** {format_value(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-')}")
-                st.write(f"**Store Status:** {format_value(filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-')}")
+        # Create a formatted table
+        st.write("| Field          | Value                                                   |")
+        st.write("|----------------|---------------------------------------------------------|")
+        for field, value in detailed_info.items():
+            st.write(f"| **{field}:**      | {value}                                      |")
+
     else:
         st.write("No matching store found.")
