@@ -7,12 +7,15 @@ data = pd.read_csv('merged_df.csv')
 # Title of the app
 st.title("Store Information Search")
 
-# Initialize selected_store in session state
+# Initialize selected_store and input in session state
 if 'selected_store' not in st.session_state:
     st.session_state.selected_store = ""  # Initialize the selected store
 
+if 'store_name_input' not in st.session_state:
+    st.session_state.store_name_input = ""  # Initialize input
+
 # Input for store name
-store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.selected_store)
+store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
 # Check to see if there are matching stores based on user input
 if store_name:  # Check if the search box is not empty
@@ -28,16 +31,12 @@ if store_name:  # Check if the search box is not empty
         for index, row in matching_stores.iterrows():
             # Create a button for each suggested store with a unique key
             if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
-                # Update session state with selected store
+                # Update session state with selected store and input
                 st.session_state.selected_store = row['store_name']
-                # Update the input field directly with the selected store name
-                st.session_state.store_name_input = row['store_name']
-                # Use rerun to refresh the UI
-                st.experimental_rerun()
+                st.session_state.store_name_input = row['store_name']  # Update input field
 
 # Set the input value from session state
-if 'store_name_input' in st.session_state:
-    store_name = st.session_state.store_name_input
+store_name = st.session_state.store_name_input
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
