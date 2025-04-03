@@ -7,24 +7,26 @@ data = pd.read_csv('merged_df.csv')
 # Title of the app
 st.title("Store Information Search")
 
-# Search input
+# Search input for a specific store name (case insensitive)
 store_name = st.text_input("Enter Store Name (case insensitive):", "")
 
 # Displaying related information
 if store_name:
-    # Filter data based on the search input (look for exact match in a case-insensitive manner)
+    # Filter data based on the entered store name (case insensitive)
     filtered_data = data[data['store_name'].str.lower() == store_name.lower()]
-
+    
     if not filtered_data.empty:
         st.subheader(f"Results for '{store_name}':")
 
         # Create two columns for layout
         col1, col2 = st.columns(2)
 
-        # Left Column: Display store_id, company_name, full_address
+        # Left Column: Display store_id, company_name, full_address with a hyperlink
         with col1:
             st.write("### Store Information")
-            st.write(f"**Store ID:** {filtered_data['store_id'].values[0]}")
+            store_id = filtered_data['store_id'].values[0]  # Get the store ID
+            store_url = f"https://www.lulastoremanager.com/stores/{store_id}"  # Construct the URL
+            st.markdown(f"**Store ID:** [{store_id}]({store_url})")  # Create a clickable link
             st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
             st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
 
