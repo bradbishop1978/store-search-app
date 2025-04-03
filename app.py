@@ -24,16 +24,16 @@ if store_name:  # Check if the search box is not empty
     # Suggest stores as the user types
     matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
     
-    # Check if there are any matching stores
-    if not matching_stores.empty:
-        # Show suggested stores
-        st.subheader("Suggested Stores:")
-        for index, row in matching_stores.iterrows():
-            # Create a button for each suggested store with a unique key
-            if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
-                # Update session state with selected store and input
-                st.session_state.selected_store = row['store_name']
-                st.session_state.store_name_input = row['store_name']  # Update input field
+    # Only show suggested stores if no selection has been made
+    if st.session_state.selected_store == "":
+        if not matching_stores.empty:
+            st.subheader("Suggested Stores:")
+            for index, row in matching_stores.iterrows():
+                # Create a button for each suggested store with a unique key
+                if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
+                    # Update session state with selected store and input
+                    st.session_state.selected_store = row['store_name']
+                    st.session_state.store_name_input = row['store_name']  # Update input field
 
 # Set the input value from session state
 store_name = st.session_state.store_name_input
@@ -62,7 +62,7 @@ if st.session_state.selected_store:
             st.write(f"**Role Name:** {filtered_data['role_name'].values[0]}")
     else:
         st.write("No matching store found.")
-else:
-    # Reset the selected store if nothing is in the input
-    if 'selected_store' in st.session_state:
-        del st.session_state.selected_store
+
+# Optional: Reset the selected store if nothing is in the input
+if store_name == "":
+    del st.session_state.selected_store
