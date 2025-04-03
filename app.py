@@ -59,8 +59,9 @@ def days_since_last_login(last_login_str):
     if last_login_str == "-":
         return "-"
     try:
-        last_login = pd.to_datetime(last_login_str)
-        delta = datetime.now() - last_login  # Calculate the difference
+        last_login = pd.to_datetime(last_login_str)  # Convert last_login to datetime
+        last_login_naive = last_login.tz_localize(None)  # Remove timezone (make naive)
+        delta = datetime.now() - last_login_naive  # Calculate the difference
         return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"  # Formatted output
     except Exception as e:
         st.write(f"Error parsing last login date: {e}")  # Debugging output
@@ -72,6 +73,7 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
+        # Create columns for aligned display with proper titles
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
