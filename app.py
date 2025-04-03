@@ -57,19 +57,47 @@ if st.session_state.selected_store:
         with col2:
             st.write("### LSP Login Info")
             st.write(f"**Email:** {filtered_data['store_email'].values[0]}")
-            st.write(f"**Password:** (Sensitive Info)")  # Assume you have a password or similar field.
-
+            st.write(f"**Password:** (Sensitive Info)")  # If applicable, add a field here.
+        
         with col3:
             st.write("### DSP Info")
-            st.write(f"**UberEats ID:** {filtered_data['ubereats_id'].values[0]}")
-            st.write(f"**DoorDash ID:** {filtered_data['doordash_id'].values[0]}")
-            st.write(f"**GrubHub ID:** {filtered_data['grubhub_id'].values[0]}")
+            # Debugging outputs to check for missing fields
+            if 'ubereats_id' in filtered_data.columns:
+                st.write(f"**UberEats ID:** {filtered_data['ubereats_id'].values[0]}")
+            else:
+                st.write("**UberEats ID:** Not available")
+            
+            if 'doordash_id' in filtered_data.columns:
+                st.write(f"**DoorDash ID:** {filtered_data['doordash_id'].values[0]}")
+            else:
+                st.write("**DoorDash ID:** Not available")
+            
+            if 'grubhub_id' in filtered_data.columns:
+                st.write(f"**GrubHub ID:** {filtered_data['grubhub_id'].values[0]}")
+            else:
+                st.write("**GrubHub ID:** Not available")
 
         with col4:
             st.write("### Additional Details")
-            st.write(f"**Store Email:** {filtered_data['store_email'].values[0]}")
-            st.write(f"**Store Phone:** {filtered_data['store_phone'].values[0]}")
-            st.write(f"**Created Date:** {filtered_data['created_date'].values[0]}")
-            st.write(f"**Store Status:** {filtered_data['store_status'].values[0]}")
+            # Debugging outputs to check for missing fields
+            if 'store_email' in filtered_data.columns:
+                st.write(f"**Store Email:** {filtered_data['store_email'].values[0]}")
+            else:
+                st.write("**Store Email:** Not available")
+            
+            if 'store_phone' in filtered_data.columns:
+                st.write(f"**Store Phone:** {filtered_data['store_phone'].values[0]}")
+            else:
+                st.write("**Store Phone:** Not available")
+            
+            if 'created_date' in filtered_data.columns:
+                st.write(f"**Created Date:** {filtered_data['created_date'].values[0]}")
+            else:
+                st.write("**Created Date:** Not available")
+                
+            if 'store_status' in filtered_data.columns:
+                st.write(f"**Store Status:** {filtered_data['store_status'].values[0]}")
+            else:
+                st.write("**Store Status:** Not available")
     else:
         st.write("No matching store found.")
