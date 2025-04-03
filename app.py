@@ -16,7 +16,7 @@ if store_name:
     filtered_data = data[data['store_name'].str.lower() == store_name.lower()]
     
         # Create two columns for layout
-        col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
 
         # Left Column: Display store_id, company_name, full_address with a hyperlink
         with col1:
