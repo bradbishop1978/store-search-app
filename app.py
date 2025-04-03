@@ -7,38 +7,36 @@ data = pd.read_csv('merged_df.csv')
 # Title of the app
 st.title("Store Information Search")
 
-# Initialize selected_store and input in session state
+# Initialize session state for selected store and input
 if 'selected_store' not in st.session_state:
-    st.session_state.selected_store = ""  # Initialize the selected store
-
+    st.session_state.selected_store = ""
 if 'store_name_input' not in st.session_state:
-    st.session_state.store_name_input = ""  # Initialize input
+    st.session_state.store_name_input = ""
 
 # Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
 # Reset the session state if the user starts typing a new query
 if store_name != st.session_state.store_name_input:
-    st.session_state.selected_store = ""  # Clear previous selection
-    st.session_state.store_name_input = store_name  # Update current input
+    st.session_state.selected_store = ""
+    st.session_state.store_name_input = store_name
 
 # Suggest stores as the user types
-if store_name:  # Check if the search box is not empty
+if store_name:
     input_lower = store_name.lower()
-    
-    # Suggest stores
     matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
     
-    # Only show suggested stores if no selection has been made
     if st.session_state.selected_store == "":
         if not matching_stores.empty:
             st.subheader("Suggested Stores:")
             for index, row in matching_stores.iterrows():
                 # Create a button for each suggested store with a unique key
                 if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
-                    # Update session state with selected store and input
                     st.session_state.selected_store = row['store_name']
-                    st.session_state.store_name_input = row['store_name']  # Update input field
+                    st.session_state.store_name_input = row['store_name']
+
+# Set the input value from session state
+store_name = st.session_state.store_name_input
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -46,21 +44,32 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Display store information
-        col1, col2 = st.columns(2)
+        # Display store information in columns
+        col1, col2, col3, col4 = st.columns(4)
 
         with col1:
             st.write("### Store Information")
-            store_id = filtered_data['store_id'].values[0]
-            store_url = f"https://www.lulastoremanager.com/stores/{store_id}"
-            st.markdown(f"**Store ID:** [**{store_id}**]({store_url})")
             st.write(f"**Company Name:** {filtered_data['company_name'].values[0]}")
+            st.write(f"**Store ID:** [**{filtered_data['store_id'].values[0]}**](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].values[0]})")
+            st.write(f"**Company ID:** {filtered_data['company_id'].values[0]}")
             st.write(f"**Full Address:** {filtered_data['full_address'].values[0]}")
 
         with col2:
-            st.write("### Additional Information")
-            st.write(f"**Email:** {filtered_data['email'].values[0]}")
-            st.write(f"**Last Login At:** {filtered_data['last_login_at'].values[0]}")
-            st.write(f"**Role Name:** {filtered_data['role_name'].values[0]}")
+            st.write("### LSP Login Info")
+            st.write(f"**Email:** {filtered_data['store_email'].values[0]}")
+            st.write(f"**Password:** (Sensitive Info)")  # Assume you have a password or similar field.
+
+        with col3:
+            st.write("### DSP Info")
+            st.write(f"**UberEats ID:** {filtered_data['ubereats_id'].values[0]}")
+            st.write(f"**DoorDash ID:** {filtered_data['doordash_id'].values[0]}")
+            st.write(f"**GrubHub ID:** {filtered_data['grubhub_id'].values[0]}")
+
+        with col4:
+            st.write("### Additional Details")
+            st.write(f"**Store Email:** {filtered_data['store_email'].values[0]}")
+            st.write(f"**Store Phone:** {filtered_data['store_phone'].values[0]}")
+            st.write(f"**Created Date:** {filtered_data['created_date'].values[0]}")
+            st.write(f"**Store Status:** {filtered_data['store_status'].values[0]}")
     else:
         st.write("No matching store found.")
