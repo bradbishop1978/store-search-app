@@ -8,7 +8,10 @@ data = pd.read_csv('merged_df.csv')
 st.title("Store Information Search")
 
 # Input for store name
-store_name = st.text_input("Enter Store Name (case insensitive):", "")
+if 'selected_store' not in st.session_state:
+    st.session_state.selected_store = ""  # Initialize selected_store if it doesn't exist
+
+store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.selected_store)
 
 # Check to see if there are matching stores based on user input
 if store_name:  # Check if the search box is not empty
@@ -24,12 +27,12 @@ if store_name:  # Check if the search box is not empty
         for index, row in matching_stores.iterrows():
             # Create a button for each suggested store with a unique key
             if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
-                store_name = row['store_name']  # Set the store_name to the selected store
-                # Store the selected store in session state
-                st.session_state.selected_store = store_name
+                # Set the store_name to the selected store and update session state
+                st.session_state.selected_store = row['store_name']
+                store_name = row['store_name']  # Update the local variable to trigger results
             
 # Display information if a specific store has been chosen
-if 'selected_store' in st.session_state and st.session_state.selected_store:
+if st.session_state.selected_store:
     selected_store = st.session_state.selected_store
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
