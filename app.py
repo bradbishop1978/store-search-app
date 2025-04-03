@@ -31,7 +31,6 @@ if store_name:
         if not matching_stores.empty:
             st.subheader("Suggested Stores:")
             for index, row in matching_stores.iterrows():
-                # Create a button for each suggested store with a unique key
                 if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
@@ -57,11 +56,14 @@ def format_date(date_str):
 
 # Helper function to calculate days since last login
 def days_since_last_login(last_login_str):
+    if last_login_str == "-":
+        return "-"
     try:
         last_login = pd.to_datetime(last_login_str)
         delta = datetime.now() - last_login  # Calculate the difference
         return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"  # Formatted output
-    except Exception:
+    except Exception as e:
+        st.write(f"Error parsing last login date: {e}")  # Debugging output
         return "-"
 
 # Display information if a specific store has been chosen
@@ -70,7 +72,6 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Create columns for aligned display with proper titles
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
@@ -83,7 +84,8 @@ if st.session_state.selected_store:
         with col2:
             st.write("### Login Details")
             st.write("**Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-')) 
-            st.write("**Last Login At:**", days_since_last_login(filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'))
+            last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
+            st.write("**Last Login At:**", days_since_last_login(last_login_at))
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
             st.write("**Phone Number:**", format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
