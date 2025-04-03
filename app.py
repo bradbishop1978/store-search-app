@@ -44,8 +44,8 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Display store information in columns
-        col1, col2, col3, col4 = st.columns(4)
+        # Display store information in columns with custom column widths
+        col1, col2, col3, col4 = st.columns([2, 2, 1, 1])  # Adjust proportions as needed 
 
         with col1:
             st.write("### Store Information")
@@ -61,43 +61,15 @@ if st.session_state.selected_store:
         
         with col3:
             st.write("### DSP Info")
-            # Debugging outputs to check for missing fields
-            if 'ubereats_id' in filtered_data.columns:
-                st.write(f"**UberEats ID:** {filtered_data['ubereats_id'].values[0]}")
-            else:
-                st.write("**UberEats ID:** Not available")
-            
-            if 'doordash_id' in filtered_data.columns:
-                st.write(f"**DoorDash ID:** {filtered_data['doordash_id'].values[0]}")
-            else:
-                st.write("**DoorDash ID:** Not available")
-            
-            if 'grubhub_id' in filtered_data.columns:
-                st.write(f"**GrubHub ID:** {filtered_data['grubhub_id'].values[0]}")
-            else:
-                st.write("**GrubHub ID:** Not available")
+            st.write(f"**UberEats ID:** {filtered_data.get('ubereats_id', 'Not available')}")
+            st.write(f"**DoorDash ID:** {filtered_data.get('doordash_id', 'Not available')}")
+            st.write(f"**GrubHub ID:** {filtered_data.get('grubhub_id', 'Not available')}")
 
         with col4:
             st.write("### Additional Details")
-            # Debugging outputs to check for missing fields
-            if 'store_email' in filtered_data.columns:
-                st.write(f"**Store Email:** {filtered_data['store_email'].values[0]}")
-            else:
-                st.write("**Store Email:** Not available")
-            
-            if 'store_phone' in filtered_data.columns:
-                st.write(f"**Store Phone:** {filtered_data['store_phone'].values[0]}")
-            else:
-                st.write("**Store Phone:** Not available")
-            
-            if 'created_date' in filtered_data.columns:
-                st.write(f"**Created Date:** {filtered_data['created_date'].values[0]}")
-            else:
-                st.write("**Created Date:** Not available")
-                
-            if 'store_status' in filtered_data.columns:
-                st.write(f"**Store Status:** {filtered_data['store_status'].values[0]}")
-            else:
-                st.write("**Store Status:** Not available")
+            st.write(f"**Store Email:** {filtered_data.get('store_email', 'Not available')}")
+            st.write(f"**Store Phone:** {filtered_data.get('store_phone', 'Not available')}")
+            st.write(f"**Created Date:** {filtered_data.get('created_date', 'Not available')}")
+            st.write(f"**Store Status:** {filtered_data.get('store_status', 'Not available')}")
     else:
         st.write("No matching store found.")
