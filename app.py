@@ -14,8 +14,9 @@ if store_name:
     # Filtering based on store name
     filtered_data = data[data['store_name'].str.lower() == store_name.lower()]
     
-    if not filtered_data.empty:
-        st.subheader(f"Results for '{store_name}':")
+     if not filtered_data.empty:
+        # Removed the results subheader
+        # st.subheader(f"Results for '{store_name}':")
 
         col1, col2 = st.columns(2)
 
