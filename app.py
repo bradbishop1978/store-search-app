@@ -15,9 +15,6 @@ if store_name:
     # Filter data based on the entered store name (case insensitive)
     filtered_data = data[data['store_name'].str.lower() == store_name.lower()]
     
-    if not filtered_data.empty:
-        st.subheader(f"Results for '{store_name}':")
-
         # Create two columns for layout
         col1, col2 = st.columns(2)
 
