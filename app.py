@@ -121,26 +121,15 @@ if st.session_state.selected_store:
             st.write("**Store Status:**", format_store_status(store_status))
 
         with col5:
+            # Simplified for debugging
             st.write("### Subscription Info")
-
-    # Check if the 'stripe_customer_id' column exists and render it as a clickable link
-    stripe_customer_id = filtered_data['stripe_customer_id'].iloc[0] if 'stripe_customer_id' in filtered_data.columns else '-'
-    
-    # Construct the clickable URL for Stripe Customer ID
-    if stripe_customer_id != '-':
-        stripe_customer_link = f"[{stripe_customer_id}](https://dashboard.stripe.com/customers/{stripe_customer_id})"
-    else:
-        stripe_customer_link = stripe_customer_id
-    
-    # Display the Stripe Customer ID as a clickable link
-    st.write("**Stripe Customer ID:**", stripe_customer_link)
-    
-    # Display the rest of the subscription info
-    st.write("**Subscription Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
-    st.write("**Payment Method:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
-    st.write("**Current Period Start:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
-    st.write("**Product Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
-    st.write("**Price Amount:**", format_value(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
+            # Check if columns are present before trying to display
+            st.write("**Stripe Customer ID:**", format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
+            st.write("**Subscription Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
+            st.write("**Payment Method:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
+            st.write("**Current Period Start:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
+            st.write("**Product Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
+            st.write("**Price Amount:**", format_value(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
     else:
         st.write("No matching store found.")
