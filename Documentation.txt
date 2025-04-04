@@ -1,0 +1,128 @@
+# Store Information Search App Documentation
+
+## Overview
+
+The Store Information Search App is a web application built using Streamlit that allows users to search for store information based on the store name. The application provides suggestions as the user types and displays detailed information about the selected store, including company details, login information, and additional data.
+
+## Features
+
+- **Search Functionality**: Users can enter a store name, and the app will suggest matching stores.
+- **Detailed Store Information**: Upon selecting a store, users can view detailed information, including company name, store ID, login info, and more.
+- **Responsive Design**: The app is designed to be user-friendly and responsive.
+
+## Installation
+
+To run this application, you need to have Python installed on your machine. Follow these steps to set up the environment:
+
+1. **Clone the Repository** (if applicable):
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
+
+2. **Install Required Packages**:
+   You can install the required packages using pip. Create a virtual environment if desired.
+   ```bash
+   pip install streamlit pandas
+   ```
+
+3. **Prepare the Data**:
+   Ensure that the `merged_df.csv` file is in the same directory as the script. This CSV file should contain the necessary store data.
+
+4. **Run the Application**:
+   Execute the following command in your terminal:
+   ```bash
+   streamlit run <script-name>.py
+   ```
+
+## Code Structure
+
+### Imports
+
+```python
+import streamlit as st
+import pandas as pd
+from datetime import datetime
+```
+- **streamlit**: Used for building the web application interface.
+- **pandas**: Used for data manipulation and analysis.
+- **datetime**: Used for handling date and time operations.
+
+### Logo Display
+
+```python
+logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
+st.markdown(
+    f"<div style='display: flex; align-items: center;'>"
+    f"<h1 style='margin-right: 10px;'>Store Information Search</h1>"
+    f"<img src='{logo_url}' style='height:50px;'>"
+    f"</div>",
+    unsafe_allow_html=True
+)
+```
+- Displays the application title and logo using Markdown with HTML for better styling.
+
+### Data Loading
+
+```python
+data = pd.read_csv('merged_df.csv')
+```
+- Loads the store data from a CSV file into a Pandas DataFrame.
+
+### Session State Initialization
+
+```python
+if 'selected_store' not in st.session_state:
+    st.session_state.selected_store = ""
+if 'store_name_input' not in st.session_state:
+    st.session_state.store_name_input = ""
+```
+- Initializes session state variables to keep track of the selected store and user input.
+
+### User Input
+
+```python
+store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
+```
+- Provides a text input field for users to enter the store name.
+
+### Store Suggestions
+
+```python
+if store_name:
+    input_lower = store_name.lower()
+    matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
+```
+- Suggests stores based on the user input by filtering the DataFrame.
+
+### Store Information Display
+
+```python
+if st.session_state.selected_store:
+    selected_store = st.session_state.selected_store
+    filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
+```
+- Displays detailed information about the selected store, including company info, login info, and additional details.
+
+### Helper Functions
+
+Several helper functions are defined to format values, handle store status, format dates, and calculate days since the last login:
+
+- **format_value(value)**: Replaces NaN values with a dash and formats float values.
+- **format_store_status(status)**: Returns a default status if the status is NaN or empty.
+- **format_date(date_str)**: Formats date strings to MM/DD/YYYY.
+- **days_since_last_login(last_login_str)**: Calculates the number of days since the last login.
+
+### Error Handling
+
+The application includes error handling for date parsing and provides user-friendly messages when no matching store is found.
+
+## Conclusion
+
+This Streamlit application provides a simple and effective way to search for and display store information. By following the installation instructions and understanding the code structure, users can easily set up and run the application.
+
+For further enhancements, consider adding features such as user authentication, more detailed analytics, or integration with external APIs.
+
+--- 
+
+Feel free to modify any sections to better fit your needs!
