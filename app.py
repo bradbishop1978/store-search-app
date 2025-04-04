@@ -127,10 +127,10 @@ if st.session_state.selected_store:
     stripe_customer_id = filtered_data['stripe_customer_id'].iloc[0] if 'stripe_customer_id' in filtered_data.columns else '-'
     
     # Construct the clickable URL for Stripe Customer ID
-        if stripe_customer_id != '-':
-        stripe_customer_link = f"[{stripe_customer_id}](https://dashboard.stripe.com/customers/{stripe_customer_id})"
-        else:
-        stripe_customer_link = stripe_customer_id
+    if stripe_customer_id != '-':
+    stripe_customer_link = f"[{stripe_customer_id}](https://dashboard.stripe.com/customers/{stripe_customer_id})"
+    else:
+    stripe_customer_link = stripe_customer_id
     
     # Display the Stripe Customer ID as a clickable link
             st.write("**Stripe Customer ID:**", stripe_customer_link)
