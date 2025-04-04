@@ -1,9 +1,13 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import locale
 
 # Correct raw URL of your logo
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
+
+# Set the locale to the US (you can adjust for other locales as needed)
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # Use Markdown with HTML for inline logo (using a div container for better control)
 st.markdown(
@@ -82,6 +86,15 @@ def days_since_last_login(last_login_str):
         st.write(f"Error parsing last login date: {e}")
         return "Not logged in"
 
+# Helper function to format price in dollar format
+def format_price(value):
+    if pd.isna(value):
+        return "$-"
+    try:
+        return locale.currency(value, grouping=True)  # Format as currency
+    except ValueError:
+        return "$-"
+
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
     selected_store = st.session_state.selected_store
@@ -121,7 +134,7 @@ if st.session_state.selected_store:
             st.write("**Store Status:**", format_store_status(store_status))
 
         with col5:
-            # Subscription Info section
+            # Simplified for debugging
             st.write("### Subscription Info")
             # Check if columns are present before trying to display
             st.write("**Stripe Customer ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
@@ -129,7 +142,7 @@ if st.session_state.selected_store:
             st.write("**Payment Method:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
             st.write("**Current Period Start:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Product Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
-            st.write("**Price Amount:**", format_value(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
+            st.write("**Price Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
     else:
         st.write("No matching store found.")
