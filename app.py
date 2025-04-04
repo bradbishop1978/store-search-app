@@ -87,7 +87,7 @@ def format_price(value):
     if pd.isna(value):
         return "$-"
     try:
-        return f"${value:,.2f}"  # Format as currency with commas and 2 decimal places
+        return f"${value:}"  # Format as currency with commas and 2 decimal places
     except ValueError:
         return "$-"
 
