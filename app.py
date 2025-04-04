@@ -1,13 +1,9 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-import locale
 
 # Correct raw URL of your logo
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
-
-# Set the locale to the US (you can adjust for other locales as needed)
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # Use Markdown with HTML for inline logo (using a div container for better control)
 st.markdown(
@@ -86,12 +82,12 @@ def days_since_last_login(last_login_str):
         st.write(f"Error parsing last login date: {e}")
         return "Not logged in"
 
-# Helper function to format price in dollar format
+# Helper function to format price in dollar format (without locale)
 def format_price(value):
     if pd.isna(value):
         return "$-"
     try:
-        return locale.currency(value, grouping=True)  # Format as currency
+        return f"${value:,.2f}"  # Format as currency with commas and 2 decimal places
     except ValueError:
         return "$-"
 
