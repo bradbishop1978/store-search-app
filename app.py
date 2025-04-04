@@ -82,14 +82,14 @@ def days_since_last_login(last_login_str):
         st.write(f"Error parsing last login date: {e}")
         return "Not logged in"
 
-# Helper function to format price in dollar format (without locale)
+# Helper function to format price in dollar format (with exactly two decimal places)
 def format_price(value):
     if pd.isna(value):
-        return "$-"
+        return "$0.00"  # Return $0.00 if the value is NaN
     try:
-        return f"${value:}"  # Format as currency with commas and 2 decimal places
+        return f"${value:,.2f}"  # Format as currency with commas and exactly 2 decimal places
     except ValueError:
-        return "$-"
+        return "$0.00"  # If the value cannot be formatted, return $0.00
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
