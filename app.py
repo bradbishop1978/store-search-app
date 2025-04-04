@@ -128,7 +128,7 @@ if st.session_state.selected_store:
     
     # Construct the clickable URL for Stripe Customer ID
     if stripe_customer_id != '-':
-    stripe_customer_link = f"[{stripe_customer_id}](https://dashboard.stripe.com/customers/{stripe_customer_id})"
+            stripe_customer_link = f"[{stripe_customer_id}](https://dashboard.stripe.com/customers/{stripe_customer_id})"
     else:
     stripe_customer_link = stripe_customer_id
     
