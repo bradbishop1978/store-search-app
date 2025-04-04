@@ -124,7 +124,7 @@ if st.session_state.selected_store:
             # Simplified for debugging
             st.write("### Subscription Info")
             # Check if columns are present before trying to display
-            st.write("**Stripe Customer ID:**", format_value(filtered_data['stripe_customer_id'].iloc[0] if 'stripe_customer_id' in filtered_data.columns else '-'))
+            st.write("**Stripe Customer ID:**", format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
             st.write("**Subscription Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
             st.write("**Payment Method:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
             st.write("**Current Period Start:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
