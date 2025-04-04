@@ -57,7 +57,6 @@ def format_value(value):
 
 # Helper function to handle store status display
 def format_store_status(status):
-    # Check if the status is NaN or an empty string
     if pd.isna(status) or status == "":
         return "LSM Active"
     return status  # Otherwise return the actual status
@@ -73,15 +72,15 @@ def format_date(date_str):
 # Helper function to calculate days since last login
 def days_since_last_login(last_login_str):
     if pd.isna(last_login_str) or last_login_str == "-":  # Check for NaN or dash
-        return "Not logged in"  # Return this message if blank
+        return "Not logged in"
     try:
         last_login = pd.to_datetime(last_login_str)  # Convert last_login to datetime
         last_login_naive = last_login.tz_localize(None)  # Remove timezone (make naive)
         delta = datetime.now() - last_login_naive  # Calculate the difference
         return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"  # Formatted output
     except Exception as e:
-        st.write(f"Error parsing last login date: {e}")  # Debugging output
-        return "Not logged in"  # Also handle exceptions by returning "Not logged in"
+        st.write(f"Error parsing last login date: {e}")
+        return "Not logged in"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -101,7 +100,7 @@ if st.session_state.selected_store:
 
         with col2:
             st.write("### Login Info")
-            st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-')) 
+            st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
             st.write("**Login since:**", days_since_last_login(last_login_at))
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
@@ -117,13 +116,14 @@ if st.session_state.selected_store:
             st.write("### Additional info")
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
-            st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))  # Format the created date
-            # Using the format_store_status function
+            st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
             store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
             st.write("**Store Status:**", format_store_status(store_status))
 
         with col5:
+            # Simplified for debugging
             st.write("### Subscription Info")
+            # Check if columns are present before trying to display
             st.write("**Stripe Customer ID:**", format_value(filtered_data['stripe_customer_id'].iloc[0] if 'stripe_customer_id' in filtered_data.columns else '-'))
             st.write("**Subscription Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
             st.write("**Payment Method:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
