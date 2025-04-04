@@ -141,6 +141,5 @@ if st.session_state.selected_store:
             st.write("**Current Period Start:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Product Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
             st.write("**Price Amount:**", format_value(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
-
     else:
         st.write("No matching store found.")
