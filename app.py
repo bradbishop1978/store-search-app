@@ -90,7 +90,7 @@ if st.session_state.selected_store:
 
     if not filtered_data.empty:
         # Create columns for aligned display with proper titles
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4, col5 = st.columns(5)
 
         with col1:
             st.write("### Store Info")
@@ -118,10 +118,18 @@ if st.session_state.selected_store:
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))  # Format the created date
-            
             # Using the format_store_status function
             store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
             st.write("**Store Status:**", format_store_status(store_status))
+
+        with col5:
+            st.write("### Subscription Info")
+            st.write("**Stripe Customer ID:**", format_value(filtered_data['stripe_customer_id'].iloc[0] if 'stripe_customer_id' in filtered_data.columns else '-'))
+            st.write("**Subscription Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
+            st.write("**Payment Method:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
+            st.write("**Current Period Start:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
+            st.write("**Product Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
+            st.write("**Price Amount:**", format_value(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
     else:
         st.write("No matching store found.")
