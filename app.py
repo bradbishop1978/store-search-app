@@ -100,8 +100,8 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Create columns for aligned display with proper titles
-        col1, col2, col3, col4, col5, col6 = st.columns(6)  # Added an additional column
+        # Create first row of columns (1-3)
+        col1, col2, col3 = st.columns(3)
 
         with col1:
             st.write("### Store Info")
@@ -124,6 +124,9 @@ if st.session_state.selected_store:
             st.write("**DoorDash ID:**", format_value(filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else '-'))
             st.write("**GrubHub ID:**", format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
+        # Create second row of columns (4-6)
+        col4, col5, col6 = st.columns(3)
+
         with col4:
             st.write("### Add'l info")
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
@@ -143,9 +146,16 @@ if st.session_state.selected_store:
 
         with col6:
             st.write("### Device Info")  # Header for the new column
-            st.write("**Esper ID:**", format_value(filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'))
             st.write("**Status:**", format_value(filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else '-'))
-            st.write("**Device Name:**", format_value(filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'))
+            esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
+            device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
+            serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
+            model = filtered_data['model'].iloc[0] if 'model' in filtered_data.columns else '-'
+
+            # Create a clickable link for Device Name
+            st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
+            st.write("**Serial Number:**", format_value(serial_number))
+            st.write("**Model:**", format_value(model))
 
     else:
         st.write("No matching store found.")
