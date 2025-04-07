@@ -165,7 +165,7 @@ if st.session_state.selected_store:
             device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
             if device_status is not None and isinstance(device_status, str):
                 if device_status.lower() == "online":
-                    st.markdown("**Status:** <span style='color:green;'>Online</span>", unsafe_allow_html=True)
+                    st.markdown("**Status:** <span style='color:green; font-style:bold;'>Online</span>", unsafe_allow_html=True)
                 elif device_status.lower() == "offline":
                     st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
                 else:
