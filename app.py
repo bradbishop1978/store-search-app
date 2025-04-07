@@ -101,7 +101,7 @@ if st.session_state.selected_store:
 
     if not filtered_data.empty:
         # Create columns for aligned display with proper titles
-        col1, col2, col3, col4, col5 = st.columns(5)
+        col1, col2, col3, col4, col5, col6 = st.columns(6)  # Added an additional column
 
         with col1:
             st.write("### Store Info")
@@ -133,15 +133,19 @@ if st.session_state.selected_store:
             st.write("**Store Status:**", format_store_status(store_status))
 
         with col5:
-            # Simplified for debugging
             st.write("### Subscription")
-            # Check if columns are present before trying to display
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
             st.write("**Subs Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
             st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
             st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
+
+        with col6:
+            st.write("### Device Info")  # Header for the new column
+            st.write("**Esper ID:**", format_value(filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'))
+            st.write("**Status:**", format_value(filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else '-'))
+            st.write("**Device Name:**", format_value(filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'))
 
     else:
         st.write("No matching store found.")
