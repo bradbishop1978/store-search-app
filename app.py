@@ -87,12 +87,16 @@ def format_price(value):
     if pd.isna(value):
         return "$0.00"  # Return $0.00 if the value is NaN
     try:
-        # If the value is too large, assume it is in cents and divide by 100
-        if value > 1000:  # Example threshold to determine if the value needs to be divided by 100
-            value = value / 100
-        return f"${value:,.2f}"  # Format as currency with commas and exactly 2 decimal places
+        if value >= 100:  # If the value is 100 or more, treat as dollars
+            dollars = value / 100  # Convert to dollars
+        else:  # Handle for 3-digit or lower values, assuming these are in cents
+            dollars = value / 10  # Convert to dollars
+
+        return f"${dollars:,.2f}"  # Format as currency with commas and exactly 2 decimal places
     except ValueError:
         return "$0.00"  # If the value cannot be formatted, return $0.00
+
+# Use this format_price function within the appropriate place in your existing code.
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
