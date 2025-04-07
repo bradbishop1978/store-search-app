@@ -158,7 +158,7 @@ if st.session_state.selected_store:
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
-         with col6:
+        with col6:
             st.write("### Device Info")  # Header for the new column
             
             # Get device status with error handling
