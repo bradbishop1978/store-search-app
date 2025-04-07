@@ -155,7 +155,7 @@ if st.session_state.selected_store:
             # Create a clickable link for Device Name
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial Number:**", format_value(serial_number))
-            st.write("**Model:**", format_value(model))
+            st.write("**Model:**", format_value(brand))
 
     else:
         st.write("No matching store found.")
