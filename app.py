@@ -161,22 +161,27 @@ if st.session_state.selected_store:
         with col6:
             st.write("### Device Info")  # Header for the new column
             
-# Get device status with error handling
-device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
-    if device_status is not None and isinstance(device_status, str):
-        if device_status.lower() == "online":
-            st.markdown("**Status:** <span style='color:green;'>Online</span>", unsafe_allow_html=True)
-        elif device_status.lower() == "offline":
-            st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
-        else:
-            st.write("**Status:**", device_status)  # Fallback for any other status
-        else:
-            st.write("**Status:**", "-")  # Handle case when status is None or not available
-        
+            # Get device status with error handling
+            device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
+            if device_status is not None and isinstance(device_status, str):
+                if device_status.lower() == "online":
+                    st.markdown("**Status:** <span style='color:green;'>Online</span>", unsafe_allow_html=True)
+                elif device_status.lower() == "offline":
+                    st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
+                else:
+                    st.write("**Status:**", device_status)  # Fallback for any other status
+            else:
+                st.write("**Status:**", "-")  # Handle case when status is None or not available
+            
             # Remaining device info
+            esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
+            device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
+            serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
+            brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'  # Assuming you meant to display brand
+
+            # Create a clickable link for Device Name
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial No:**", format_value(serial_number))
             st.write("**Model:**", format_value(brand))  # Updated to display Brand instead of Model
-
     else:
         st.write("No matching store found.")
