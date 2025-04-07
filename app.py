@@ -139,6 +139,13 @@ if st.session_state.selected_store:
             store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
             st.write("**Store Status:**", format_store_status(store_status))
 
+# Conditional formatting for Store Status
+            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
+            if store_status.lower() == "offboard":
+                st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
+            else:
+                st.write("**Store Status:**", format_store_status(store_status))
+        
         with col5:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
@@ -147,7 +154,14 @@ if st.session_state.selected_store:
             st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
-
+            
+# Conditional formatting for Subscription Status
+            subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'
+            if subs_status.lower() == "canceled":
+                st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
+            else:
+                st.write("**Subs Status:**", format_value(subs_status))
+                
         with col6:
             st.write("### Device Info")  # Header for the new column
             st.write("**Status:**", format_value(filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else '-'))
