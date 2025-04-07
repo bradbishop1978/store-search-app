@@ -135,24 +135,24 @@ if st.session_state.selected_store:
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
             
-            # Conditional formatting for Store Status
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
-            if store_status.lower() == "offboard":
+            # Get store_status with error handling
+            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns and not filtered_data['store_status'].empty else None
+            if store_status is not None and isinstance(store_status, str) and store_status.lower() == "offboard":
                 st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
             else:
-                st.write("**Store Status:**", format_store_status(store_status))
-
+                st.write("**Store Status:**", format_store_status(store_status if store_status is not None else '-'))
+        
         with col5:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
-            
-            # Conditional formatting for Subscription Status
-            subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'
-            if subs_status.lower() == "canceled":
+        
+            # Get subs_status with error handling
+            subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns and not filtered_data['subscription_status'].empty else None
+            if subs_status is not None and isinstance(subs_status, str) and subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
             else:
-                st.write("**Subs Status:**", format_value(subs_status))
-
+                st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
+        
             st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
             st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
