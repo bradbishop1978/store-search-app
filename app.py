@@ -5,7 +5,7 @@ from datetime import datetime
 # Correct raw URL of your logo
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
 
-# Use Markdown with HTML for inline logo (using a div container for better control)
+# Use Markdown with HTML for inline logo
 st.markdown(
     f"<div style='display: flex; align-items: center;'>"
     f"<h1 style='margin-right: 10px;'>Store Information Search</h1>"
@@ -51,52 +51,50 @@ store_name = st.session_state.store_name_input
 def format_value(value):
     if pd.isna(value):
         return "-"
-    if isinstance(value, float) and value.is_integer():  # Check if float is essentially an integer
-        return str(int(value))  # Convert to int for no decimal
-    return str(value)  # Return as string for all other types
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
 
 # Helper function to handle store status display
 def format_store_status(status):
     if pd.isna(status) or status == "":
         return "LSM Active"
-    return status  # Otherwise return the actual status
+    return status
 
 # Helper function to format dates
 def format_date(date_str):
     try:
-        dt = pd.to_datetime(date_str)  # Convert string to datetime
-        return dt.strftime('%m/%d/%Y')  # Format to MM/DD/YYYY
+        dt = pd.to_datetime(date_str)
+        return dt.strftime('%m/%d/%Y')
     except Exception:
         return "-"
 
 # Helper function to calculate days since last login
 def days_since_last_login(last_login_str):
-    if pd.isna(last_login_str) or last_login_str == "-":  # Check for NaN or dash
+    if pd.isna(last_login_str) or last_login_str == "-":
         return "Not logged in"
     try:
-        last_login = pd.to_datetime(last_login_str)  # Convert last_login to datetime
-        last_login_naive = last_login.tz_localize(None)  # Remove timezone (make naive)
-        delta = datetime.now() - last_login_naive  # Calculate the difference
-        return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"  # Formatted output
+        last_login = pd.to_datetime(last_login_str)
+        last_login_naive = last_login.tz_localize(None)
+        delta = datetime.now() - last_login_naive
+        return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
     except Exception as e:
         st.write(f"Error parsing last login date: {e}")
         return "Not logged in"
 
-# Helper function to format price in dollar format (with exactly two decimal places)
+# Helper function to format price in dollar format
 def format_price(value):
     if pd.isna(value):
-        return "$0.00"  # Return $0.00 if the value is NaN
+        return "$0.00"
     try:
-        if value >= 100:  # If the value is 100 or more, treat as dollars
-            dollars = value / 100  # Convert to dollars
-        else:  # Handle for 3-digit or lower values, assuming these are in cents
-            dollars = value / 10  # Convert to dollars
+        if value >= 100:
+            dollars = value / 100
+        else:
+            dollars = value / 10
 
-        return f"${dollars:,.2f}"  # Format as currency with commas and exactly 2 decimal places
+        return f"${dollars:,.2f}"
     except ValueError:
-        return "$0.00"  # If the value cannot be formatted, return $0.00
-
-# Use this format_price function within the appropriate place in your existing code.
+        return "$0.00"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -136,34 +134,32 @@ if st.session_state.selected_store:
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
-            st.write("**Store Status:**", format_store_status(store_status))
-
-# Conditional formatting for Store Status
+            
+            # Conditional formatting for Store Status
             store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'
             if store_status.lower() == "offboard":
                 st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
             else:
                 st.write("**Store Status:**", format_store_status(store_status))
-        
+
         with col5:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
-            st.write("**Subs Status:**", format_value(filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'))
-            st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
-            st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
-            st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
-            st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
             
-# Conditional formatting for Subscription Status
+            # Conditional formatting for Subscription Status
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else '-'
             if subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
             else:
                 st.write("**Subs Status:**", format_value(subs_status))
-                
+
+            st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
+            st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
+            st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
+            st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
+
         with col6:
-            st.write("### Device Info")  # Header for the new column
+            st.write("### Device Info")
             st.write("**Status:**", format_value(filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else '-'))
             esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
             device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
