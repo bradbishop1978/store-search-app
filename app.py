@@ -150,7 +150,7 @@ if st.session_state.selected_store:
             esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
             device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
             serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
-            model = filtered_data['model'].iloc[0] if 'model' in filtered_data.columns else '-'
+            brand = filtered_data['model'].iloc[0] if 'brand' in filtered_data.columns else '-'
 
             # Create a clickable link for Device Name
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
