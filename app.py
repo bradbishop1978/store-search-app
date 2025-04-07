@@ -161,17 +161,17 @@ if st.session_state.selected_store:
         with col6:
             st.write("### Device Info")  # Header for the new column
             
-            # Get device status with error handling
-            device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
-            if device_status is not None and isinstance(device_status, str):
-                if device_status.lower() == "online":
-                    st.markdown("**Status:** <span style='color:green;'>Online</span>", unsafe_allow_html=True)
-                elif device_status.lower() == "offline":
-                    st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
-                else:
-                    st.write("**Status:**", device_status)  # Fallback for any other status
-            else:
-                st.write("**Status:**", "-")  # Handle case when status is None or not available
+# Get device status with error handling
+device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
+    if device_status is not None and isinstance(device_status, str):
+        if device_status.lower() == "online":
+            st.markdown("**Status:** <span style='color:green;'>Online</span>", unsafe_allow_html=True)
+        elif device_status.lower() == "offline":
+            st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
+        else:
+            st.write("**Status:**", device_status)  # Fallback for any other status
+        else:
+            st.write("**Status:**", "-")  # Handle case when status is None or not available
         
             # Remaining device info
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
