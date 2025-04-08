@@ -124,7 +124,15 @@ if st.session_state.selected_store:
             st.write("### Login Info")
             st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
-            st.write("**Login since:**", format_value(last_login_at))
+
+            # Modified section to show "100 days ago"
+            if pd.notna(last_login_at):  # Check for valid datetime
+                login_date = pd.to_datetime(last_login_at)
+                days_since_login = (datetime.now(timezone.utc) - login_date).days
+                st.write("**Login since:**", f"{days_since_login} day{'s' if days_since_login != 1 else ''} ago")
+            else:
+                st.write("**Login since:**", "-")
+
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
             st.write("**Phone No:**", format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
