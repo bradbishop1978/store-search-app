@@ -80,7 +80,7 @@ if st.session_state.selected_store:
             st.write("**DoorDash ID:**", format_value(filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else '-'))
             st.write("**GrubHub ID:**", format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
-        # Create second row of columns (4-6)
+        # Create second row of columns (4-7)
         col4, col5, col6, col7 = st.columns(4)  # Change to 4 columns for new column
 
         with col4:
