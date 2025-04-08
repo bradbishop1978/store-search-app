@@ -66,6 +66,15 @@ def format_value(value):
         return str(int(value))
     return str(value)
 
+# Helper function to format prices in dollar format
+def format_price(value):
+    if pd.isna(value):
+        return "$0.00"
+    try:
+        return f"${value / 100:.2f}"  # Divide by 100 for cents
+    except ValueError:
+        return "$0.00"
+
 # Helper function to format dates
 def format_date(date_str):
     try:
@@ -87,14 +96,21 @@ def days_since_last_login(last_login_str):
         st.write(f"Error parsing last login date: {e}")
         return "Not logged in"
 
-# Helper function to format price in dollar format
-def format_price(value):
-    if pd.isna(value):
-        return "$0.00"
+# Helper function to format time as "X time ago"
+def time_ago(order_date_str):
+    if pd.isna(order_date_str):
+        return "-"
     try:
-        return f"${value:.2f}"
-    except ValueError:
-        return "$0.00"
+        order_date = pd.to_datetime(order_date_str)
+        delta = datetime.now() - order_date
+        if delta.days > 0:
+            return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
+        elif delta.seconds // 3600 > 0:
+            return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
+        else:
+            return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
+    except Exception:
+        return "-"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -128,21 +144,20 @@ if st.session_state.selected_store:
         # Extract order details based on the selected store
         store_orders = order_details[order_details['store_name'].str.lower() == selected_store.lower()]
 
-        # Validate order_date
         if not store_orders.empty:
             # Sort orders by date to get the latest one
             store_orders['order_date'] = pd.to_datetime(store_orders['order_date'], errors='coerce')  # Ensure date column is parsed
             latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
         
             # Extract the latest order details
-            last_order_time = time_ago(latest_order['order_date'])
+            last_order_time = latest_order['order_date']  # Displaying raw date without formatting
             order_status = latest_order.get('status', "N/A")
             order_amount = format_price(latest_order.get('order_total', 0))
             dsp = format_value(latest_order.get('delivery_platform', '-'))
         
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", last_order_time)  # Display formatted order date
+                st.write("**Order Date:**", last_order_time)  # Display RAW order date
                 st.write("**Status:**", format_value(order_status))
                 st.write("**Amount:**", order_amount)
                 st.write("**DSP:**", format_value(dsp))
