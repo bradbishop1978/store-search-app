@@ -162,16 +162,16 @@ if st.session_state.selected_store:
 
             # Extract the latest order details
             last_order_time = time_ago(latest_order['order_date'])
-            order_status = latest_order['order_status']
-            order_amount = format_price(latest_order['amount'])
-            dsp = format_value(latest_order['dsp'])
+            order_status = latest_order['status']
+            order_amount = format_price(latest_order['order_total'])
+            dsp = format_value(latest_order['delivery_platform'])
 
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", last_order_time)
-                st.write("**Status:**", order_status)
-                st.write("**Amount:**", order_amount)
-                st.write("**DSP:**", dsp)
+                st.write("**Order Date:**", order_date)
+                st.write("**Status:**", status)
+                st.write("**Amount:**", order_total)
+                st.write("**DSP:**", delivery_platform)
         else:
             with col7:
                 st.write("### Last Order Info")
