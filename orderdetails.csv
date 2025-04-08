@@ -1,24 +1,30 @@
 store_name,order_date,order_total,delivery_platform,status
+Kangaroo Express (1119 E McNeese St),2025-04-08 16:23:38.971000+00:00,19.73,DoorDash,incoming
+Jacksons Food Stores #144,2025-04-08 16:23:34.940000+00:00,11.97,DoorDash,incoming
+Paul Convenience Store,2025-04-08 16:22:56.276000+00:00,30.05,UberEats,incoming
+Rocket #4268,2025-04-08 16:22:20.920000+00:00,8.33,DoorDash,waiting
+Jacksons Food Stores #50,2025-04-08 16:21:56.555000+00:00,3.78,DoorDash,waiting
+Rocket #679,2025-04-08 16:21:40.759000+00:00,5.58,DoorDash,ready_for_pickup
 Lula Store (Powered by Up Partners),2025-04-08 16:19:51.359000+00:00,36.45,UberEats,incoming
 Lula Store (Powered by Up Partners),2025-04-08 16:18:30.471000+00:00,85.29,UberEats,incoming
 Lula Store (Powered by Up Partners),2025-04-08 16:18:30.200000+00:00,61.18,UberEats,incoming
 Lula Store (Powered by Up Partners),2025-04-08 16:18:29.998000+00:00,59.3,UberEats,incoming
 Lula Store (Powered by Up Partners),2025-04-08 16:18:29.368000+00:00,43.01,UberEats,incoming
 Lula Store (Powered by Up Partners),2025-04-08 16:18:29.014000+00:00,33.83,UberEats,incoming
-Chisholm Corner 5,2025-04-08 16:18:28.713000+00:00,5.28,DoorDash,waiting
-Circle K (6357 Eastern Ave),2025-04-08 16:17:23.953000+00:00,19.93,DoorDash,waiting
-Circle K (Airport Road),2025-04-08 16:16:29.567000+00:00,22.73,DoorDash,ready_for_pickup
-Jacksons Food Stores #33,2025-04-08 16:15:31.093000+00:00,4.49,DoorDash,ready_for_pickup
+Chisholm Corner 5,2025-04-08 16:18:28.713000+00:00,5.28,DoorDash,ready_for_pickup
+Circle K (6357 Eastern Ave),2025-04-08 16:17:23.953000+00:00,18.34,DoorDash,ready_for_pickup
+Circle K (Airport Road),2025-04-08 16:16:29.567000+00:00,22.73,DoorDash,completed
+Jacksons Food Stores #33,2025-04-08 16:15:31.093000+00:00,4.49,DoorDash,completed
 Rocket #4268,2025-04-08 16:15:22.470000+00:00,8.33,DoorDash,completed
 Clipper Petroleum #47,2025-04-08 16:14:42.395000+00:00,23.63,DoorDash,completed
 Energy Mart 10 - Long Shoals Rd,2025-04-08 16:08:48.895000+00:00,6.38,DoorDash,ready_for_pickup
 Rocket #106,2025-04-08 16:04:38.470000+00:00,56.6,UberEats,ready_for_pickup
 Trumbull Mobil Service Center Inc,2025-04-08 16:02:16.554000+00:00,8.15,UberEats,pickup_completed
 Jacksons Food Stores #607,2025-04-08 16:01:51.344000+00:00,3.49,UberEats,pickup_completed
-Krispy Krunchy Chicken (2144 Corporate Center Dr),2025-04-08 15:57:46.934000+00:00,15.99,UberEats,waiting
+Krispy Krunchy Chicken (2144 Corporate Center Dr),2025-04-08 15:57:46.934000+00:00,15.99,UberEats,ready_for_pickup
 Lula Store (Powered by Up Partners),2025-04-08 15:54:39.136000+00:00,138.07,UberEats,completed
 Circle K (11819 Colonel Glenn Rd),2025-04-08 15:54:23.828000+00:00,2.69,UberEats,pickup_completed
-Mall Parkway Food Mart,2025-04-08 15:53:38.968000+00:00,1.68,DoorDash,waiting
+Mall Parkway Food Mart,2025-04-08 15:53:38.968000+00:00,1.68,DoorDash,completed
 Lula Store (Powered by Up Partners),2025-04-08 15:52:57.005000+00:00,48.88,UberEats,completed
 Lula Store (Powered by Up Partners),2025-04-08 15:52:56.992000+00:00,32.11,UberEats,completed
 Lula Store (Powered by Up Partners),2025-04-08 15:52:56.949000+00:00,34.98,UberEats,completed
