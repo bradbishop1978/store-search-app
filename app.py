@@ -96,22 +96,6 @@ def format_price(value):
     except ValueError:
         return "$0.00"
 
-# Helper function to format time as "X time ago"
-def time_ago(order_date_str):
-    if pd.isna(order_date_str):
-        return "-"
-    try:
-        order_date = pd.to_datetime(order_date_str)
-        delta = datetime.now() - order_date
-        if delta.days > 0:
-            return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
-        elif delta.seconds // 3600 > 0:
-            return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
-        else:
-            return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
-    except Exception:
-        return "-"
-
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
     selected_store = st.session_state.selected_store
