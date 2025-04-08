@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # Correct raw URL of your logo
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
@@ -75,42 +75,33 @@ def format_price(value):
     except ValueError:
         return "$0.00"
 
-# Helper function to format dates
-def format_date(date_str):
-    try:
-        dt = pd.to_datetime(date_str)
-        return dt.strftime('%m/%d/%Y')
-    except Exception:
+# Helper function to format dates to MM/DD/YYYY HH:mm
+def format_order_date(order_date):
+    if pd.isna(order_date):
         return "-"
+    order_date = pd.to_datetime(order_date)  # Convert to datetime
+    return order_date.strftime('%m/%d/%Y %H:%M')  # Format as MM/DD/YYYY HH:mm
 
-# Helper function to calculate days since last login
-def days_since_last_login(last_login_str):
-    if pd.isna(last_login_str) or last_login_str == "-":
-        return "Not logged in"
-    try:
-        last_login = pd.to_datetime(last_login_str)
-        last_login_naive = last_login.tz_localize(None)
-        delta = datetime.now() - last_login_naive
+# Helper function to calculate relative time since order
+def time_elapsed(order_date):
+    if pd.isna(order_date):
+        return "-"
+    order_date = pd.to_datetime(order_date)  # Convert to datetime
+    now = datetime.now(timezone.utc)  # Current UTC time
+    delta = now - order_date
+
+    if delta.days > 0:
         return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
-    except Exception as e:
-        st.write(f"Error parsing last login date: {e}")
-        return "Not logged in"
+    elif delta.seconds // 3600 > 0:
+        return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
+    elif delta.seconds // 60 > 0:
+        return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
+    else:
+        return "Just now"
 
-# Helper function to format time as "X time ago"
-def time_ago(order_date_str):
-    if pd.isna(order_date_str):
-        return "-"
-    try:
-        order_date = pd.to_datetime(order_date_str)
-        delta = datetime.now() - order_date
-        if delta.days > 0:
-            return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
-        elif delta.seconds // 3600 > 0:
-            return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
-        else:
-            return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
-    except Exception:
-        return "-"
+# Helper function to format the store status
+def format_store_status(status):
+    return status if status != "-" else "LSM Active"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -131,7 +122,7 @@ if st.session_state.selected_store:
             st.write("### Login Info")
             st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
-            st.write("**Login since:**", days_since_last_login(last_login_at))
+            st.write("**Login since:**", last_login_at)
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
             st.write("**Phone No:**", format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
@@ -150,16 +141,19 @@ if st.session_state.selected_store:
             latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
         
             # Extract the latest order details
-            last_order_time = latest_order['order_date']  # Displaying raw date without formatting
+            formatted_order_date = format_order_date(latest_order['order_date'])
+            elapsed_time = time_elapsed(latest_order['order_date'])  # Calculate elapsed time
             order_status = latest_order.get('status', "N/A")
-            order_amount = format_price(latest_order.get('order_total', 0))
+            order_amount = latest_order.get('order_total', 0)  # Get the actual order total value
+            order_amount_str = f"${order_amount:.2f}" if order_amount else "$0.00"  # Show as dollar amount
             dsp = format_value(latest_order.get('delivery_platform', '-'))
-        
+
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", last_order_time)  # Display RAW order date
+                st.write("**Order Date:**", formatted_order_date)  # Display formatted order date
                 st.write("**Status:**", format_value(order_status))
-                st.write("**Amount:**", order_amount)
+                st.write("**Time Since Order:**", elapsed_time)  # Display time since order
+                st.write("**Amount:**", order_amount_str)  # Show correct amount directly
                 st.write("**DSP:**", format_value(dsp))
         else:
             with col7:
@@ -173,14 +167,11 @@ if st.session_state.selected_store:
             st.write("### Add'l info")
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
-            st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
+            st.write("**Created Date:**", format_value(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
 
             # Handle store status
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else None
-            if store_status and isinstance(store_status, str) and store_status.lower() == "offboard":
-                st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
-            else:
-                st.write("**Store Status:**", format_value(store_status if store_status is not None else '-'))
+            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else "-"
+            st.write("**Store Status:**", format_store_status(store_status))
 
         with col5:
             st.write("### Subscription")
@@ -194,7 +185,7 @@ if st.session_state.selected_store:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
 
             st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
-            st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
+            st.write("**Pay Period:**", format_value(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
