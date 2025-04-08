@@ -101,6 +101,8 @@ def time_elapsed(order_date):
 
 # Helper function to format the store status
 def format_store_status(status):
+    if status == "Offboard":
+        return "<span style='color:red; font-style:italic;'>Offboard</span>"
     return status if status and status != "-" else "LSM Active"
 
 # Display information if a specific store has been chosen
@@ -155,8 +157,7 @@ if st.session_state.selected_store:
                 st.write("**DSP:**", format_value(dsp))
         else:
             with col7:
-                st.write("### Last Order Info")
-                st.write("No orders found for this store within 30 days.")
+                st.markdown("<span style='color:red; font-style:italic;'>No orders found for this store within 30 days.</span>", unsafe_allow_html=True)
 
         # Create second row of columns (4-6)
         col4, col5, col6 = st.columns(3)
