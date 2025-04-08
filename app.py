@@ -99,19 +99,9 @@ def time_elapsed(order_date):
     else:
         return "Just now"
 
-# Helper function to replace NaN with '-'
- def format_value(value):
-     if pd.isna(value):
-         return "-"
-     if isinstance(value, float) and value.is_integer():  # Check if float is essentially an integer
-         return str(int(value))  # Convert to int for no decimal
-     return str(value)  # Return as string for all other types
- 
- # Helper function to handle store status display
- def format_store_status(status):
-     if pd.isna(status) or status == "":
-         return "LSM Active"
-     return status  # Otherwise return the actual status
+# Helper function to format the store status
+def format_store_status(status):
+    return status if status and status != "-" else "LSM Active"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -123,10 +113,10 @@ if st.session_state.selected_store:
 
         with col1:
             st.write("### Store Info")
-            st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0]) if 'company_name' in filtered_data else '-')
-            st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})" if 'store_id' in filtered_data else '-')
-            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0]) if 'company_id' in filtered_data else '-')
-            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0]) if 'full_address' in filtered_data else '-')
+            st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0] if 'company_name' in filtered_data.columns else '-'))
+            st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})" if 'store_id' in filtered_data.columns else '-')
+            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0] if 'company_id' in filtered_data.columns else '-'))
+            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0] if 'full_address' in filtered_data.columns else '-'))
 
         with col2:
             st.write("### Login Info")
@@ -177,9 +167,12 @@ if st.session_state.selected_store:
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
             
-            # Use the modified format_store_status function
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else None
-            st.markdown("**Store Status:** " + format_store_status(store_status), unsafe_allow_html=True)
+            # Safely check and set store_status
+            if 'store_status' in filtered_data.columns and not filtered_data['store_status'].isnull().all():
+                store_status = filtered_data['store_status'].iloc[0]
+                st.markdown("**Store Status:** " + format_store_status(store_status), unsafe_allow_html=True)
+            else:
+                st.markdown("**Store Status:** LSM Active", unsafe_allow_html=True)
 
         with col5:
             st.write("### Subscription")
