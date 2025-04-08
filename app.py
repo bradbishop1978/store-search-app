@@ -113,16 +113,16 @@ if st.session_state.selected_store:
 
         with col1:
             st.write("### Store Info")
-            st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0]))
-            st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
-            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0]))
-            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0]))
+            st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0]) if 'company_name' in filtered_data else '-')
+            st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})" if 'store_id' in filtered_data else '-')
+            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0]) if 'company_id' in filtered_data else '-')
+            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0]) if 'full_address' in filtered_data else '-')
 
         with col2:
             st.write("### Login Info")
             st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
-            st.write("**Login since:**", last_login_at)
+            st.write("**Login since:**", format_value(last_login_at))
             st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
             st.write("**Phone No:**", format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
@@ -173,7 +173,7 @@ if st.session_state.selected_store:
 
         with col5:
             st.write("### Subscription")
-            st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
+            st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})" if 'stripe_customer_id' in filtered_data.columns else '-')
             
             # Handle subscription status
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else None
