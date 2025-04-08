@@ -149,14 +149,14 @@ if st.session_state.selected_store:
 
             with col7:
                 st.write("### Last Order Info")
+                st.write("**Order since:**", elapsed_time)  # Display time since order
                 st.write("**Status:**", format_value(order_status))
-                st.write("**Time Since Order:**", elapsed_time)  # Display time since order
                 st.write("**Amount:**", order_amount_str)  # Show correct amount directly
                 st.write("**DSP:**", format_value(dsp))
         else:
             with col7:
                 st.write("### Last Order Info")
-                st.write("No orders found for this store.")
+                st.write("No orders found for this store within 30 days.")
 
         # Create second row of columns (4-6)
         col4, col5, col6 = st.columns(3)
@@ -166,10 +166,7 @@ if st.session_state.selected_store:
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
-
-            # Handle store status
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else None
-            st.write("**Store Status:**", format_store_status(store_status))
+            st.write("**Store Status:**", format_value(filtered_date['store_status'].iloc[0] if 'store_status' in filtered_data.columns else 'LSM Active'))
 
         with col5:
             st.write("### Subscription")
