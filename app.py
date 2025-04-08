@@ -146,9 +146,12 @@ if st.session_state.selected_store:
 
         if not store_orders.empty:
             # Sort orders by date to get the latest one
-            store_orders['order_date'] = pd.to_datetime(store_orders['order_date'])
+            store_orders['order_date'] = pd.to_datetime(store_orders['order_date'], errors='coerce')  # Ensure date column is parsed
             latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
-
+        
+            # Debugging: Check the latest order details
+            st.write("Latest Order Info:", latest_order)  # Show latest order for debugging
+        
             # Extract the latest order details
             last_order_time = time_ago(latest_order['order_date'])
             order_status = latest_order.get('status', "N/A")
@@ -157,7 +160,7 @@ if st.session_state.selected_store:
 
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", last_order_time)
+                st.write("**Order Date:**", last_order_time)  # Display formatted order date
                 st.write("**Status:**", format_value(order_status))
                 st.write("**Amount:**", order_amount)
                 st.write("**DSP:**", format_value(dsp))
