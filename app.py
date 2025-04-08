@@ -58,19 +58,13 @@ if store_name:
 # Set the input value from session state
 store_name = st.session_state.store_name_input
 
-# Helper function to replace NaN with '-'
+# Helper function to format values
 def format_value(value):
     if pd.isna(value):
         return "-"
     if isinstance(value, float) and value.is_integer():
         return str(int(value))
     return str(value)
-
-# Helper function to handle store status display
-def format_store_status(status):
-    if pd.isna(status) or status == "":
-        return "LSM Active"
-    return status
 
 # Helper function to format dates
 def format_date(date_str):
@@ -98,11 +92,7 @@ def format_price(value):
     if pd.isna(value):
         return "$0.00"
     try:
-        if value >= 100:
-            dollars = value / 100
-        else:
-            dollars = value / 10
-        return f"${dollars:,.2f}"
+        return f"${value:.2f}"
     except ValueError:
         return "$0.00"
 
@@ -128,7 +118,6 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Create first row of columns (1-3) and additional column (col7)
         col1, col2, col3, col7 = st.columns(4)
 
         with col1:
@@ -162,21 +151,21 @@ if st.session_state.selected_store:
 
             # Extract the latest order details
             last_order_time = time_ago(latest_order['order_date'])
-            order_status = latest_order['status']
-            order_amount = format_price(latest_order['order_total'])
-            dsp = format_value(latest_order['delivery_platform'])
+            order_status = latest_order.get('status', "N/A")
+            order_amount = format_price(latest_order.get('order_total', 0))
+            dsp = format_value(latest_order.get('delivery_platform', '-'))
 
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", format_value(filtered_data['order_date'].iloc[0] if 'order_date' in filtered_data.columns else '-'))
-                st.write("**Status:**", format_value(filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else '-'))
-                st.write("**Amount:**", format_value(filtered_data['order_total'].iloc[0] if 'order_total' in filtered_data.columns else '-'))
-                st.write("**DSP:**", format_value(filtered_data['delivery_platform'].iloc[0] if 'delivery_platform' in filtered_data.columns else '-'))
+                st.write("**Order Date:**", last_order_time)
+                st.write("**Status:**", format_value(order_status))
+                st.write("**Amount:**", order_amount)
+                st.write("**DSP:**", format_value(dsp))
         else:
             with col7:
                 st.write("### Last Order Info")
                 st.write("No orders found for this store.")
-        
+
         # Create second row of columns (4-6)
         col4, col5, col6 = st.columns(3)
 
@@ -186,20 +175,20 @@ if st.session_state.selected_store:
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
 
-            # Get store_status with error handling
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns and not filtered_data['store_status'].empty else None
-            if store_status is not None and isinstance(store_status, str) and store_status.lower() == "offboard":
+            # Handle store status
+            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else None
+            if store_status and isinstance(store_status, str) and store_status.lower() == "offboard":
                 st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
             else:
-                st.write("**Store Status:**", format_store_status(store_status if store_status is not None else '-'))
+                st.write("**Store Status:**", format_value(store_status if store_status is not None else '-'))
 
         with col5:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
-
-            # Get subs_status with error handling
-            subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns and not filtered_data['subscription_status'].empty else None
-            if subs_status is not None and isinstance(subs_status, str) and subs_status.lower() == "canceled":
+            
+            # Handle subscription status
+            subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else None
+            if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
             else:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
@@ -210,27 +199,24 @@ if st.session_state.selected_store:
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
         with col6:
-            st.write("### Device Info")  # Header for the new column
-            
-            # Get device status with error handling
-            device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
-            if device_status is not None and isinstance(device_status, str):
+            st.write("### Device Info")
+            device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else None
+            if device_status and isinstance(device_status, str):
                 if device_status.lower() == "online":
                     st.markdown("**Status:** <span style='color:green; font-weight:bold;'>Online</span>", unsafe_allow_html=True)
                 elif device_status.lower() == "offline":
                     st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
                 else:
-                    st.write("**Status:**", device_status)  # Fallback for any other status
+                    st.write("**Status:**", device_status)
             else:
-                st.write("**Status:**", "-")  # Handle case when status is None or not available
-            
+                st.write("**Status:**", "-")
+
             # Remaining device info
             esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
             device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
             serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
             brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'  # Assuming you meant to display brand
 
-            # Create a clickable link for Device Name
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial No:**", format_value(serial_number))
             st.write("**Model:**", format_value(brand))  # Updated to display Brand instead of Model
