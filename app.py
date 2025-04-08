@@ -48,23 +48,32 @@ if store_name:
 # Set the input value from session state
 store_name = st.session_state.store_name_input
 
-# Helper functions (same as above)...
-# [Include all the previously defined helper functions here]
-
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
     selected_store = st.session_state.selected_store
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
+    # Debugging: Check the filtered data
+    st.write("Filtered Data:", filtered_data)
+
     if not filtered_data.empty:
         # Create first row of columns (1-3)
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write("### Store Info")
-            st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0]))
-            st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
-            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0]))
-            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0]))
+            if 'company_name' in filtered_data.columns:
+                st.write("### Store Info")
+                st.write("**Company:**", format_value(filtered_data['company_name'].iloc[0]))
+            else:
+                st.error("Column 'company_name' does not exist in the filtered data.")
+
+            if 'store_id' in filtered_data.columns:
+                st.write("**LSM ID:**", f"[{format_value(filtered_data['store_id'].iloc[0])}](https://www.lulastoremanager.com/stores/{filtered_data['store_id'].iloc[0]})")
+            else:
+                st.error("Column 'store_id' does not exist in the filtered data.")
+
+            # Repeat for other fields, adding errors if they do not exist
+            st.write("**Comp ID:**", format_value(filtered_data['company_id'].iloc[0] if 'company_id' in filtered_data.columns else '-'))
+            st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0] if 'full_address' in filtered_data.columns else '-'))
 
         with col2:
             st.write("### Login Info")
@@ -81,7 +90,7 @@ if st.session_state.selected_store:
             st.write("**GrubHub ID:**", format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
         # Create second row of columns (4-7)
-        col4, col5, col6, col7 = st.columns(4)  # Change to 4 columns for new column
+        col4, col5, col6, col7 = st.columns(4)
 
         with col4:
             st.write("### Add'l info")
@@ -89,7 +98,6 @@ if st.session_state.selected_store:
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
             
-            # Get store_status with error handling
             store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns and not filtered_data['store_status'].empty else None
             if store_status is not None and isinstance(store_status, str) and store_status.lower() == "offboard":
                 st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
@@ -100,7 +108,6 @@ if st.session_state.selected_store:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
         
-            # Get subs_status with error handling
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns and not filtered_data['subscription_status'].empty else None
             if subs_status is not None and isinstance(subs_status, str) and subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
@@ -113,9 +120,7 @@ if st.session_state.selected_store:
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
         with col6:
-            st.write("### Device Info")  # Header for the new column
-            
-            # Get device status with error handling
+            st.write("### Device Info")
             device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns and not filtered_data['status'].empty else None
             if device_status is not None and isinstance(device_status, str):
                 if device_status.lower() == "online":
@@ -123,26 +128,23 @@ if st.session_state.selected_store:
                 elif device_status.lower() == "offline":
                     st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
                 else:
-                    st.write("**Status:**", device_status)  # Fallback for any other status
+                    st.write("**Status:**", device_status)
             else:
-                st.write("**Status:**", "-")  # Handle case when status is None or not available
-            
-            # Remaining device info
+                st.write("**Status:**", "-")
+
             esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
             device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
             serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
-            brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'  # Assuming you meant to display brand
+            brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'
 
-            # Create a clickable link for Device Name
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial No:**", format_value(serial_number))
-            st.write("**Model:**", format_value(brand))  # Updated to display Brand instead of Model
+            st.write("**Model:**", format_value(brand))
 
         # Create the new column (7) for latest order information
         with col7:
             st.write("### Latest Order Info")
 
-            # Filter the orders based on the selected store
             orders_filtered = orders_data[orders_data['store_name'].str.lower() == selected_store.lower()]
 
             if not orders_filtered.empty:
