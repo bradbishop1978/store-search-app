@@ -166,7 +166,7 @@ if st.session_state.selected_store:
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
-            st.write("**Store Status:**", format_value(filtered_date['store_status'].iloc[0] if 'store_status' in filtered_data.columns else 'LSM Active'))
+            st.write("**Store Status:**", format_value(filtered_date['store_status'].iloc[0] if 'store_status' in filtered_data.columns else '-'))
 
         with col5:
             st.write("### Subscription")
