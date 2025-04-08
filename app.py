@@ -144,30 +144,55 @@ if st.session_state.selected_store:
         # Extract order details based on the selected store
         store_orders = order_details[order_details['store_name'].str.lower() == selected_store.lower()]
 
-        if not store_orders.empty:
-            # Sort orders by date to get the latest one
-            store_orders['order_date'] = pd.to_datetime(store_orders['order_date'], errors='coerce')  # Ensure date column is parsed
-            latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
-        
-            # Debugging: Check the latest order details
-            st.write("Latest Order Info:", latest_order)  # Show latest order for debugging
-        
-            # Extract the latest order details
-            last_order_time = time_ago(latest_order['order_date'])
-            order_status = latest_order.get('status', "N/A")
-            order_amount = format_price(latest_order.get('order_total', 0))
-            dsp = format_value(latest_order.get('delivery_platform', '-'))
+from datetime import datetime, timedelta
 
-            with col7:
-                st.write("### Last Order Info")
-                st.write("**Order Date:**", last_order_time)  # Display formatted order date
-                st.write("**Status:**", format_value(order_status))
-                st.write("**Amount:**", order_amount)
-                st.write("**DSP:**", format_value(dsp))
-        else:
-            with col7:
-                st.write("### Last Order Info")
-                st.write("No orders found for this store.")
+# Function to format time as "X time ago"
+def time_ago(order_date):
+    if pd.isna(order_date) or order_date == "-":
+        return "-"
+    
+    # Ensure order_date is in naive datetime format
+    if order_date.tzinfo is not None:
+        order_date = order_date.tz_convert(None)  # Convert to naive datetime
+
+    # Get the current time
+    now = datetime.now()
+
+    # Calculate the time difference
+    delta = now - order_date
+
+    # Determine the output based on the difference
+    if delta.days > 0:
+        return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
+    elif delta.seconds // 3600 > 0:
+        return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
+    elif delta.seconds // 60 > 0:
+        return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
+    else:
+        return "Just now"
+
+# Then, you can extract the latest order details as before:
+    if not store_orders.empty:
+        # Sort orders by date to get the latest one
+        store_orders['order_date'] = pd.to_datetime(store_orders['order_date'], errors='coerce')  # Ensure date column is parsed
+        latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
+    
+        # Extract the latest order details
+        last_order_time = time_ago(latest_order['order_date'])
+        order_status = latest_order.get('status', "N/A")
+        order_amount = format_price(latest_order.get('order_total', 0))
+        dsp = format_value(latest_order.get('delivery_platform', '-'))
+    
+        with col7:
+            st.write("### Last Order Info")
+            st.write("**Order Date:**", last_order_time)  # Display formatted order date
+            st.write("**Status:**", format_value(order_status))
+            st.write("**Amount:**", order_amount)
+            st.write("**DSP:**", format_value(dsp))
+    else:
+        with col7:
+            st.write("### Last Order Info")
+            st.write("No orders found for this store.")
 
         # Create second row of columns (4-6)
         col4, col5, col6 = st.columns(3)
