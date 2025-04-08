@@ -157,6 +157,7 @@ if st.session_state.selected_store:
                 st.write("**DSP:**", format_value(dsp))
         else:
             with col7:
+                st.write("### Last Order Info")
                 st.markdown("<span style='color:red; font-style:italic;'>No orders found for this store within 30 days.</span>", unsafe_allow_html=True)
 
         # Create second row of columns (4-6)
