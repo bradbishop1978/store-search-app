@@ -15,7 +15,18 @@ st.markdown(
 )
 
 # Load CSV data
-data = pd.read_csv('merged_df.csv')
+try:
+    data = pd.read_csv('merged_df.csv')
+except FileNotFoundError:
+    st.error("Store data file not found. Please ensure 'merged_df.csv' is in the correct path.")
+    st.stop()
+
+# Load additional CSV data
+try:
+    order_details = pd.read_csv('orderdetails.csv')
+except FileNotFoundError:
+    st.error("Order details file not found. Please ensure 'orderdetails.csv' is in the correct path.")
+    st.stop()
 
 # Initialize session state for selected store and input
 if 'selected_store' not in st.session_state:
@@ -91,10 +102,25 @@ def format_price(value):
             dollars = value / 100
         else:
             dollars = value / 10
-
         return f"${dollars:,.2f}"
     except ValueError:
         return "$0.00"
+
+# Helper function to format time as "X time ago"
+def time_ago(order_date_str):
+    if pd.isna(order_date_str):
+        return "-"
+    try:
+        order_date = pd.to_datetime(order_date_str)
+        delta = datetime.now() - order_date
+        if delta.days > 0:
+            return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
+        elif delta.seconds // 3600 > 0:
+            return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
+        else:
+            return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
+    except Exception:
+        return "-"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -102,8 +128,8 @@ if st.session_state.selected_store:
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        # Create first row of columns (1-3)
-        col1, col2, col3 = st.columns(3)
+        # Create first row of columns (1-3) and additional column (col7)
+        col1, col2, col3, col7 = st.columns(4)
 
         with col1:
             st.write("### Store Info")
@@ -126,6 +152,31 @@ if st.session_state.selected_store:
             st.write("**DoorDash ID:**", format_value(filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else '-'))
             st.write("**GrubHub ID:**", format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
+        # Extract order details based on the selected store
+        store_orders = order_details[order_details['store_name'].str.lower() == selected_store.lower()]
+
+        if not store_orders.empty:
+            # Sort orders by date to get the latest one
+            store_orders['order_date'] = pd.to_datetime(store_orders['order_date'])
+            latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
+
+            # Extract the latest order details
+            last_order_time = time_ago(latest_order['order_date'])
+            order_status = latest_order['order_status']
+            order_amount = format_price(latest_order['amount'])
+            dsp = format_value(latest_order['dsp'])
+
+            with col7:
+                st.write("### Last Order Info")
+                st.write("**Order Date:**", last_order_time)
+                st.write("**Status:**", order_status)
+                st.write("**Amount:**", order_amount)
+                st.write("**DSP:**", dsp)
+        else:
+            with col7:
+                st.write("### Last Order Info")
+                st.write("No orders found for this store.")
+        
         # Create second row of columns (4-6)
         col4, col5, col6 = st.columns(3)
 
@@ -134,25 +185,25 @@ if st.session_state.selected_store:
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
-            
+
             # Get store_status with error handling
             store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns and not filtered_data['store_status'].empty else None
             if store_status is not None and isinstance(store_status, str) and store_status.lower() == "offboard":
                 st.markdown("**Store Status:** <span style='color:red; font-style:italic;'>Offboard</span>", unsafe_allow_html=True)
             else:
                 st.write("**Store Status:**", format_store_status(store_status if store_status is not None else '-'))
-        
+
         with col5:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})")
-        
+
             # Get subs_status with error handling
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns and not filtered_data['subscription_status'].empty else None
             if subs_status is not None and isinstance(subs_status, str) and subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
             else:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
-        
+
             st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
             st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
