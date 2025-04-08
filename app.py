@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 
 # Correct raw URL of your logo
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
@@ -75,12 +75,12 @@ def format_price(value):
     except ValueError:
         return "$0.00"
 
-# Helper function to format dates to MM/DD/YYYY HH:mm
-def format_order_date(order_date):
-    if pd.isna(order_date):
+# Helper function to format dates to MM/DD/YYYY
+def format_date(date_value):
+    if pd.isna(date_value):
         return "-"
-    order_date = pd.to_datetime(order_date)  # Convert to datetime
-    return order_date.strftime('%m/%d/%Y %H:%M')  # Format as MM/DD/YYYY HH:mm
+    date_value = pd.to_datetime(date_value, errors='coerce')  # Convert to datetime
+    return date_value.strftime('%m/%d/%Y') if date_value else "-"
 
 # Helper function to calculate relative time since order
 def time_elapsed(order_date):
@@ -101,7 +101,7 @@ def time_elapsed(order_date):
 
 # Helper function to format the store status
 def format_store_status(status):
-    return status if status != "-" else "LSM Active"
+    return status if status and status != "-" else "LSM Active"
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
@@ -141,7 +141,6 @@ if st.session_state.selected_store:
             latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
         
             # Extract the latest order details
-            formatted_order_date = format_order_date(latest_order['order_date'])
             elapsed_time = time_elapsed(latest_order['order_date'])  # Calculate elapsed time
             order_status = latest_order.get('status', "N/A")
             order_amount = latest_order.get('order_total', 0)  # Get the actual order total value
@@ -150,7 +149,6 @@ if st.session_state.selected_store:
 
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", formatted_order_date)  # Display formatted order date
                 st.write("**Status:**", format_value(order_status))
                 st.write("**Time Since Order:**", elapsed_time)  # Display time since order
                 st.write("**Amount:**", order_amount_str)  # Show correct amount directly
@@ -167,10 +165,10 @@ if st.session_state.selected_store:
             st.write("### Add'l info")
             st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
-            st.write("**Created Date:**", format_value(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
+            st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
 
             # Handle store status
-            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else "-"
+            store_status = filtered_data['store_status'].iloc[0] if 'store_status' in filtered_data.columns else None
             st.write("**Store Status:**", format_store_status(store_status))
 
         with col5:
@@ -185,7 +183,7 @@ if st.session_state.selected_store:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
 
             st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
-            st.write("**Pay Period:**", format_value(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
+            st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
             st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
             st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
 
