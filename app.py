@@ -99,9 +99,19 @@ def time_elapsed(order_date):
     else:
         return "Just now"
 
-# Helper function to format the store status
-def format_store_status(status):
-    return status if status and status != "-" else "LSM Active"
+# Helper function to replace NaN with '-'
+ def format_value(value):
+     if pd.isna(value):
+         return "-"
+     if isinstance(value, float) and value.is_integer():  # Check if float is essentially an integer
+         return str(int(value))  # Convert to int for no decimal
+     return str(value)  # Return as string for all other types
+ 
+ # Helper function to handle store status display
+ def format_store_status(status):
+     if pd.isna(status) or status == "":
+         return "LSM Active"
+     return status  # Otherwise return the actual status
 
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
