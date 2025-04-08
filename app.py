@@ -168,10 +168,10 @@ if st.session_state.selected_store:
 
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", 'order_date')
-                st.write("**Status:**", 'status')
-                st.write("**Amount:**", 'order_total')
-                st.write("**DSP:**", 'delivery_platform')
+                st.write("**Order Date:**", format_value(filtered_data['order_date'].iloc[0] if 'order_date' in filtered_data.columns else '-'))
+                st.write("**Status:**", format_value(filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else '-'))
+                st.write("**Amount:**", format_value(filtered_data['order_total'].iloc[0] if 'order_total' in filtered_data.columns else '-'))
+                st.write("**DSP:**", format_value(filtered_data['delivery_platform'].iloc[0] if 'delivery_platform' in filtered_data.columns else '-'))
         else:
             with col7:
                 st.write("### Last Order Info")
