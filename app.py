@@ -168,7 +168,7 @@ if st.session_state.selected_store:
 
             with col7:
                 st.write("### Last Order Info")
-                st.write("**Order Date:**", order_date)
+                st.write("**Order Date:**", 'order_date')
                 st.write("**Status:**", status)
                 st.write("**Amount:**", order_total)
                 st.write("**DSP:**", delivery_platform)
