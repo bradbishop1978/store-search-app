@@ -2,17 +2,20 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timezone
 
-# Logo URL
-logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
+# Create a single column for the logo and title
+col = st.container()
 
-# Create two columns
-col1, col2 = st.columns([20, 10])  # 1: Logo space, 4: Title space
-
-with col2:
-    st.image(logo_url, width=400)  # Width can be adjusted
-
-with col1:
-    st.title("Store Information Search")
+with col:
+    # Use HTML to align the logo and title
+    st.markdown(
+        f"""
+        <div style="display: flex; align-items: center;">
+            <img src="{logo_url}" width="100" height="70" style="margin-right: 20px;">
+            <h1 style="margin: 0;">Store Information Search</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Load CSV data
 try:
