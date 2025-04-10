@@ -13,8 +13,8 @@ with col:
     st.markdown(
         f"""
         <div style="display: flex; align-items: center;">
-            <img src="{logo_url}" width="100" height="70" style="margin-right: 20px;">
-            <h1 style="margin: 0;">Store Information Search</h1>
+            <img src="{logo_url}" width="100" height="200" style="margin-right: 20px;">
+            <h1 style="margin: 6;">Store Information Search</h1>
         </div>
         """,
         unsafe_allow_html=True
