@@ -56,7 +56,7 @@ if store_name:
     if not exact_match.empty:
         st.session_state.selected_store = exact_match['store_name'].iloc[0]  # Update selected store
 
-    # Suggest stores if there's no exact match
+    # Suggest stores if there's no exact match, but only if no store is selected
     if st.session_state.selected_store == "":
         matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
         if not matching_stores.empty:
@@ -65,6 +65,8 @@ if store_name:
                 if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
+                    # Reset the suggestions on selection
+                    break  # Break after first button click to avoid multiple clicks
 
 # Set the input value from session state
 store_name = st.session_state.store_name_input
