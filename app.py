@@ -55,9 +55,8 @@ if st.button("Clear"):
     st.session_state.full_address_input = ""
     store_name = ""
     full_address = ""
-    st.experimental_rerun()  # Rerun the script to clear inputs
 
-# Reset the selected store and full address if either is changed
+# Reset the selected store if either the store name or full address is typed
 if store_name != st.session_state.store_name_input or full_address != st.session_state.full_address_input:
     st.session_state.selected_store = ""
     st.session_state.store_name_input = store_name
@@ -81,7 +80,6 @@ if store_name:
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
                     st.session_state.full_address_input = ""  # Clear address input
-                    st.experimental_rerun()  # Rerun to update the UI
                     break  # Reset suggestions on selection
 
 # Check if the user input matches any full address
@@ -97,14 +95,13 @@ if full_address:
                 st.session_state.selected_store = row['store_name']
                 st.session_state.store_name_input = row['store_name']
                 st.session_state.full_address_input = ""  # Clear address input
-                st.experimental_rerun()  # Rerun to update the UI
                 break  # Reset suggestions on selection
 
-# Set the input value from session state
+# Assign values for the text inputs from the session state
 store_name = st.session_state.store_name_input
 full_address = st.session_state.full_address_input
 
-# Helper functions remain unchanged
+# Helper functions
 def format_value(value):
     if pd.isna(value):
         return "-"
