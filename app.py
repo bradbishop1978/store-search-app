@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 logo_url = "https://github.com/bradbishop1978/store-search-app/blob/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
 
 # Display the logo
-st.image(logo_url, use_column_width=True)  # Try placing this at the very start
 st.title("Store Information Search")
 
 # Load CSV data
