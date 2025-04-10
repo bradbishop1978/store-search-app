@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
 
 # Create two columns
-col1, col2 = st.columns([4, 4])  # 1: Logo space, 4: Title space
+col1, col2 = st.columns([6, 4])  # 1: Logo space, 4: Title space
 
 with col2:
     st.image(logo_url, width=70)  # Width can be adjusted
