@@ -3,11 +3,16 @@ import pandas as pd
 from datetime import datetime, timezone
 
 # Correct raw URL of your logo
-logo_url = "https://github.com/bradbishop1978/store-search-app/blob/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
+logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
 
-# Display the logo
-st.image(logo_url, width=50)  # Adjust width as necessary
-st.title("Store Information Search")
+# Create a two-column layout
+col1, col2 = st.columns([1, 6])  # Adjust the ratio as needed
+
+with col1:
+    st.image(logo_url, width=50)  # Adjust width as necessary
+
+with col2:
+    st.title("Store Information Search")
 
 # Load CSV data
 try:
