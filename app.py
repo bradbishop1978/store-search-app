@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timezone
 
 # Correct raw URL of your logo
-logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
+logo_url = "https://github.com/bradbishop1978/store-search-app/blob/main/Primary%20Logo.jpg"
 
 # Display the logo
 st.image(logo_url, width=50)  # Adjust width as necessary
