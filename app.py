@@ -9,7 +9,6 @@ logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/16
 col = st.container()
 
 with col:
-    # Use HTML to align the logo and title
     st.markdown(
         f"""
         <div style="display: flex; align-items: center;">
@@ -39,14 +38,20 @@ if 'selected_store' not in st.session_state:
     st.session_state.selected_store = ""
 if 'store_name_input' not in st.session_state:
     st.session_state.store_name_input = ""
+if 'address_input' not in st.session_state:
+    st.session_state.address_input = ""
 
 # Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
-# Reset the session state if the user starts typing a new query
-if store_name != st.session_state.store_name_input:
+# Input for full address
+address_input = st.text_input("Enter Full Address (case insensitive):", value=st.session_state.address_input)
+
+# Reset session states if there’s a change in the store name or address input
+if store_name != st.session_state.store_name_input or address_input != st.session_state.address_input:
     st.session_state.selected_store = ""
     st.session_state.store_name_input = store_name
+    st.session_state.address_input = address_input
 
 # Check if the user input matches any store name exactly
 if store_name:
@@ -54,9 +59,9 @@ if store_name:
     exact_match = data[data['store_name'].str.lower() == input_lower]
 
     if not exact_match.empty:
-        st.session_state.selected_store = exact_match['store_name'].iloc[0]  # Update selected store
+        st.session_state.selected_store = exact_match['store_name'].iloc[0]
 
-    # Suggest stores if there's no exact match, but only if no store is selected
+    # Suggest stores if there's no exact match
     if st.session_state.selected_store == "":
         matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
         if not matching_stores.empty:
@@ -65,60 +70,26 @@ if store_name:
                 if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
-                    # Reset the suggestions on selection
-                    break  # Break after first button click to avoid multiple clicks
+                    break  # Break after first button click
 
-# Set the input value from session state
+# Check if the user has searched for addresses
+if address_input:
+    address_lower = address_input.lower()
+    matching_addresses = data[data['full_address'].str.lower().str.contains(address_lower)]
+
+    if not matching_addresses.empty:
+        st.subheader("Matching Addresses:")
+        for index, row in matching_addresses.iterrows():
+            if st.button(f"{row['full_address']}", key=f"address_button_{index}"):
+                st.session_state.selected_store = row['store_name']
+                st.session_state.store_name_input = row['store_name']
+                st.session_state.address_input = row['full_address']  # update the address_input
+                break  # Break after first button click
+
+# Set the input value from session state to keep it updated
 store_name = st.session_state.store_name_input
 
-# Helper function to format values
-def format_value(value):
-    if pd.isna(value):
-        return "-"
-    if isinstance(value, float) and value.is_integer():
-        return str(int(value))
-    return str(value)
-
-# Helper function to format prices in dollar format
-def format_price(value):
-    if pd.isna(value):
-        return "$0.00"
-    try:
-        return f"${value / 100:.2f}"  # Divide by 100 for cents
-    except ValueError:
-        return "$0.00"
-
-# Helper function to format dates to MM/DD/YYYY
-def format_date(date_value):
-    if pd.isna(date_value):
-        return "-"
-    date_value = pd.to_datetime(date_value, errors='coerce')  # Convert to datetime
-    return date_value.strftime('%m/%d/%Y') if date_value else "-"
-
-# Helper function to calculate relative time since order
-def time_elapsed(order_date):
-    if pd.isna(order_date):
-        return "-"
-    order_date = pd.to_datetime(order_date)  # Convert to datetime
-    now = datetime.now(timezone.utc)  # Current UTC time
-    delta = now - order_date
-
-    if delta.days > 0:
-        return f"{delta.days} day{'s' if delta.days != 1 else ''} ago"
-    elif delta.seconds // 3600 > 0:
-        return f"{delta.seconds // 3600} hour{'s' if delta.seconds // 3600 != 1 else ''} ago"
-    elif delta.seconds // 60 > 0:
-        return f"{delta.seconds // 60} minute{'s' if delta.seconds // 60 != 1 else ''} ago"
-    else:
-        return "Just now"
-
-# Helper function to format the store status
-def format_store_status(status):
-    if status == "Offboard":
-        return "<span style='color:red; font-style:italic;'>Offboard</span>"
-    return status if status and status != "-" else "LSM Active"
-
-# Display information if a specific store has been chosen
+# Rest of your display logic...
 if st.session_state.selected_store:
     selected_store = st.session_state.selected_store
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
@@ -138,8 +109,7 @@ if st.session_state.selected_store:
             st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
 
-            # Modified section to show "100 days ago"
-            if pd.notna(last_login_at):  # Check for valid datetime
+            if pd.notna(last_login_at):
                 login_date = pd.to_datetime(last_login_at)
                 days_since_login = (datetime.now(timezone.utc) - login_date).days
                 st.write("**Login since:**", f"{days_since_login} day{'s' if days_since_login != 1 else ''} ago")
