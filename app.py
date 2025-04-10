@@ -46,6 +46,13 @@ store_name = st.text_input("Enter Store Name (case insensitive):", value=st.sess
 # Additional input for full address
 full_address = st.text_input("Enter Full Address (case insensitive):", value="")
 
+# Clear button functionality
+if st.button("Clear"):
+    st.session_state.selected_store = ""
+    st.session_state.store_name_input = ""
+    store_name = ""
+    full_address = ""
+
 # Reset the selected store if either the store name or full address is typed
 if store_name != st.session_state.store_name_input or full_address:
     st.session_state.selected_store = ""
@@ -82,6 +89,7 @@ if full_address:
                 # When an address is selected, set the corresponding store
                 st.session_state.selected_store = row['store_name']
                 st.session_state.store_name_input = row['store_name']
+                full_address = ""  # Clear address input after selection
                 break  # Reset suggestions on selection
 
 # Set the input value from session state
