@@ -14,7 +14,7 @@ with col:
         f"""
         <div style="display: flex; align-items: center;">
             <img src="{logo_url}" width="200" height="70" style="margin-right: 50px;">
-            <h1 style="margin: 6;">Store Information Search</h1>
+            <h1 style="margin: 0;">Store Information Search</h1>
         </div>
         """,
         unsafe_allow_html=True
