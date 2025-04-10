@@ -43,8 +43,11 @@ if 'store_name_input' not in st.session_state:
 # Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
-# Reset the session state if the user starts typing a new query
-if store_name != st.session_state.store_name_input:
+# Additional input for full address
+full_address = st.text_input("Enter Full Address (case insensitive):", value="")
+
+# Reset the selected store if either the store name or full address is typed
+if store_name != st.session_state.store_name_input or full_address:
     st.session_state.selected_store = ""
     st.session_state.store_name_input = store_name
 
@@ -56,7 +59,7 @@ if store_name:
     if not exact_match.empty:
         st.session_state.selected_store = exact_match['store_name'].iloc[0]  # Update selected store
 
-    # Suggest stores if there's no exact match, but only if no store is selected
+    # Suggest stores if there's no exact match
     if st.session_state.selected_store == "":
         matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
         if not matching_stores.empty:
@@ -65,13 +68,26 @@ if store_name:
                 if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
-                    # Reset the suggestions on selection
-                    break  # Break after first button click to avoid multiple clicks
+                    break  # Reset suggestions on selection
+
+# Check if the user input matches any full address
+if full_address:
+    input_full_address_lower = full_address.lower()
+    matching_addresses = data[data['full_address'].str.lower().str.contains(input_full_address_lower)]
+
+    if not matching_addresses.empty:
+        st.subheader("Suggested Addresses:")
+        for index, row in matching_addresses.iterrows():
+            if st.button(f"{row['full_address']}", key=f"address_button_{index}"):
+                # When an address is selected, set the corresponding store
+                st.session_state.selected_store = row['store_name']
+                st.session_state.store_name_input = row['store_name']
+                break  # Reset suggestions on selection
 
 # Set the input value from session state
 store_name = st.session_state.store_name_input
 
-# Helper function to format values
+# Helper functions remain unchanged
 def format_value(value):
     if pd.isna(value):
         return "-"
@@ -79,7 +95,6 @@ def format_value(value):
         return str(int(value))
     return str(value)
 
-# Helper function to format prices in dollar format
 def format_price(value):
     if pd.isna(value):
         return "$0.00"
@@ -88,14 +103,12 @@ def format_price(value):
     except ValueError:
         return "$0.00"
 
-# Helper function to format dates to MM/DD/YYYY
 def format_date(date_value):
     if pd.isna(date_value):
         return "-"
     date_value = pd.to_datetime(date_value, errors='coerce')  # Convert to datetime
     return date_value.strftime('%m/%d/%Y') if date_value else "-"
 
-# Helper function to calculate relative time since order
 def time_elapsed(order_date):
     if pd.isna(order_date):
         return "-"
@@ -112,7 +125,6 @@ def time_elapsed(order_date):
     else:
         return "Just now"
 
-# Helper function to format the store status
 def format_store_status(status):
     if status == "Offboard":
         return "<span style='color:red; font-style:italic;'>Offboard</span>"
@@ -138,7 +150,6 @@ if st.session_state.selected_store:
             st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
             last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
 
-            # Modified section to show "100 days ago"
             if pd.notna(last_login_at):  # Check for valid datetime
                 login_date = pd.to_datetime(last_login_at)
                 days_since_login = (datetime.now(timezone.utc) - login_date).days
@@ -159,14 +170,11 @@ if st.session_state.selected_store:
         store_orders = order_details[order_details['store_name'].str.lower() == selected_store.lower()]
 
         if not store_orders.empty:
-            # Sort orders by date to get the latest one
             store_orders['order_date'] = pd.to_datetime(store_orders['order_date'], errors='coerce')  # Ensure date column is parsed
             latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
-
-            # Extract the latest order details
             elapsed_time = time_elapsed(latest_order['order_date'])  # Calculate elapsed time
             order_status = latest_order.get('status', "N/A")
-            order_amount = latest_order.get('order_total', 0)  # Get the actual order total value
+            order_amount = latest_order.get('order_total', 0)
             order_amount_str = f"${order_amount:.2f}" if order_amount else "$0.00"  # Show as dollar amount
             dsp = format_value(latest_order.get('delivery_platform', '-'))
 
@@ -190,7 +198,6 @@ if st.session_state.selected_store:
             st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
             st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
 
-            # Safely check and set store_status
             if 'store_status' in filtered_data.columns and not filtered_data['store_status'].isnull().all():
                 store_status = filtered_data['store_status'].iloc[0]
                 st.markdown("**Store Status:** " + format_store_status(store_status), unsafe_allow_html=True)
@@ -201,7 +208,6 @@ if st.session_state.selected_store:
             st.write("### Subscription")
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})" if 'stripe_customer_id' in filtered_data.columns else '-')
 
-            # Handle subscription status
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else None
             if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
@@ -226,14 +232,13 @@ if st.session_state.selected_store:
             else:
                 st.write("**Status:**", "-")
 
-            # Remaining device info
             esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
             device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
             serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
-            brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'  # Assuming you meant to display brand
+            brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'
 
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial No:**", format_value(serial_number))
-            st.write("**Model:**", format_value(brand))  # Updated to display Brand instead of Model
+            st.write("**Model:**", format_value(brand))
     else:
         st.write("No matching store found.")
