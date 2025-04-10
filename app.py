@@ -39,24 +39,29 @@ if 'selected_store' not in st.session_state:
     st.session_state.selected_store = ""
 if 'store_name_input' not in st.session_state:
     st.session_state.store_name_input = ""
+if 'full_address_input' not in st.session_state:
+    st.session_state.full_address_input = ""
 
 # Input for store name
 store_name = st.text_input("Enter Store Name (case insensitive):", value=st.session_state.store_name_input)
 
 # Additional input for full address
-full_address = st.text_input("Enter Full Address (case insensitive):", value="")
+full_address = st.text_input("Enter Full Address (case insensitive):", value=st.session_state.full_address_input)
 
 # Clear button functionality
 if st.button("Clear"):
     st.session_state.selected_store = ""
     st.session_state.store_name_input = ""
+    st.session_state.full_address_input = ""
     store_name = ""
     full_address = ""
+    st.experimental_rerun()  # Rerun the script to clear inputs
 
-# Reset the selected store if either the store name or full address is typed
-if store_name != st.session_state.store_name_input or full_address:
+# Reset the selected store and full address if either is changed
+if store_name != st.session_state.store_name_input or full_address != st.session_state.full_address_input:
     st.session_state.selected_store = ""
     st.session_state.store_name_input = store_name
+    st.session_state.full_address_input = full_address
 
 # Check if the user input matches any store name exactly
 if store_name:
@@ -75,6 +80,8 @@ if store_name:
                 if st.button(f"{row['store_name']}", key=f"store_button_{index}"):
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
+                    st.session_state.full_address_input = ""  # Clear address input
+                    st.experimental_rerun()  # Rerun to update the UI
                     break  # Reset suggestions on selection
 
 # Check if the user input matches any full address
@@ -89,11 +96,13 @@ if full_address:
                 # When an address is selected, set the corresponding store
                 st.session_state.selected_store = row['store_name']
                 st.session_state.store_name_input = row['store_name']
-                full_address = ""  # Clear address input after selection
+                st.session_state.full_address_input = ""  # Clear address input
+                st.experimental_rerun()  # Rerun to update the UI
                 break  # Reset suggestions on selection
 
 # Set the input value from session state
 store_name = st.session_state.store_name_input
+full_address = st.session_state.full_address_input
 
 # Helper functions remain unchanged
 def format_value(value):
