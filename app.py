@@ -5,14 +5,9 @@ from datetime import datetime, timezone
 # Correct raw URL of your logo
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/main/Primary%20Logo.jpg"
 
-# Use Markdown with HTML for inline logo
-st.markdown(
-    f"<div style='display: flex; align-items: center;'>"
-    f"<h1 style='margin-right: 10px;'>Store Information Search</h1>"
-    f"<img src='{logo_url}' style='height:50px;'>"
-    f"</div>",
-    unsafe_allow_html=True
-)
+# Display the logo
+st.image(logo_url, width=50)  # Adjust width as necessary
+st.title("Store Information Search")
 
 # Load CSV data
 try:
@@ -42,12 +37,17 @@ if store_name != st.session_state.store_name_input:
     st.session_state.selected_store = ""
     st.session_state.store_name_input = store_name
 
-# Suggest stores as the user types
+# Check if the user input matches any store name exactly
 if store_name:
     input_lower = store_name.lower()
-    matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
+    exact_match = data[data['store_name'].str.lower() == input_lower]
 
+    if not exact_match.empty:
+        st.session_state.selected_store = exact_match['store_name'].iloc[0]  # Update selected store
+
+    # Suggest stores if there's no exact match
     if st.session_state.selected_store == "":
+        matching_stores = data[data['store_name'].str.lower().str.contains(input_lower)]
         if not matching_stores.empty:
             st.subheader("Suggested Stores:")
             for index, row in matching_stores.iterrows():
