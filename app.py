@@ -258,11 +258,11 @@ if st.session_state.selected_store:
         # col8 - New Column
         with col8:
             st.write("### Store Location Info")
-            st.write("**Location Status:**", format_value(filtered_data['store_location_pipeline_stage'].iloc[0] if 'store_location_pipeline_stage' in filtered_data.columns else "-"))
-            st.write("**Onboarding Status:**", format_value(filtered_data['onboarding_status'].iloc[0] if 'onboarding_status' in filtered_data.columns else "-"))
+            st.write("**Location Status:**", format_value(filtered_data['Store Location pipeline stage'].iloc[0] if 'Store Location pipeline stage' in filtered_data.columns else "-"))
+            st.write("**Onboarding Status:**", format_value(filtered_data['Onboarding Status'].iloc[0] if 'Onboarding Status' in filtered_data.columns else "-"))
             st.write("**Classification:**", format_value(filtered_data['Company Classification'].iloc[0] if 'Company Classification' in filtered_data.columns else "-"))
-            st.write("**Account Manager:**", format_value(filtered_data['account_manager'].iloc[0] if 'account_manager' in filtered_data.columns else "-"))
-            st.write("**Date Live:**", format_value(filtered_data['date_live'].iloc[0] if 'date_live' in filtered_data.columns else "-"))
-            st.write("**Churned Date:**", format_value(filtered_data['churned_date'].iloc[0] if 'churned_date' in filtered_data.columns else "-"))
+            st.write("**Account Manager:**", format_value(filtered_data['Account Manager'].iloc[0] if 'Account Manager' in filtered_data.columns else "-"))
+            st.write("**Date Live:**", format_value(filtered_data['Date Live'].iloc[0] if 'Date Live' in filtered_data.columns else "-"))
+            st.write("**Churned Date:**", format_value(filtered_data['Churn Date'].iloc[0] if 'Churn Date' in filtered_data.columns else "-"))
     else:
         st.write("No matching store found.")
