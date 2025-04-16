@@ -261,7 +261,7 @@ if st.session_state.selected_store:
         with col8:
             st.write("### Store Location Info")
             st.markdown("**Location Status:** " + format_location_status(filtered_data['Store Location pipeline stage'].iloc[0] if 'Store Location pipeline stage' in filtered_data.columns else "-"), unsafe_allow_html=True)
-             if Store Location pipeline stage and isinstance(Store Location pipeline stage, str):
+            if Store Location pipeline stage and isinstance(Store Location pipeline stage, str):
                 if Store Location pipeline stage.lower() == "Live":
                     st.markdown("**Location Status:** <span style='color:green; font-weight:bold;'>Live</span>", unsafe_allow_html=True)
                 elif Store Location pipeline stage() == "Churned - Cancelled":
