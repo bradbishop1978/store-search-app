@@ -260,7 +260,7 @@ if st.session_state.selected_store:
             st.write("### Store Location Info")
             st.write("**Location Status:**", format_value(filtered_data['store_location_pipeline_stage'].iloc[0] if 'store_location_pipeline_stage' in filtered_data.columns else "-"))
             st.write("**Onboarding Status:**", format_value(filtered_data['onboarding_status'].iloc[0] if 'onboarding_status' in filtered_data.columns else "-"))
-            st.write("**Classification:**", format_value(filtered_data['company_classification'].iloc[0] if 'company_classification' in filtered_data.columns else "-"))
+            st.write("**Classification:**", format_value(filtered_data['Company Classification'].iloc[0] if 'Company Classification' in filtered_data.columns else "-"))
             st.write("**Account Manager:**", format_value(filtered_data['account_manager'].iloc[0] if 'account_manager' in filtered_data.columns else "-"))
             st.write("**Date Live:**", format_value(filtered_data['date_live'].iloc[0] if 'date_live' in filtered_data.columns else "-"))
             st.write("**Churned Date:**", format_value(filtered_data['churned_date'].iloc[0] if 'churned_date' in filtered_data.columns else "-"))
