@@ -101,7 +101,7 @@ if full_address:
 store_name = st.session_state.store_name_input
 full_address = st.session_state.full_address_input
 
-# Helper functions for formatting
+# Helper functions
 def format_value(value):
     if pd.isna(value):
         return "-"
@@ -144,17 +144,13 @@ def format_store_status(status):
         return "<span style='color:red; font-style:italic;'>Offboard</span>"
     return status if status and status != "-" else "LSM Active"
 
-# Create the "Location Status" column by concatenating the necessary columns
-def get_location_status(row):
-    return f"{row.get('store_location_pipeline_stage', '')} | {row.get('onboarding_status', '')} | {row.get('company_classification', '')} | {row.get('account_manager', '')} | {format_date(row.get('date_live', ''))} | {format_date(row.get('churned_date', ''))}"
-
 # Display information if a specific store has been chosen
 if st.session_state.selected_store:
     selected_store = st.session_state.selected_store
     filtered_data = data[data['store_name'].str.lower() == selected_store.lower()]
 
     if not filtered_data.empty:
-        col1, col2, col3, col4 = st.columns(4)  # Modify columns to include 4th column for Location Status
+        col1, col2, col3, col7 = st.columns(4)
 
         with col1:
             st.write("### Store Info")
@@ -164,18 +160,109 @@ if st.session_state.selected_store:
             st.write("**Store Add:**", format_value(filtered_data['full_address'].iloc[0] if 'full_address' in filtered_data.columns else '-'))
 
         with col2:
-            st.write("### Location Status")
-            location_status = get_location_status(filtered_data.iloc[0])  # Get combined status
-            st.write(location_status)
+            st.write("### Login Info")
+            st.write("**Email:**", format_value(filtered_data['email'].iloc[0] if 'email' in filtered_data.columns else '-'))
+            last_login_at = filtered_data['last_login_at'].iloc[0] if 'last_login_at' in filtered_data.columns else '-'
+
+            if pd.notna(last_login_at):  # Check for valid datetime
+                login_date = pd.to_datetime(last_login_at)
+                days_since_login = (datetime.now(timezone.utc) - login_date).days
+                st.write("**Login since:**", f"{days_since_login} day{'s' if days_since_login != 1 else ''} ago")
+            else:
+                st.write("**Login since:**", "-")
+
+            st.write("**Role Name:**", format_value(filtered_data['role_name'].iloc[0] if 'role_name' in filtered_data.columns else '-'))
+            st.write("**Phone No:**", format_value(filtered_data['phone_number'].iloc[0] if 'phone_number' in filtered_data.columns else '-'))
 
         with col3:
-            st.write("### DSP Info")
+            st.write("### D S P Info")
             st.write("**UberEats ID:**", format_value(filtered_data['ubereats_id'].iloc[0] if 'ubereats_id' in filtered_data.columns else '-'))
             st.write("**DoorDash ID:**", format_value(filtered_data['doordash_id'].iloc[0] if 'doordash_id' in filtered_data.columns else '-'))
             st.write("**GrubHub ID:**", format_value(filtered_data['grubhub_id'].iloc[0] if 'grubhub_id' in filtered_data.columns else '-'))
 
-        # Add your existing code below for Last Order Info, Add'l Info, Subscription, Device Info
-        # (Ensure you do not alter the bottom part of the code you already have)
+        # Extract order details based on the selected store
+        store_orders = order_details[order_details['store_name'].str.lower() == selected_store.lower()]
 
+        if not store_orders.empty:
+            store_orders['order_date'] = pd.to_datetime(store_orders['order_date'], errors='coerce')  # Ensure date column is parsed
+            latest_order = store_orders.loc[store_orders['order_date'].idxmax()]
+            elapsed_time = time_elapsed(latest_order['order_date'])  # Calculate elapsed time
+            order_status = latest_order.get('status', "N/A")
+            order_amount = latest_order.get('order_total', 0)
+            order_amount_str = f"${order_amount:.2f}" if order_amount else "$0.00"  # Show as dollar amount
+            dsp = format_value(latest_order.get('delivery_platform', '-'))
+
+            with col7:
+                st.write("### Recent Order")
+                st.write("**Order since:**", elapsed_time)  # Display time since order
+                st.write("**Status:**", format_value(order_status))
+                st.write("**Amount:**", order_amount_str)  # Show correct amount directly
+                st.write("**DSP:**", format_value(dsp))
+        else:
+            with col7:
+                st.write("### Last Order Info")
+                st.markdown("<span style='color:red; font-style:italic;'>No orders found for this store within 30 days.</span>", unsafe_allow_html=True)
+
+        # Create second row of columns (4-7 + col8)
+        col4, col5, col6, col8 = st.columns(4)
+
+        with col4:
+            st.write("### Add'l info")
+            st.write("**Store Email:**", format_value(filtered_data['store_email'].iloc[0] if 'store_email' in filtered_data.columns else '-'))
+            st.write("**Store Phone:**", format_value(filtered_data['store_phone'].iloc[0] if 'store_phone' in filtered_data.columns else '-'))
+            st.write("**Created Date:**", format_date(filtered_data['created_date'].iloc[0] if 'created_date' in filtered_data.columns else '-'))
+
+            if 'store_status' in filtered_data.columns and not filtered_data['store_status'].isnull().all():
+                store_status = filtered_data['store_status'].iloc[0]
+                st.markdown("**Store Status:** " + format_store_status(store_status), unsafe_allow_html=True)
+            else:
+                st.markdown("**Store Status:** LSM Active", unsafe_allow_html=True)
+
+        with col5:
+            st.write("### Subscription")
+            st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})" if 'stripe_customer_id' in filtered_data.columns else '-')
+
+            subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else None
+            if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
+                st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
+            else:
+                st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
+
+            st.write("**Payment:**", format_value(filtered_data['payment_method'].iloc[0] if 'payment_method' in filtered_data.columns else '-'))
+            st.write("**Pay Period:**", format_date(filtered_data['current_period_start'].iloc[0] if 'current_period_start' in filtered_data.columns else '-'))
+            st.write("**Subs Name:**", format_value(filtered_data['product_name'].iloc[0] if 'product_name' in filtered_data.columns else '-'))
+            st.write("**Amount:**", format_price(filtered_data['price_amount'].iloc[0] if 'price_amount' in filtered_data.columns else '-'))
+
+        with col6:
+            st.write("### Device Info")
+            device_status = filtered_data['status'].iloc[0] if 'status' in filtered_data.columns else None
+            if device_status and isinstance(device_status, str):
+                if device_status.lower() == "online":
+                    st.markdown("**Status:** <span style='color:green; font-weight:bold;'>Online</span>", unsafe_allow_html=True)
+                elif device_status.lower() == "offline":
+                    st.markdown("**Status:** <span style='color:red; font-style:italic;'>Offline</span>", unsafe_allow_html=True)
+                else:
+                    st.write("**Status:**", device_status)
+            else:
+                st.write("**Status:**", "-")
+
+            esper_id = filtered_data['esper_id'].iloc[0] if 'esper_id' in filtered_data.columns else '-'
+            device_name = filtered_data['device_name'].iloc[0] if 'device_name' in filtered_data.columns else '-'
+            serial_number = filtered_data['serial_number'].iloc[0] if 'serial_number' in filtered_data.columns else '-'
+            brand = filtered_data['brand'].iloc[0] if 'brand' in filtered_data.columns else '-'
+
+            st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
+            st.write("**Serial No:**", format_value(serial_number))
+            st.write("**Model:**", format_value(brand))
+
+        # col8 - New Column
+        with col8:
+            st.write("### Location Status")
+            st.write("**Store Status:**", format_value(filtered_data.get('store_location_pipeline_stage', '-')))
+            st.write("**Onboarding Status:**", format_value(filtered_data.get('onboarding_status', '-')))
+            st.write("**Classification:**", format_value(filtered_data.get('company_classification', '-')))
+            st.write("**Account Manager:**", format_value(filtered_data.get('account_manager', '-')))
+            st.write("**Date Live:**", format_date(filtered_data.get('date_live', '-')))
+            st.write("**Churned Date:**", format_date(filtered_data.get('churned_date', '-')))
     else:
         st.write("No matching store found.")
