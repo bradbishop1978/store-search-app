@@ -262,7 +262,7 @@ if st.session_state.selected_store:
             st.write("**Onboarding Status:**", format_value(filtered_data['onboarding_status'].iloc[0] if 'onboarding_status' in filtered_data.columns else "-"))
             st.write("**Classification:**", format_value(filtered_data['company_classification'].iloc[0] if 'company_classification' in filtered_data.columns else "-"))
             st.write("**Account Manager:**", format_value(filtered_data['account_manager'].iloc[0] if 'account_manager' in filtered_data.columns else "-"))
-            st.write("**Date Live:**", format_date(filtered_data['date_live'].iloc[0] if 'date_live' in filtered_data.columns else "-"))
-            st.write("**Churned Date:**", format_date(filtered_data['churned_date'].iloc[0] if 'churned_date' in filtered_data.columns else "-"))
+            st.write("**Date Live:**", format_value(filtered_data['date_live'].iloc[0] if 'date_live' in filtered_data.columns else "-"))
+            st.write("**Churned Date:**", format_value(filtered_data['churned_date'].iloc[0] if 'churned_date' in filtered_data.columns else "-"))
     else:
         st.write("No matching store found.")
