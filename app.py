@@ -275,7 +275,10 @@ if st.session_state.selected_store:
                         return "<span style='color:red; font-style:italic;'>Churned - Cancelled</span>"
                 return status
 
+                    if location_status and isinstance(location_status, str):
             st.markdown("**Location Status:** " + format_location_status(location_status), unsafe_allow_html=True)
+        else:
+            st.markdown("**Location Status:** <span style='color:gray;'>No records available</span>", unsafe_allow_html=True)
 
             st.write("**Onboarding Status:**", format_value(filtered_data['Onboarding Status'].iloc[0] if 'Onboarding Status' in filtered_data.columns else "-"))
             st.write("**Classification:**", format_value(filtered_data['Company Classification'].iloc[0] if 'Company Classification' in filtered_data.columns else "-"))
