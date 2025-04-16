@@ -257,28 +257,29 @@ if st.session_state.selected_store:
             st.write("**Serial No:**", format_value(serial_number))
             st.write("**Model:**", format_value(brand))
 
-        # col8 - New Column
+        # col8 - New Column 
         with col8:
             st.write("### Store Location Info")
-            st.markdown("**Location Status:** " + format_location_status(filtered_data['Store Location pipeline stage'].iloc[0] if 'Store Location pipeline stage' in filtered_data.columns else "-"), unsafe_allow_html=True)
+            
             location_status = filtered_data['Store Location pipeline stage'].iloc[0] if 'Store Location pipeline stage' in filtered_data.columns else "-"
-            if location_status and isinstance(location_status, str):
-                st.markdown("**Location Status:** " + format_location_status(location_status), unsafe_allow_html=True)
-            else:
-                st.markdown("**Location Status:** -", unsafe_allow_html=True)
-                if Store Location pipeline stage.lower() == "Live":
-                    st.markdown("**Location Status:** <span style='color:green; font-weight:bold;'>Live</span>", unsafe_allow_html=True)
-                elif Store Location pipeline stage() == "Churned - Cancelled":
-                    st.markdown("**Location Status:** <span style='color:red; font-style:italic;'>Churned - Cancelled</span>", unsafe_allow_html=True)
-                else:
-                    st.write("**Location Status:**", Store Location pipeline stage)
-            else:
-                st.write("**Location Status:**", "-")
-                
+            
+            def format_location_status(status):
+                if isinstance(status, str):
+                    if status.lower() == "live":
+                        return "<span style='color:green; font-weight:bold;'>Live</span>"
+                    elif status.lower() == "pending launch":
+                        return "<span style='color:orange; font-weight:bold;'>Pending Launch</span>"
+                    elif status.lower() == "churned - cancelled":
+                        return "<span style='color:red; font-style:italic;'>Churned - Cancelled</span>"
+                return status
+
+            st.markdown("**Location Status:** " + format_location_status(location_status), unsafe_allow_html=True)
+
             st.write("**Onboarding Status:**", format_value(filtered_data['Onboarding Status'].iloc[0] if 'Onboarding Status' in filtered_data.columns else "-"))
             st.write("**Classification:**", format_value(filtered_data['Company Classification'].iloc[0] if 'Company Classification' in filtered_data.columns else "-"))
             st.write("**Account Manager:**", format_value(filtered_data['Account Manager'].iloc[0] if 'Account Manager' in filtered_data.columns else "-"))
             st.write("**Date Live:**", format_value(filtered_data['Date Live'].iloc[0] if 'Date Live' in filtered_data.columns else "-"))
             st.write("**Churned Date:**", format_value(filtered_data['Churn Date'].iloc[0] if 'Churn Date' in filtered_data.columns else "-"))
+
     else:
         st.write("No matching store found.")
