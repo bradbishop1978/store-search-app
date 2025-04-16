@@ -262,7 +262,5 @@ if st.session_state.selected_store:
             st.write("**Onboarding Status:**", format_value(filtered_data.get('onboarding_status', '-')))
             st.write("**Classification:**", format_value(filtered_data.get('company_classification', '-')))
             st.write("**Account Manager:**", format_value(filtered_data.get('account_manager', '-')))
-            st.write("**Date Live:**", format_date(filtered_data.get('date_live', '-')))
-            st.write("**Churned Date:**", format_date(filtered_data.get('churned_date', '-')))
     else:
         st.write("No matching store found.")
