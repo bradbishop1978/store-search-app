@@ -254,13 +254,35 @@ if st.session_state.selected_store:
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial No:**", format_value(serial_number))
             st.write("**Model:**", format_value(brand))
+        
+        # Check for columns in the DataFrame (only for debugging purposes)
+        st.write("Available columns in data:", data.columns)
+        
+        # Add a debug check for the filtered data
+        st.write("Filtered data for selected store:", filtered_data)
+        
+        # Add a check to confirm store name input matches
+        st.write(f"Store Name Entered: {store_name}")
+        st.write(f"Selected Store from Session: {st.session_state.selected_store}")
+        
+        # If the columns exist, proceed with displaying col8
+        if 'store_location_pipeline_stage' in filtered_data.columns and \
+           'onboarding_status' in filtered_data.columns and \
+           'company_classification' in filtered_data.columns and \
+           'account_manager' in filtered_data.columns and \
+           'date_live' in filtered_data.columns and \
+           'churned_date' in filtered_data.columns:
+           
+            with col8:
+                st.write("### Store Info (Additional)")
+                st.write("**Store Location Pipeline Stage:**", format_value(filtered_data['store_location_pipeline_stage'].iloc[0]))
+                st.write("**Onboarding Status:**", format_value(filtered_data['onboarding_status'].iloc[0]))
+                st.write("**Company Classification:**", format_value(filtered_data['company_classification'].iloc[0]))
+                st.write("**Account Manager:**", format_value(filtered_data['account_manager'].iloc[0]))
+                st.write("**Date Live:**", format_date(filtered_data['date_live'].iloc[0]))
+                st.write("**Churned Date:**", format_date(filtered_data['churned_date'].iloc[0]))
+        else:
+            st.write("Some columns for col8 are missing or do not exist in the data.")
 
-        # col8 - New Column
-        with col8:
-            st.write("### Location Status")
-            st.write("**Store Status:**", format_value(filtered_data.get('store_location_pipeline_stage', '-')))
-            st.write("**Onboarding Status:**", format_value(filtered_data.get('onboarding_status', '-')))
-            st.write("**Classification:**", format_value(filtered_data.get('company_classification', '-')))
-            st.write("**Account Manager:**", format_value(filtered_data.get('account_manager', '-')))
     else:
         st.write("No matching store found.")
