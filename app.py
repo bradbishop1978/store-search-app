@@ -223,10 +223,12 @@ if st.session_state.selected_store:
             st.write("**Stripe ID:**", f"[{format_value(filtered_data['stripe_customer_id'].iloc[0])}](https://dashboard.stripe.com/customers/{filtered_data['stripe_customer_id'].iloc[0]})" if 'stripe_customer_id' in filtered_data.columns else '-')
 
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else None
-            if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
-                st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
+            if subs_status and isinstance(subs_status, str) and subs_status.lower() == "past_due":
+                st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Past_due</span>", unsafe_allow_html=True)
             if subs_status and isinstance(subs_status, str) and subs_status.lower() == "active":
                 st.markdown("**Subs Status:** <span style='color:green; font-weight:bold;'>Active</span>", unsafe_allow_html=True)
+            if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
+                st.markdown("**Subs Status:** <span style='color:green; font-weight:bold;'>Canceled</span>", unsafe_allow_html=True)
             else:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
 
