@@ -225,6 +225,8 @@ if st.session_state.selected_store:
             subs_status = filtered_data['subscription_status'].iloc[0] if 'subscription_status' in filtered_data.columns else None
             if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
                 st.markdown("**Subs Status:** <span style='color:red; font-style:italic;'>Canceled</span>", unsafe_allow_html=True)
+            if subs_status and isinstance(subs_status, str) and subs_status.lower() == "active":
+                st.markdown("**Subs Status:** <span style='color:green; font-weight:bold;'>Active</span>", unsafe_allow_html=True)
             else:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
 
@@ -258,7 +260,17 @@ if st.session_state.selected_store:
         # col8 - New Column
         with col8:
             st.write("### Store Location Info")
-            st.write("**Location Status:**", format_value(filtered_data['Store Location pipeline stage'].iloc[0] if 'Store Location pipeline stage' in filtered_data.columns else "-"))
+            st.write("**Location Status:**", format_value(filtered_data['Store Location pipeline stage'].iloc[0] if 'Store Location pipeline stage' in filtered_data.columns else None
+             if Store Location pipeline stage and isinstance(Store Location pipeline stage, str):
+                if Store Location pipeline stage.lower() == "Live":
+                    st.markdown("**Location Status:** <span style='color:green; font-weight:bold;'>Live</span>", unsafe_allow_html=True)
+                elif Store Location pipeline stage() == "Churned - Cancelled":
+                    st.markdown("**Location Status:** <span style='color:red; font-style:italic;'>Churned - Cancelled</span>", unsafe_allow_html=True)
+                else:
+                    st.write("**Location Status:**", Store Location pipeline stage)
+            else:
+                st.write("**Location Status:**", "-")
+                
             st.write("**Onboarding Status:**", format_value(filtered_data['Onboarding Status'].iloc[0] if 'Onboarding Status' in filtered_data.columns else "-"))
             st.write("**Classification:**", format_value(filtered_data['Company Classification'].iloc[0] if 'Company Classification' in filtered_data.columns else "-"))
             st.write("**Account Manager:**", format_value(filtered_data['Account Manager'].iloc[0] if 'Account Manager' in filtered_data.columns else "-"))
