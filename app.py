@@ -228,7 +228,7 @@ if st.session_state.selected_store:
             if subs_status and isinstance(subs_status, str) and subs_status.lower() == "active":
                 st.markdown("**Subs Status:** <span style='color:green; font-weight:bold;'>Active</span>", unsafe_allow_html=True)
             if subs_status and isinstance(subs_status, str) and subs_status.lower() == "canceled":
-                st.markdown("**Subs Status:** <span style='color:amber; font-weight:bold;'>Canceled</span>", unsafe_allow_html=True)
+                st.markdown("**Subs Status:** <span style='color:orange; font-weight:bold;'>Canceled</span>", unsafe_allow_html=True)
             else:
                 st.write("**Subs Status:**", format_value(subs_status if subs_status is not None else '-'))
 
