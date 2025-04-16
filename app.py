@@ -193,7 +193,7 @@ if st.session_state.selected_store:
             dsp = format_value(latest_order.get('delivery_platform', '-'))
 
             with col7:
-                st.write("### Recent Order")
+                st.write("### Last Order Info")
                 st.write("**Order since:**", elapsed_time)  # Display time since order
                 st.write("**Status:**", format_value(order_status))
                 st.write("**Amount:**", order_amount_str)  # Show correct amount directly
@@ -254,35 +254,15 @@ if st.session_state.selected_store:
             st.write("**Device Name:**", f"[{format_value(device_name)}](https://ozrlk.esper.cloud/devices/{esper_id})" if esper_id != '-' else '-')
             st.write("**Serial No:**", format_value(serial_number))
             st.write("**Model:**", format_value(brand))
-        
-        # Check for columns in the DataFrame (only for debugging purposes)
-        st.write("Available columns in data:", data.columns)
-        
-        # Add a debug check for the filtered data
-        st.write("Filtered data for selected store:", filtered_data)
-        
-        # Add a check to confirm store name input matches
-        st.write(f"Store Name Entered: {store_name}")
-        st.write(f"Selected Store from Session: {st.session_state.selected_store}")
-        
-        # If the columns exist, proceed with displaying col8
-        if 'store_location_pipeline_stage' in filtered_data.columns and \
-           'onboarding_status' in filtered_data.columns and \
-           'company_classification' in filtered_data.columns and \
-           'account_manager' in filtered_data.columns and \
-           'date_live' in filtered_data.columns and \
-           'churned_date' in filtered_data.columns:
-           
-            with col8:
-                st.write("### Store Info (Additional)")
-                st.write("**Store Location Pipeline Stage:**", format_value(filtered_data['store_location_pipeline_stage'].iloc[0]))
-                st.write("**Onboarding Status:**", format_value(filtered_data['onboarding_status'].iloc[0]))
-                st.write("**Company Classification:**", format_value(filtered_data['company_classification'].iloc[0]))
-                st.write("**Account Manager:**", format_value(filtered_data['account_manager'].iloc[0]))
-                st.write("**Date Live:**", format_date(filtered_data['date_live'].iloc[0]))
-                st.write("**Churned Date:**", format_date(filtered_data['churned_date'].iloc[0]))
-        else:
-            st.write("Some columns for col8 are missing or do not exist in the data.")
 
+        # col8 - New Column
+        with col8:
+            st.write("### Store Location Info")
+            st.write("**Location Status:**", format_value(filtered_data['store_location_pipeline_stage'].iloc[0] if 'store_location_pipeline_stage' in filtered_data.columns else "-")
+            st.write("**Onboarding Status:**", format_value(filtered_data['onboarding_status'].iloc[0] if 'onboarding_status' in filtered_data.columns else "-")
+            st.write("**Classification:**", format_value(filtered_data['company_classification'].iloc[0] if 'company_classification' in filtered_data.columns else "-")
+            st.write("**Account Manager:**", format_value(filtered_data['account_manager'].iloc[0] if 'account_manager' in filtered_data.columns else "-")
+            st.write("**Date Live:**", format_date(filtered_data['date_live'].iloc[0] if 'date_live' in filtered_data.columns else "-")
+            st.write("**Churned Date:**", format_date(filtered_data['churned_date'].iloc[0] if 'churned_date' in filtered_data.columns else "-")
     else:
         st.write("No matching store found.")
