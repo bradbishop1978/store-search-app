@@ -1,10 +1,28 @@
 store_name,order_date,order_total,delivery_platform,status
-Rocket #4215,2025-04-18 09:59:02.548000+00:00,15.06,DoorDash,waiting
-Jacksons Food Stores (#513),2025-04-18 09:56:26.475000+00:00,20.66,DoorDash,ready_for_pickup
-Jacksons Food Stores #69,2025-04-18 09:52:59.733000+00:00,10.66,DoorDash,ready_for_pickup
-Rocket #6504,2025-04-18 09:46:54.095000+00:00,36.77,UberEats,ready_for_pickup
+Jacksons Food Stores #118,2025-04-18 10:59:43.264000+00:00,3.99,DoorDash,waiting
+Flatshoals Food Store,2025-04-18 10:59:34.380000+00:00,2.99,DoorDash,incoming
+Rocket #5204,2025-04-18 10:58:12.264000+00:00,2.98,DoorDash,incoming
+U-Stop Convenience Shop 73rd & Pine Lake,2025-04-18 10:55:42.647000+00:00,13.86,DoorDash,ready_for_pickup
+Rocket #355,2025-04-18 10:54:24.750000+00:00,13.97,DoorDash,waiting
+Rocket #5240,2025-04-18 10:50:54.903000+00:00,21.25,DoorDash,waiting
+Par Mar Stores - 55 (Tuscarawas Rd),2025-04-18 10:49:07.386000+00:00,10.17,DoorDash,ready_for_pickup
+Rocket #6536,2025-04-18 10:29:51.399000+00:00,15.16,DoorDash,completed
+Jacksons Food Stores #105,2025-04-18 10:28:13.843000+00:00,35.99,DoorDash,completed
+Jacksons Food Stores (#525),2025-04-18 10:26:53.757000+00:00,17.86,DoorDash,completed
+Jacksons Food Stores (#501),2025-04-18 10:26:40.956000+00:00,15.86,UberEats,pickup_completed
+Rocket #4268,2025-04-18 10:14:06.298000+00:00,13.48,DoorDash,completed
+Jacksons Food Stores (#501),2025-04-18 10:12:35.157000+00:00,12.47,DoorDash,completed
+CFM 37 Bethlehem,2025-04-18 10:12:04.647000+00:00,19.86,DoorDash,completed
+Rocket #4243,2025-04-18 10:11:44.445000+00:00,12.16,UberEats,ready_for_pickup
+Rocket #2971,2025-04-18 10:09:30.513000+00:00,29.75,UberEats,pickup_completed
+Rocket #4268,2025-04-18 10:04:22.458000+00:00,6.98,DoorDash,completed
+Jacksons Food Stores (#502),2025-04-18 10:04:00.029000+00:00,19.96,DoorDash,completed
+Rocket #4215,2025-04-18 09:59:02.548000+00:00,15.06,DoorDash,denied
+Jacksons Food Stores (#513),2025-04-18 09:56:26.475000+00:00,20.66,DoorDash,completed
+Jacksons Food Stores #69,2025-04-18 09:52:59.733000+00:00,10.66,DoorDash,completed
+Rocket #6504,2025-04-18 09:46:54.095000+00:00,36.77,UberEats,pickup_completed
 Jacksons Food Stores #648,2025-04-18 09:46:04.872000+00:00,27.96,DoorDash,completed
-Rocket #4211,2025-04-18 09:42:51.796000+00:00,67.06,UberEats,waiting
+Rocket #4211,2025-04-18 09:42:51.796000+00:00,67.06,UberEats,pickup_completed
 Circle K (909 Kings Hwy),2025-04-18 09:40:56.869000+00:00,4.29,DoorDash,completed
 Jacksons Food Stores #18,2025-04-18 09:34:26.265000+00:00,12.47,DoorDash,completed
 Rocket #6531,2025-04-18 09:32:15.404000+00:00,14.96,DoorDash,completed
@@ -34173,18 +34191,3 @@ Gas Express (4303 S Court St),2025-03-19 11:13:23.266000+00:00,9.07,UberEats,com
 Circle K (909 Kings Hwy),2025-03-19 11:08:02.414000+00:00,22.56,DoorDash,completed
 Clipper Petroleum #47,2025-03-19 11:07:28.089000+00:00,10.57,DoorDash,completed
 Jacksons Food Stores #105,2025-03-19 11:05:19.994000+00:00,4.98,UberEats,completed
-Double Kwik - 2051,2025-03-19 10:57:56.181000+00:00,3.99,DoorDash,completed
-Rocket #6505,2025-03-19 10:55:05.555000+00:00,9.68,DoorDash,completed
-Rocket #50,2025-03-19 10:48:22.815000+00:00,23.88,UberEats,completed
-Jacksons Food Stores #2,2025-03-19 10:32:52.329000+00:00,15.99,DoorDash,completed
-Eagle Stores (Fairborn),2025-03-19 10:26:36.613000+00:00,25.36,GrubHub,completed
-Jacksons Food Stores #648,2025-03-19 10:25:38.295000+00:00,21.62,UberEats,completed
-Rocket #148,2025-03-19 10:23:04.323000+00:00,15.65,UberEats,completed
-Circle K (6357 Eastern Ave),2025-03-19 10:20:11.143000+00:00,2.69,UberEats,completed
-Jacksons Food Stores #21,2025-03-19 10:20:01.733000+00:00,7.98,UberEats,completed
-Rotten Robbie #70,2025-03-19 10:19:10.545000+00:00,15.76,DoorDash,completed
-Circle K (1176 Chattahoochee Ave NW),2025-03-19 10:18:17.970000+00:00,5.78,DoorDash,completed
-Jacksons Food Stores #28,2025-03-19 10:17:21.339000+00:00,8.27,UberEats,completed
-Jacksons Food Stores #105,2025-03-19 10:16:43.579000+00:00,5.99,UberEats,completed
-Rocket #4211,2025-03-19 10:15:57.306000+00:00,20.93,DoorDash,completed
-Circle K (1176 Chattahoochee Ave NW),2025-03-19 10:09:12.747000+00:00,2.79,UberEats,cancelled
