@@ -1,12 +1,19 @@
 store_name,order_date,order_total,delivery_platform,status
-Jacksons Food Stores (#525),2025-04-20 10:56:50.806000+00:00,17.26,DoorDash,ready_for_pickup
-Jacksons Food Stores (#518),2025-04-20 10:51:56.181000+00:00,10.46,DoorDash,waiting
-Rocket #6492,2025-04-20 10:51:41.596000+00:00,6.48,DoorDash,ready_for_pickup
+Clipper Petroleum #26,2025-04-20 11:57:22.567000+00:00,49.22,DoorDash,waiting
+Circle K (1176 Chattahoochee Ave NW),2025-04-20 11:56:10.030000+00:00,9.57,DoorDash,waiting
+U-Stop Convenience Shop 56th & Old Cheney,2025-04-20 11:54:35.739000+00:00,15.48,DoorDash,waiting
+Circle K (1188 Broward Rd),2025-04-20 11:39:37.600000+00:00,5.98,UberEats,ready_for_pickup
+Jacksons Food Stores #173,2025-04-20 11:37:35.561000+00:00,12.45,DoorDash,waiting
+Jacksons Food Stores (#547),2025-04-20 11:28:58.016000+00:00,11.45,DoorDash,completed
+Oasis #1,2025-04-20 11:10:12.165000+00:00,12.76,DoorDash,completed
+Jacksons Food Stores (#525),2025-04-20 10:56:50.806000+00:00,17.26,DoorDash,completed
+Jacksons Food Stores (#518),2025-04-20 10:51:56.181000+00:00,3.29,DoorDash,completed
+Rocket #6492,2025-04-20 10:51:41.596000+00:00,6.48,DoorDash,completed
 Rocket #5454,2025-04-20 10:41:43.523000+00:00,8.37,DoorDash,completed
 Rocket #5436,2025-04-20 10:41:18.891000+00:00,36.61,DoorDash,completed
 Circle K - Main St,2025-04-20 10:34:16.114000+00:00,25.56,DoorDash,completed
 Rocket #5793,2025-04-20 10:31:14.698000+00:00,7.97,DoorDash,denied
-Jacksons Food Stores (#520),2025-04-20 10:30:48.463000+00:00,35.09,DoorDash,waiting
+Jacksons Food Stores (#520),2025-04-20 10:30:48.463000+00:00,23.64,DoorDash,completed
 Rocket #7790,2025-04-20 10:30:26.386000+00:00,16.06,DoorDash,ready_for_pickup
 Rocket #6317,2025-04-20 10:22:33.902000+00:00,33.12,DoorDash,denied
 Rocket #6517,2025-04-20 10:19:37.524000+00:00,15.22,DoorDash,cancelled
@@ -93,7 +100,7 @@ Atlantis Fresh Market #23,2025-04-20 07:22:13.281000+00:00,11.09,UberEats,pickup
 Jacksons Food Stores (#513),2025-04-20 07:20:24.683000+00:00,13.16,DoorDash,completed
 Jacksons Food Stores #85,2025-04-20 07:20:10.009000+00:00,3.58,DoorDash,completed
 Clipper Petroleum #57,2025-04-20 07:17:26.730000+00:00,18.53,UberEats,pickup_completed
-Atlantis Fresh Market #9,2025-04-20 07:15:37.911000+00:00,47.7,UberEats,ready_for_pickup
+Atlantis Fresh Market #9,2025-04-20 07:15:37.911000+00:00,47.7,UberEats,pickup_completed
 Rocket #5463,2025-04-20 07:13:42.697000+00:00,14.99,DoorDash,completed
 Rocket #1297,2025-04-20 07:11:58.752000+00:00,13.96,DoorDash,completed
 Circle K (983 GA-124),2025-04-20 07:11:56.653000+00:00,6.48,UberEats,pickup_completed
@@ -34816,16 +34823,3 @@ U-Stop Convenience Shop 27th & Stockwell,2025-03-21 12:10:18.647000+00:00,16.24,
 Double Kwik - 2051,2025-03-21 12:08:21.113000+00:00,7.98,DoorDash,completed
 Jacksons Food Stores #60,2025-03-21 12:04:12.173000+00:00,11.97,UberEats,completed
 Circle K (758 W North St),2025-03-21 12:01:30.812000+00:00,19.74,UberEats,completed
-Clipper Petroleum #75,2025-03-21 11:54:23.447000+00:00,9.49,DoorDash,completed
-Double Kwik - 2051,2025-03-21 11:51:34.898000+00:00,5.76,DoorDash,completed
-Atlantis Fresh Market #36,2025-03-21 11:50:35.045000+00:00,12.72,UberEats,completed
-Alta Convenience #6013,2025-03-21 11:49:03.175000+00:00,12.17,GrubHub,cancelled
-Clipper Petroleum #40,2025-03-21 11:47:22.540000+00:00,9.97,DoorDash,completed
-Circle K Monument,2025-03-21 11:33:08.216000+00:00,18.47,GrubHub,completed
-Rocket #4249,2025-03-21 11:23:54.936000+00:00,12.25,DoorDash,completed
-Riverside Sunoco,2025-03-21 11:22:57.941000+00:00,20.5,UberEats,completed
-Rocket #6328,2025-03-21 11:20:28.818000+00:00,10.56,DoorDash,completed
-Big Boss Stores 3 - Emerald Coast Pkwy,2025-03-21 11:20:26.947000+00:00,11.96,DoorDash,completed
-Atlantis Fresh Market #89,2025-03-21 11:12:05.645000+00:00,12.5,UberEats,completed
-Rocket #103,2025-03-21 11:07:54.010000+00:00,15.74,GrubHub,completed
-CFM Express 15 St Clairsville,2025-03-21 11:05:49.095000+00:00,12.07,UberEats,completed
