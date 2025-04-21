@@ -308,27 +308,28 @@ with tab2:
         st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
         st.stop()
     
-        # Use the selected store name from tab 1
-    if store_name:
-        # Filter the performance data based on the selected store name using regex for case-insensitive matching
-        filtered_performance_data = performance_data[performance_data['store_name'].str.contains(
-            store_name, case=False, na=False, regex=True)]
+    # Use the selected store name from tab 1
+    if st.session_state.selected_store:  # Use the exact selected store from session state
+        # Exact case-insensitive match like in Tab 1
+        filtered_performance_data = performance_data[
+            performance_data['store_name'].str.lower() == st.session_state.selected_store.lower()
+        ]
     
         # Function to format numerical values in dollars
         def format_to_dollars(value):
             if pd.isna(value):
                 return "$0.00"
-            # Just format the number as a dollar amount without dividing by 100
             return f"${value:.2f}" if isinstance(value, (int, float)) else value
     
-        # Check if there is any filtered performance data
         if not filtered_performance_data.empty:
-            # Apply formatting to all numerical columns
+            # Apply formatting to numerical columns
             for column in filtered_performance_data.columns:
                 if pd.api.types.is_numeric_dtype(filtered_performance_data[column]):
                     filtered_performance_data[column] = filtered_performance_data[column].apply(format_to_dollars)
     
-            st.write(f"### Performance Data for '{store_name}':")
+            st.write(f"### Performance Data for '{st.session_state.selected_store}':")
             st.dataframe(filtered_performance_data)
         else:
-            st.warning("No performance data found for the specified store name.")
+            st.warning(f"No performance data found for '{st.session_state.selected_store}'.")
+    else:
+        st.info("Please select a store in the Store Search tab first.")
