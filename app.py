@@ -316,20 +316,7 @@ with tab2:
         # Display results
         if not filtered_performance_data.empty:
             st.write(f"### Performance Data for '{store_name}':")
-
-            # Function to format numbers as dollar amounts
-            def format_price(value):
-                if pd.isna(value):  # Check for NaN values
-                    return value
-                return f"${value:,.2f}"  # Format as dollar amount with two decimal places
-
-            # Apply formatting to all numeric columns
-            for column in filtered_performance_data.select_dtypes(include=['float64', 'int64']).columns:
-                filtered_performance_data[column] = filtered_performance_data[column].apply(format_price)
-
-            # Display dataframe
             st.dataframe(filtered_performance_data)
-
         else:
             st.warning("No performance data found for the specified store name.")
     else:
