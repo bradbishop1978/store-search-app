@@ -313,8 +313,19 @@ with tab2:
         # Filter the performance data based on the selected store name
         filtered_performance_data = performance_data[performance_data['store_name'].str.contains(store_name, case=False, na=False)]
 
-        # Display results
+        # Function to format numerical values in dollars
+        def format_to_dollars(value):
+            if pd.isna(value):
+                return "$0.00"
+            return f"${value / 100:.2f}" if isinstance(value, (int, float)) else value  # Assuming values are in cents
+
+        # Check if there is any filtered performance data
         if not filtered_performance_data.empty:
+            # Apply formatting to all numerical columns
+            for column in filtered_performance_data.columns:
+                if pd.api.types.is_numeric_dtype(filtered_performance_data[column]):
+                    filtered_performance_data[column] = filtered_performance_data[column].apply(format_to_dollars)
+
             st.write(f"### Performance Data for '{store_name}':")
             st.dataframe(filtered_performance_data)
         else:
