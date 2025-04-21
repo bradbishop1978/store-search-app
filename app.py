@@ -292,3 +292,48 @@ if st.session_state.selected_store:
 
     else:
         st.write("No matching store found.")
+
+# Add a new tab for Performance Data
+tab1, tab2 = st.tabs(["Store Search", "Performance Data"])
+
+with tab1:
+    # Existing store search functionality remains here...
+    pass  # Placeholder for your existing code
+
+with tab2:
+    # Load performance data
+    try:
+        performance_data = pd.read_csv('performancedata.csv')
+    except FileNotFoundError:
+        st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
+        st.stop()
+
+    # Calculate YTD GMV and AVG Monthly GMV
+    # Assuming the performance_data.csv has columns 'date' and 'gmv'
+
+    performance_data['date'] = pd.to_datetime(performance_data['date'])
+    performance_data['month'] = performance_data['date'].dt.to_period('M')
+
+    # Filter for the current year
+    current_year = datetime.now().year
+    ytd_data = performance_data[performance_data['date'].dt.year == current_year]
+
+    # Calculate Year-To-Date (YTD) GMV
+    ytd_gmv = ytd_data['gmv'].sum()
+    
+    # Calculate average monthly GMV
+    avg_monthly_gmv = ytd_data.groupby('month')['gmv'].sum().mean()
+
+    # Calculate month-over-month GMV
+    monthly_gmv = ytd_data.groupby('month')['gmv'].sum().reset_index()
+    monthly_gmv['month'] = monthly_gmv['month'].dt.strftime('%Y-%m')
+
+    # Display results
+    st.write("### Year-To-Date (YTD) GMV")
+    st.write(f"${ytd_gmv:,.2f}")
+
+    st.write("### Average Monthly GMV")
+    st.write(f"${avg_monthly_gmv:,.2f}")
+
+    st.write("### Month-Over-Month GMV")
+    st.dataframe(monthly_gmv)
