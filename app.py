@@ -294,7 +294,7 @@ if st.session_state.selected_store:
         st.write("No matching store found.")
 
 # Add a new tab for Performance Data
-tab1, tab2 = st.tabs(["Store Search", "Performance Data"])
+tab1, tab2 = st.tabs(["Store Info ☝️", "Performance Data📊"])
 
 with tab1:
     # Existing store search functionality remains here...
