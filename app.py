@@ -309,27 +309,26 @@ with tab2:
         st.stop()
 
     # Use the selected store name from tab 1
-    if store_name:
-        # Filter the performance data based on the selected store name
-        filtered_performance_data = performance_data[performance_data['store_name'].str.contains(store_name, case=False, na=False)]
+if store_name:
+    # Filter the performance data based on the selected store name using regex for case-insensitive matching
+    filtered_performance_data = performance_data[performance_data['store_name'].str.contains(
+        store_name, case=False, na=False, regex=True)]
 
-        # Function to format numerical values in dollars
-        def format_to_dollars(value):
-            if pd.isna(value):
-                return "$0.00"
-            # Just format the number as a dollar amount without dividing by 100
-            return f"${value:.2f}" if isinstance(value, (int, float)) else value
+    # Function to format numerical values in dollars
+    def format_to_dollars(value):
+        if pd.isna(value):
+            return "$0.00"
+        # Just format the number as a dollar amount without dividing by 100
+        return f"${value:.2f}" if isinstance(value, (int, float)) else value
 
-        # Check if there is any filtered performance data
-        if not filtered_performance_data.empty:
-            # Apply formatting to all numerical columns
-            for column in filtered_performance_data.columns:
-                if pd.api.types.is_numeric_dtype(filtered_performance_data[column]):
-                    filtered_performance_data[column] = filtered_performance_data[column].apply(format_to_dollars)
+    # Check if there is any filtered performance data
+    if not filtered_performance_data.empty:
+        # Apply formatting to all numerical columns
+        for column in filtered_performance_data.columns:
+            if pd.api.types.is_numeric_dtype(filtered_performance_data[column]):
+                filtered_performance_data[column] = filtered_performance_data[column].apply(format_to_dollars)
 
-            st.write(f"### Performance Data for '{store_name}':")
-            st.dataframe(filtered_performance_data)
-        else:
-            st.warning("No performance data found for the specified store name.")
+        st.write(f"### Performance Data for '{store_name}':")
+        st.dataframe(filtered_performance_data)
     else:
-        st.warning("Please enter a store name to display performance data.")
+        st.warning("No performance data found for the specified store name.")
