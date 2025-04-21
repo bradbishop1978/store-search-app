@@ -308,25 +308,16 @@ with tab2:
         st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
         st.stop()
 
-    # Strip whitespace in the store_name column
-    performance_data['store_name'] = performance_data['store_name'].str.strip()
-
     # Use the selected store name from tab 1
     if store_name:
-        # Debugging: display the unique store names for reference
-        st.write("Available stores:")
-        st.write(performance_data['store_name'].unique())
-
-        # Use regex to escape any special characters in the search term
-        escaped_store_name = re.escape(store_name)
-        
         # Filter the performance data based on the selected store name
-        filtered_performance_data = performance_data[performance_data['store_name'].str.contains(escaped_store_name, case=False, na=False)]
+        filtered_performance_data = performance_data[performance_data['store_name'].str.contains(store_name, case=False, na=False)]
 
         # Function to format numerical values in dollars
         def format_to_dollars(value):
             if pd.isna(value):
                 return "$0.00"
+            # Just format the number as a dollar amount without dividing by 100
             return f"${value:.2f}" if isinstance(value, (int, float)) else value
 
         # Check if there is any filtered performance data
