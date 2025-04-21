@@ -298,7 +298,7 @@ tab1, tab2 = st.tabs(["Store Search", "Performance Data"])
 
 with tab1:
     # Existing store search functionality remains here...
-    pass  # Placeholder for your existing code
+    pass  # Placeholder - all the code above remains unchanged for Store Search
 
 with tab2:
     # Load performance data
@@ -309,8 +309,6 @@ with tab2:
         st.stop()
 
     # Calculate YTD GMV and AVG Monthly GMV
-    # Assuming the performance_data.csv has columns 'date' and 'gmv'
-
     performance_data['date'] = pd.to_datetime(performance_data['date'])
     performance_data['month'] = performance_data['date'].dt.to_period('M')
 
