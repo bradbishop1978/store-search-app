@@ -308,16 +308,16 @@ with tab2:
         st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
         st.stop()
 
-    # Input for searching by store name
-    store_name_search = st.text_input("Enter Store Name to Search in Performance Data:")
-
-    if store_name_search:
-        # Filter the performance data based on the store name
-        filtered_performance_data = performance_data[performance_data['store_name'].str.contains(store_name_search, case=False, na=False)]
+    # Use the selected store name from tab 1
+    if store_name:
+        # Filter the performance data based on the selected store name
+        filtered_performance_data = performance_data[performance_data['store_name'].str.contains(store_name, case=False, na=False)]
 
         # Display results
         if not filtered_performance_data.empty:
-            st.write(f"### Performance Data for '{store_name_search}':")
+            st.write(f"### Performance Data for '{store_name}':")
             st.dataframe(filtered_performance_data)
         else:
             st.warning("No performance data found for the specified store name.")
+    else:
+        st.warning("Please enter a store name to display performance data.")
