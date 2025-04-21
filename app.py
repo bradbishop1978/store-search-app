@@ -317,7 +317,8 @@ with tab2:
         def format_to_dollars(value):
             if pd.isna(value):
                 return "$0.00"
-            return f"${value:.2f}" if isinstance(value, (int, float))
+             # Just format the number as a dollar amount without dividing by 100
+            return f"${value:.2f}" if isinstance(value, (int, float)) else value
 
         # Check if there is any filtered performance data
         if not filtered_performance_data.empty:
