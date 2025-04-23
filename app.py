@@ -329,7 +329,7 @@ with tab2:
                 if pd.api.types.is_numeric_dtype(filtered_performance_data[column]):
                     filtered_performance_data[column] = filtered_performance_data[column].apply(format_to_dollars)
     
-            st.write(f"### Performance Data for '{st.session_state.selected_store}':")
+            st.write(f"### 12-Months Sales data '{st.session_state.selected_store}':")
             st.dataframe(filtered_performance_data)
         else:
             st.warning(f"No performance data found for '{st.session_state.selected_store}'.")
