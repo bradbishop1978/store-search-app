@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(layout="wide")  # <-- Add this line right after importing Streamlit
+st.set_page_config(layout="wide")
 
 import pandas as pd
 from datetime import datetime, timezone
@@ -120,10 +120,15 @@ def format_price(value):
         return "$0.00"
 
 def format_date(date_value):
+    # Convert to datetime, coercing errors
+    date_value = pd.to_datetime(date_value, errors='coerce')
+    
+    # Check if date_value is NaT
     if pd.isna(date_value):
         return "-"
-    date_value = pd.to_datetime(date_value, errors='coerce')  # Convert to datetime
-    return date_value.strftime('%m/%d/%Y') if date_value else "-"
+    
+    # Now it is safe to call strftime since it is a valid datetime
+    return date_value.strftime('%m/%d/%Y')
 
 def time_elapsed(order_date):
     if pd.isna(order_date):
