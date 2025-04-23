@@ -1,4 +1,6 @@
 import streamlit as st
+st.set_page_config(layout="wide")  # <-- Add this line right after importing Streamlit
+
 import pandas as pd
 from datetime import datetime, timezone
 
