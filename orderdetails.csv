@@ -1,14 +1,33 @@
 store_name,order_date,order_total,delivery_platform,status
-Jacksons Food Stores #7,2025-04-23 11:59:18.918000+00:00,14.44,UberEats,incoming
-Circle K (9811 AR-253),2025-04-23 11:58:43.323000+00:00,11.99,UberEats,waiting
-Jacksons Food Stores #59,2025-04-23 11:51:07.206000+00:00,7.58,DoorDash,waiting
-Jr. Markets #5,2025-04-23 11:50:57.567000+00:00,52.85,UberEats,ready_for_pickup
-Jacksons Food Stores #654,2025-04-23 11:47:55.697000+00:00,13.16,DoorDash,ready_for_pickup
-Rocket #254,2025-04-23 11:47:50.294000+00:00,18.44,UberEats,ready_for_pickup
+Rocket #5091,2025-04-23 12:50:50.595000+00:00,17.0,DoorDash,ready_for_pickup
+Rocket #240,2025-04-23 12:47:18.644000+00:00,14.74,UberEats,incoming
+U-Stop Convenience Shop 56th & Old Cheney,2025-04-23 12:47:13.197000+00:00,15.69,DoorDash,pickup_completed
+Jacksons Food Stores #54,2025-04-23 12:46:50.427000+00:00,12.29,DoorDash,completed
+U-Stop Convenience Shop 33rd & Cornhusker Hwy,2025-04-23 12:46:33.242000+00:00,4.09,DoorDash,ready_for_pickup
+Rocket #4246,2025-04-23 12:45:23.196000+00:00,9.67,GrubHub,completed
+Wickliffe Clark,2025-04-23 12:43:14.480000+00:00,59.94,UberEats,ready_for_pickup
+Jacksons Food Stores #148,2025-04-23 12:37:29.915000+00:00,26.54,DoorDash,completed
+Rocket #6328,2025-04-23 12:36:12.592000+00:00,13.55,DoorDash,completed
+Rocket #6549,2025-04-23 12:32:09.104000+00:00,10.23,DoorDash,completed
+Jacksons Food Stores #60,2025-04-23 12:31:06.515000+00:00,16.49,DoorDash,completed
+Jacksons Food Stores #119,2025-04-23 12:27:23.312000+00:00,14.99,DoorDash,completed
+Jacksons Food Stores #105,2025-04-23 12:22:30.377000+00:00,8.28,DoorDash,completed
+Sweet Peas #05,2025-04-23 12:18:39.299000+00:00,3.19,UberEats,waiting
+Circle K (1307 Federal Dr),2025-04-23 12:15:54.790000+00:00,11.87,DoorDash,completed
+Jacksons Food Stores (#501),2025-04-23 12:15:45.914000+00:00,34.32,DoorDash,completed
+Rocket #26,2025-04-23 12:11:27.898000+00:00,5.99,DoorDash,completed
+Jacksons Food Stores #166,2025-04-23 12:11:00.722000+00:00,12.49,DoorDash,completed
+Jacksons Food Stores #164,2025-04-23 12:06:44.939000+00:00,45.93,DoorDash,completed
+Jacksons Food Stores #7,2025-04-23 11:59:18.918000+00:00,11.64,UberEats,ready_for_pickup
+Circle K (9811 AR-253),2025-04-23 11:58:43.323000+00:00,11.99,UberEats,pickup_completed
+Jacksons Food Stores #59,2025-04-23 11:51:07.206000+00:00,7.58,DoorDash,completed
+Jr. Markets #5,2025-04-23 11:50:57.567000+00:00,52.85,UberEats,pickup_completed
+Jacksons Food Stores #654,2025-04-23 11:47:55.697000+00:00,13.16,DoorDash,completed
+Rocket #254,2025-04-23 11:47:50.294000+00:00,18.44,UberEats,pickup_completed
 Tiger Mart #20,2025-04-23 11:42:26.706000+00:00,5.49,DoorDash,completed
 Jacksons Food Stores #67,2025-04-23 11:34:35.672000+00:00,28.64,DoorDash,completed
 Rocket #149,2025-04-23 11:30:14.530000+00:00,5.99,UberEats,ready_for_pickup
-Energy Mart 4 - Rosman Hwy,2025-04-23 11:28:45.833000+00:00,7.99,DoorDash,incoming
+Energy Mart 4 - Rosman Hwy,2025-04-23 11:28:45.833000+00:00,7.99,DoorDash,completed
 Rocket #6523,2025-04-23 11:24:18.860000+00:00,2.99,DoorDash,completed
 Jacksons Food Stores #648,2025-04-23 11:15:14.515000+00:00,10.78,DoorDash,completed
 Clipper Petroleum #60,2025-04-23 11:08:35.469000+00:00,12.18,UberEats,waiting
@@ -33,7 +52,7 @@ Jacksons Food Stores #118,2025-04-23 10:03:44.264000+00:00,17.96,DoorDash,comple
 Eagle Stores (Fairborn),2025-04-23 10:02:23.861000+00:00,3.38,UberEats,completed
 Kangaroo Express (8967 Jefferson Hwy),2025-04-23 10:00:58.395000+00:00,5.49,UberEats,pickup_completed
 Jacksons Food Stores #633,2025-04-23 09:56:43.853000+00:00,14.63,UberEats,pickup_completed
-Jacksons Food Stores #2,2025-04-23 09:56:03.384000+00:00,9.98,UberEats,ready_for_pickup
+Jacksons Food Stores #2,2025-04-23 09:56:03.384000+00:00,9.98,UberEats,pickup_completed
 Jacksons Food Stores #33,2025-04-23 09:53:06.867000+00:00,13.55,DoorDash,completed
 Rocket #5748,2025-04-23 09:46:40.744000+00:00,14.25,DoorDash,completed
 Jacksons Food Stores (#520),2025-04-23 09:44:16.194000+00:00,27.45,UberEats,pickup_completed
@@ -34416,19 +34435,3 @@ Fastbreak Convenience Store - Homedale Fastbreak,2025-03-24 13:17:38.760000+00:0
 Circle K (1720 Marietta Blvd NW),2025-03-24 13:02:20.073000+00:00,2.79,UberEats,completed
 Circle K (5101 Vaughn Rd),2025-03-24 13:00:57.560000+00:00,37.98,UberEats,completed
 Shell Quick Save,2025-03-24 13:00:14.413000+00:00,25.13,UberEats,completed
-Jacksons Food Stores #73,2025-03-24 12:59:21.619000+00:00,2.99,DoorDash,completed
-U-Stop Convenience Shop Highlands,2025-03-24 12:54:19.355000+00:00,16.61,UberEats,completed
-Cheers!,2025-03-24 12:52:52.082000+00:00,9.57,DoorDash,completed
-Kangaroo Express (6103 Florida Blvd),2025-03-24 12:52:41.995000+00:00,8.07,DoorDash,completed
-Rocket #4265,2025-03-24 12:50:25.739000+00:00,15.99,GrubHub,completed
-Westport Exxon,2025-03-24 12:37:32.828000+00:00,2.49,UberEats,completed
-Big Boss Stores 11 - Partin Dr N,2025-03-24 12:37:27.414000+00:00,15.98,UberEats,completed
-Covington Food Mart,2025-03-24 12:32:31.242000+00:00,9.95,GrubHub,denied
-Circle K (1220 AR-35),2025-03-24 12:24:26.481000+00:00,6.98,UberEats,completed
-Clipper Petroleum #1,2025-03-24 12:15:04.985000+00:00,11.58,DoorDash,completed
-Covington Food Mart,2025-03-24 12:13:32.568000+00:00,6.36,UberEats,denied
-Clipper Petroleum #60,2025-03-24 12:11:54.808000+00:00,34.98,UberEats,completed
-Clipper Petroleum #57,2025-03-24 12:06:11.326000+00:00,6.47,DoorDash,completed
-U-Stop Convenience Shop 33rd & Superior,2025-03-24 12:06:06.229000+00:00,32.45,DoorDash,completed
-Jacksons Food Stores #125,2025-03-24 12:06:05.240000+00:00,17.45,DoorDash,completed
-Kangaroo Express (6103 Florida Blvd),2025-03-24 12:04:51.831000+00:00,4.58,DoorDash,completed
