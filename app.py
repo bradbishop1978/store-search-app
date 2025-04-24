@@ -112,12 +112,18 @@ def format_value(value):
     return str(value)
 
 def format_price(value):
-    if pd.isna(value):
+    if pd.isna(value) or value == '-':
         return "$0.00"
     try:
-        return f"${value / 100:.2f}"  # Divide by 100 for cents
-    except ValueError:
+        return f"${float(value) / 100:.2f}"  # Convert to float and divide by 100 for cents
+    except (ValueError, TypeError):
         return "$0.00"
+
+# Example usage to demonstrate the fix
+print(format_price(1000))         # Should print: $10.00
+print(format_price('-'))          # Should print: $0.00
+print(format_price(None))         # Should print: $0.00
+print(format_price('invalid'))    # Should print: $0.00
 
 def format_date(date_value):
     # Convert to datetime, coercing errors
