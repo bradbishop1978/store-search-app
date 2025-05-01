@@ -1,8 +1,28 @@
 store_name,order_date,order_total,delivery_platform,status
-Alta Convenience #6013,2025-05-01 10:51:17.633000+00:00,8.07,UberEats,incoming
-Clipper Petroleum #57,2025-05-01 10:50:34.331000+00:00,8.76,UberEats,ready_for_pickup
-Atlantis Fresh Market #9,2025-05-01 10:45:24.941000+00:00,13.72,DoorDash,ready_for_pickup
-Jacksons Food Stores (#511),2025-05-01 10:42:28.839000+00:00,10.95,DoorDash,waiting
+Jacksons Food Stores #625,2025-05-01 11:58:37.029000+00:00,12.27,DoorDash,incoming
+Rocket #6655,2025-05-01 11:58:22.044000+00:00,11.07,DoorDash,incoming
+Rocket #157,2025-05-01 11:55:04.241000+00:00,11.36,DoorDash,waiting
+Jacksons Food Stores (#509),2025-05-01 11:53:00.714000+00:00,14.76,DoorDash,waiting
+Rocket #4267,2025-05-01 11:52:34.588000+00:00,13.25,DoorDash,waiting
+Jacksons Food Stores (#525),2025-05-01 11:51:59.361000+00:00,22.91,GrubHub,ready_for_pickup
+Jacksons Food Stores #68,2025-05-01 11:51:30.729000+00:00,10.47,DoorDash,ready_for_pickup
+Eagle Stores (Fairborn),2025-05-01 11:46:42.253000+00:00,7.99,UberEats,denied
+Kangaroo Express (8967 Jefferson Hwy),2025-05-01 11:38:46.834000+00:00,14.67,DoorDash,completed
+Circle K Atlantic,2025-05-01 11:38:43.571000+00:00,13.96,UberEats,ready_for_pickup
+Circle K (4101 Brooken Hill Dr),2025-05-01 11:37:01.064000+00:00,8.45,UberEats,ready_for_pickup
+Rocket #5442,2025-05-01 11:35:47.294000+00:00,6.18,DoorDash,cancelled
+Rocket #5458,2025-05-01 11:30:04.286000+00:00,10.97,DoorDash,ready_for_pickup
+Jacksons Food Stores #119,2025-05-01 11:26:56.324000+00:00,17.36,UberEats,pickup_completed
+Rocket #5534,2025-05-01 11:25:17.692000+00:00,10.68,DoorDash,completed
+Rocket #167,2025-05-01 11:23:58.852000+00:00,45.64,UberEats,waiting
+Rocket #694,2025-05-01 11:12:50.191000+00:00,2.99,UberEats,ready_for_pickup
+Jacksons Food Stores #34,2025-05-01 11:10:31.606000+00:00,28.21,DoorDash,completed
+Sweet Peas #16,2025-05-01 11:04:21.311000+00:00,12.86,UberEats,ready_for_pickup
+Rocket #5945,2025-05-01 11:00:53.965000+00:00,10.47,DoorDash,completed
+Alta Convenience #6013,2025-05-01 10:51:17.633000+00:00,8.07,UberEats,cancelled
+Clipper Petroleum #57,2025-05-01 10:50:34.331000+00:00,8.76,UberEats,pickup_completed
+Atlantis Fresh Market #9,2025-05-01 10:45:24.941000+00:00,13.72,DoorDash,completed
+Jacksons Food Stores (#511),2025-05-01 10:42:28.839000+00:00,8.06,DoorDash,completed
 Jacksons Food Stores #54,2025-05-01 10:40:50.708000+00:00,16.36,DoorDash,completed
 Rocket #6505,2025-05-01 10:36:43.110000+00:00,1.69,DoorDash,completed
 Eagle Stores (Fairborn),2025-05-01 10:33:04.814000+00:00,1.79,UberEats,completed
@@ -11,10 +31,10 @@ Circle K Carlsbad,2025-05-01 10:24:40.159000+00:00,9.57,DoorDash,completed
 Clipper Petroleum #47,2025-05-01 10:22:52.844000+00:00,24.93,DoorDash,completed
 Rocket #5945,2025-05-01 10:22:24.858000+00:00,3.49,DoorDash,completed
 Circle K - Main St,2025-05-01 10:14:24.737000+00:00,17.44,DoorDash,completed
-Jacksons Food Stores #163,2025-05-01 10:14:04.967000+00:00,11.57,UberEats,ready_for_pickup
+Jacksons Food Stores #163,2025-05-01 10:14:04.967000+00:00,11.57,UberEats,pickup_completed
 Rocket #5574,2025-05-01 10:09:13.056000+00:00,14.75,DoorDash,completed
 Jacksons Food Stores #28,2025-05-01 10:04:58.895000+00:00,10.33,DoorDash,completed
-U-Stop Convenience Shop West O St.,2025-05-01 10:01:57.719000+00:00,11.76,UberEats,ready_for_pickup
+U-Stop Convenience Shop West O St.,2025-05-01 10:01:57.719000+00:00,11.76,UberEats,pickup_completed
 Jacksons Food Stores #804,2025-05-01 10:01:22.449000+00:00,13.98,UberEats,pickup_completed
 U-Stop Convenience Shop 13th & South,2025-05-01 09:57:13.275000+00:00,16.96,DoorDash,completed
 Rocket #6505,2025-05-01 09:54:41.167000+00:00,21.34,DoorDash,completed
@@ -36348,13 +36368,3 @@ Circle K (1896 Piedmont Rd NE),2025-04-01 12:13:28.696000+00:00,3.59,UberEats,co
 U-Stop Convenience Shop Highlands,2025-04-01 12:11:49.190000+00:00,11.82,UberEats,cancelled
 Circle K (909 Kings Hwy),2025-04-01 12:04:51.458000+00:00,21.33,DoorDash,completed
 Rocket #642,2025-04-01 12:01:33.272000+00:00,9.48,UberEats,completed
-Sandri - Keene Sunoco,2025-04-01 11:58:11.107000+00:00,10.17,DoorDash,completed
-Circle K (1896 Piedmont Rd NE),2025-04-01 11:53:30.394000+00:00,13.27,UberEats,completed
-Circle K (Southfield Rd),2025-04-01 11:51:36.557000+00:00,22.37,UberEats,completed
-Circle K (3601 Flat Shoals Rd),2025-04-01 11:39:50.218000+00:00,3.09,DoorDash,completed
-Rocket #5432,2025-04-01 11:36:57.430000+00:00,17.53,DoorDash,completed
-Tiger Mart #16,2025-04-01 11:24:09.128000+00:00,5.98,UberEats,completed
-Rocket #5454,2025-04-01 11:23:05.038000+00:00,47.68,DoorDash,completed
-Quick Track - LaMa #76,2025-04-01 11:15:54.933000+00:00,25.95,UberEats,completed
-Kangaroo Express (6404 Hooper Rd),2025-04-01 11:10:24.677000+00:00,14.77,DoorDash,completed
-Circle K (3601 Flat Shoals Rd),2025-04-01 11:02:27.236000+00:00,2.58,DoorDash,denied
