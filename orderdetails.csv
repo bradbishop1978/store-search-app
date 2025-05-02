@@ -1,16 +1,35 @@
 store_name,order_date,order_total,delivery_platform,status
-Yazzy's Market - 1309 Altamont Ave,2025-05-02 11:00:05.991000+00:00,19.9,GrubHub,incoming
-Chop Chop Convenience Kelly Square,2025-05-02 10:55:10.249000+00:00,8.39,DoorDash,waiting
-Clipper Petroleum #49,2025-05-02 10:44:27.208000+00:00,11.48,DoorDash,ready_for_pickup
-Atlantis Fresh Market #91,2025-05-02 10:42:22.009000+00:00,7.76,UberEats,incoming
+Clipper Petroleum #32,2025-05-02 11:59:47.428000+00:00,8.28,UberEats,incoming
+Davison Fuel Inc Shell (W Davison),2025-05-02 11:56:29.559000+00:00,12.26,DoorDash,ready_for_pickup
+Rocket #5793,2025-05-02 11:54:17.720000+00:00,34.59,DoorDash,incoming
+Circle K (6357 Eastern Ave),2025-05-02 11:52:43.231000+00:00,12.99,UberEats,ready_for_pickup
+Rocket #5249,2025-05-02 11:46:27.867000+00:00,9.97,DoorDash,incoming
+Jacksons Food Stores #31,2025-05-02 11:45:48.712000+00:00,32.36,DoorDash,ready_for_pickup
+CFM 37 Bethlehem,2025-05-02 11:45:18.046000+00:00,26.32,DoorDash,incoming
+Circle K - Main St,2025-05-02 11:44:21.905000+00:00,17.95,DoorDash,completed
+Rocket #5531,2025-05-02 11:37:17.148000+00:00,2.79,DoorDash,denied
+LP Food Mart,2025-05-02 11:37:15.816000+00:00,3.98,UberEats,ready_for_pickup
+Jacksons Food Stores (#547),2025-05-02 11:36:45.646000+00:00,28.13,DoorDash,completed
+Rocket #5529,2025-05-02 11:36:33.415000+00:00,19.23,DoorDash,completed
+Jacksons Food Stores #125,2025-05-02 11:36:16.452000+00:00,13.58,DoorDash,completed
+University BP Food Mart,2025-05-02 11:27:23.749000+00:00,5.58,UberEats,ready_for_pickup
+Jacksons Food Stores (#108),2025-05-02 11:22:42.690000+00:00,16.76,DoorDash,completed
+Rocket #5224,2025-05-02 11:14:41.697000+00:00,18.58,DoorDash,completed
+Circle K (6357 Eastern Ave),2025-05-02 11:11:54.365000+00:00,12.26,UberEats,pickup_completed
+Clipper Petroleum #91,2025-05-02 11:08:13.981000+00:00,4.99,UberEats,pickup_completed
+Jacksons Food Stores (#533),2025-05-02 11:07:29.434000+00:00,30.44,DoorDash,completed
+Yazzy's Market - 1309 Altamont Ave,2025-05-02 11:00:05.991000+00:00,19.9,GrubHub,completed
+Chop Chop Convenience Kelly Square,2025-05-02 10:55:10.249000+00:00,8.39,DoorDash,completed
+Clipper Petroleum #49,2025-05-02 10:44:27.208000+00:00,11.48,DoorDash,completed
+Atlantis Fresh Market #91,2025-05-02 10:42:22.009000+00:00,7.76,UberEats,cancelled
 Rocket #5446,2025-05-02 10:40:46.689000+00:00,6.98,DoorDash,completed
-Atlantis Fresh Market #549,2025-05-02 10:37:59.520000+00:00,9.08,UberEats,incoming
+Atlantis Fresh Market #549,2025-05-02 10:37:59.520000+00:00,9.08,UberEats,pickup_completed
 Rotten Robbie #67,2025-05-02 10:31:46.292000+00:00,14.76,DoorDash,completed
-Jacksons Food Stores #54,2025-05-02 10:28:57.335000+00:00,16.27,DoorDash,ready_for_pickup
+Jacksons Food Stores #54,2025-05-02 10:28:57.335000+00:00,16.27,DoorDash,completed
 164 Quick Stop,2025-05-02 10:28:50.084000+00:00,8.48,UberEats,pickup_completed
 Rocket #6505,2025-05-02 10:28:47.522000+00:00,14.54,DoorDash,completed
-Rocket #219,2025-05-02 10:28:20.086000+00:00,4.88,UberEats,ready_for_pickup
-Alta Convenience #1281,2025-05-02 10:24:16.841000+00:00,13.66,DoorDash,waiting
+Rocket #219,2025-05-02 10:28:20.086000+00:00,4.88,UberEats,pickup_completed
+Alta Convenience #1281,2025-05-02 10:24:16.841000+00:00,13.66,DoorDash,completed
 Rocket #26,2025-05-02 10:19:01.622000+00:00,22.95,DoorDash,completed
 Jacksons Food Stores #18,2025-05-02 10:15:46.369000+00:00,14.45,DoorDash,completed
 Rocket #1297,2025-05-02 10:14:56.022000+00:00,7.99,DoorDash,completed
@@ -36737,15 +36756,3 @@ Rocket #5454,2025-04-02 12:18:49.246000+00:00,5.58,DoorDash,completed
 Rocket #5091,2025-04-02 12:18:27.015000+00:00,2.99,UberEats,completed
 Jacksons Food Stores #117,2025-04-02 12:17:46.807000+00:00,5.89,DoorDash,completed
 Jacksons Food Stores #119,2025-04-02 12:02:39.222000+00:00,9.38,GrubHub,completed
-Clipper Petroleum #60,2025-04-02 12:00:37.358000+00:00,13.99,UberEats,completed
-Quick Track - LaMa #70,2025-04-02 12:00:29.868000+00:00,19.99,UberEats,completed
-Rocket #6316,2025-04-02 11:57:54.749000+00:00,19.54,DoorDash,completed
-Double Kwik - 2051,2025-04-02 11:36:34.534000+00:00,3.99,DoorDash,completed
-Jacksons Food Stores #144,2025-04-02 11:29:41.212000+00:00,13.06,DoorDash,completed
-Jacksons Food Stores #33,2025-04-02 11:25:49.152000+00:00,19.46,DoorDash,completed
-Quick Track - LaMa #76,2025-04-02 11:24:02.292000+00:00,5.98,UberEats,denied
-Rocket #5686,2025-04-02 11:17:57.735000+00:00,10.17,DoorDash,completed
-Quick Track - LaMa #70,2025-04-02 11:13:56.288000+00:00,7.67,DoorDash,completed
-Rocket #5793,2025-04-02 11:10:22.233000+00:00,8.36,DoorDash,completed
-Clipper Petroleum #75,2025-04-02 11:05:38.746000+00:00,9.49,DoorDash,completed
-Mixx Market 11 - Vallejo Shell,2025-04-02 11:01:01.067000+00:00,12.98,DoorDash,denied
