@@ -3,61 +3,6 @@ st.set_page_config(layout="wide")
 
 import pandas as pd
 from datetime import datetime, timezone
-import time
-
-# Add this at the top of your script - Auto-refresh functionality
-# Cache control with TTL
-st.cache_data.clear()  # Clear cache on app startup
-
-# Set a TTL (Time To Live) for all cached functions
-@st.cache_data(ttl=300)  # Cache expires after 5 minutes
-def load_csv_data(file_path):
-    try:
-        return pd.read_csv(file_path)
-    except FileNotFoundError:
-        st.error(f"File not found. Please ensure '{file_path}' is in the correct path.")
-        return None
-
-# Add refresh controls in sidebar
-with st.sidebar:
-    st.title("Data Refresh Controls")
-    last_refresh = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    refresh_text = st.empty()
-    refresh_text.info(f"Last refreshed: {last_refresh}")
-    
-    if st.button("🔄 Refresh Data Now"):
-        st.cache_data.clear()
-        st.success("Data refreshed! The latest changes should now be visible.")
-        st.rerun()  # Changed from st.experimental_rerun()
-    
-    auto_refresh = st.checkbox("Enable auto-refresh", value=False)
-    if auto_refresh:
-        refresh_interval = st.slider("Refresh interval (minutes)", 
-                                    min_value=1, 
-                                    max_value=60, 
-                                    value=5)
-        
-        # Convert minutes to seconds for the countdown
-        refresh_seconds = refresh_interval * 60
-        
-        # Create a placeholder for the countdown
-        countdown_placeholder = st.empty()
-        
-        # Use a non-blocking approach for the countdown
-        # This will only update when the page is active
-        if "countdown_start" not in st.session_state:
-            st.session_state.countdown_start = time.time()
-            
-        elapsed = time.time() - st.session_state.countdown_start
-        remaining = max(0, refresh_seconds - int(elapsed))
-        
-        if remaining <= 0:
-            st.cache_data.clear()
-            st.session_state.countdown_start = time.time()
-            st.rerun()  # Changed from st.experimental_rerun()
-        else:
-            mins, secs = divmod(remaining, 60)
-            countdown_placeholder.info(f"Next refresh in: {int(mins)}m {int(secs)}s")
 
 # Logo URL
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
@@ -77,14 +22,18 @@ with col:
         unsafe_allow_html=True
     )
 
-# Load CSV data using the cached function
-data = load_csv_data('merged_df.csv')
-if data is None:
+# Load CSV data
+try:
+    data = pd.read_csv('merged_df.csv')
+except FileNotFoundError:
+    st.error("Store data file not found. Please ensure 'merged_df.csv' is in the correct path.")
     st.stop()
 
-# Load additional CSV data using the cached function
-order_details = load_csv_data('orderdetails.csv')
-if order_details is None:
+# Load additional CSV data
+try:
+    order_details = pd.read_csv('orderdetails.csv')
+except FileNotFoundError:
+    st.error("Order details file not found. Please ensure 'orderdetails.csv' is in the correct path.")
     st.stop()
 
 # Initialize session state for selected store and input
@@ -365,9 +314,11 @@ with tab1:
     pass  # Placeholder - all the code above remains unchanged for Store Search
 
 with tab2:
-    # Load performance data using the cached function
-    performance_data = load_csv_data('performancedata.csv')
-    if performance_data is None:
+    # Load performance data
+    try:
+        performance_data = pd.read_csv('performancedata.csv')
+    except FileNotFoundError:
+        st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
         st.stop()
     
     # Use the selected store name from tab 1
