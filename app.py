@@ -28,7 +28,7 @@ with st.sidebar:
     if st.button("🔄 Refresh Data Now"):
         st.cache_data.clear()
         st.success("Data refreshed! The latest changes should now be visible.")
-        st.experimental_rerun()
+        st.rerun()  # Changed from st.experimental_rerun()
     
     auto_refresh = st.checkbox("Enable auto-refresh", value=False)
     if auto_refresh:
@@ -54,7 +54,7 @@ with st.sidebar:
         if remaining <= 0:
             st.cache_data.clear()
             st.session_state.countdown_start = time.time()
-            st.experimental_rerun()
+            st.rerun()  # Changed from st.experimental_rerun()
         else:
             mins, secs = divmod(remaining, 60)
             countdown_placeholder.info(f"Next refresh in: {int(mins)}m {int(secs)}s")
