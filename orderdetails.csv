@@ -1,11 +1,28 @@
 store_name,order_date,order_total,delivery_platform,status
-Krispy Krunchy Chicken (909 Kings Hwy),2025-05-08 10:58:03.124000+00:00,19.98,DoorDash,waiting
-Jacksons Food Stores (#501),2025-05-08 10:56:13.992000+00:00,19.43,DoorDash,ready_for_pickup
-Mixx Market 51 - Taylor Road Shell,2025-05-08 10:54:45.484000+00:00,19.14,DoorDash,waiting
+Jacksons Food Stores (#520),2025-05-08 11:55:02.697000+00:00,33.61,DoorDash,waiting
+Circle K (1307 Federal Dr),2025-05-08 11:43:23.241000+00:00,17.26,DoorDash,completed
+Circle K (1307 Federal Dr),2025-05-08 11:42:53.269000+00:00,14.86,UberEats,incoming
+Kangaroo Express (6404 Hooper Rd),2025-05-08 11:41:56.340000+00:00,9.97,DoorDash,waiting
+Jacksons Food Stores #648,2025-05-08 11:31:11.322000+00:00,13.55,DoorDash,completed
+Tiger Mart #15,2025-05-08 11:29:42.062000+00:00,2.29,DoorDash,completed
+Jacksons Food Stores #607,2025-05-08 11:29:31.968000+00:00,13.47,UberEats,incoming
+King Fuels - Fannin Food Mart,2025-05-08 11:25:06.035000+00:00,3.79,UberEats,ready_for_pickup
+Clipper Petroleum #40,2025-05-08 11:23:22.051000+00:00,24.97,DoorDash,completed
+Circle K Beach,2025-05-08 11:21:46.812000+00:00,4.18,UberEats,ready_for_pickup
+Tiger Mart #15,2025-05-08 11:19:38.961000+00:00,4.78,DoorDash,completed
+Jacksons Food Stores (#502),2025-05-08 11:14:43.096000+00:00,23.06,DoorDash,completed
+Kangaroo Express (2906 Atlanta Hwy),2025-05-08 11:14:41.994000+00:00,10.07,DoorDash,denied
+Kangaroo Express (8967 Jefferson Hwy),2025-05-08 11:12:41.074000+00:00,15.26,DoorDash,completed
+Circle K (1188 Broward Rd),2025-05-08 11:12:31.735000+00:00,2.69,DoorDash,completed
+Circle K Beach,2025-05-08 11:05:34.533000+00:00,59.94,DoorDash,completed
+Energy Mart 10 - Long Shoals Rd,2025-05-08 11:02:36.537000+00:00,17.41,GrubHub,ready_for_pickup
+Krispy Krunchy Chicken (909 Kings Hwy),2025-05-08 10:58:03.124000+00:00,19.98,DoorDash,completed
+Jacksons Food Stores (#501),2025-05-08 10:56:13.992000+00:00,19.43,DoorDash,completed
+Mixx Market 51 - Taylor Road Shell,2025-05-08 10:54:45.484000+00:00,19.14,DoorDash,completed
 Danish Gourmet Grill ,2025-05-08 10:33:54.720000+00:00,4.74,UberEats,waiting
 Circle K (6357 Eastern Ave),2025-05-08 10:33:18.106000+00:00,13.04,UberEats,pickup_completed
-Kangaroo Express (6404 Hooper Rd),2025-05-08 10:32:48.212000+00:00,12.97,UberEats,waiting
-Par Mar Stores - 81 (Brodhead Road),2025-05-08 10:31:02.147000+00:00,2.79,DoorDash,incoming
+Kangaroo Express (6404 Hooper Rd),2025-05-08 10:32:48.212000+00:00,12.97,UberEats,ready_for_pickup
+Par Mar Stores - 81 (Brodhead Road),2025-05-08 10:31:02.147000+00:00,2.79,DoorDash,cancelled
 Kangaroo Express (6103 Florida Blvd),2025-05-08 10:25:56.750000+00:00,14.76,UberEats,waiting
 Jacksons Food Stores #2,2025-05-08 10:13:22.477000+00:00,14.56,DoorDash,completed
 Jacksons Food Stores (#514),2025-05-08 10:01:54.154000+00:00,11.96,UberEats,ready_for_pickup
@@ -13,7 +30,7 @@ Clipper Petroleum #57,2025-05-08 09:58:44.109000+00:00,19.46,DoorDash,completed
 Jacksons Food Stores #665,2025-05-08 09:58:43.049000+00:00,8.98,UberEats,ready_for_pickup
 Jacksons Food Stores #633,2025-05-08 09:55:25.623000+00:00,8.77,DoorDash,completed
 Jacksons Food Stores (#540),2025-05-08 09:52:56.870000+00:00,13.76,DoorDash,completed
-Rocket #5929,2025-05-08 09:43:41.329000+00:00,22.11,GrubHub,ready_for_pickup
+Rocket #5929,2025-05-08 09:43:41.329000+00:00,22.11,GrubHub,completed
 Jacksons Food Stores (#500),2025-05-08 09:35:21.301000+00:00,28.95,DoorDash,completed
 Circle K (3601 Flat Shoals Rd),2025-05-08 09:34:14.352000+00:00,7.28,DoorDash,completed
 Clipper Petroleum #91,2025-05-08 09:26:06.234000+00:00,4.59,DoorDash,completed
@@ -1016,7 +1033,7 @@ Rocket #5240,2025-05-07 19:14:11.782000+00:00,3.19,DoorDash,completed
 Quick Track 78,2025-05-07 19:13:24.775000+00:00,12.25,DoorDash,completed
 Big Bad BBQ (Washburn Chevron),2025-05-07 19:11:20.708000+00:00,15.98,DoorDash,completed
 Rocket #5262,2025-05-07 19:06:20.913000+00:00,25.52,DoorDash,completed
-Rocket #4224,2025-05-07 19:04:24.156000+00:00,12.46,DoorDash,ready_for_pickup
+Rocket #4224,2025-05-07 19:04:24.156000+00:00,12.46,DoorDash,completed
 Jacksons Food Stores (#515),2025-05-07 19:01:29.525000+00:00,21.73,DoorDash,completed
 Atlantis Fresh Market #92,2025-05-07 19:00:49.827000+00:00,6.2,UberEats,completed
 Chicken King (Las Adelitas),2025-05-07 19:00:11.003000+00:00,15.98,DoorDash,completed
@@ -37954,8 +37971,3 @@ Jacksons Food Stores #117,2025-04-08 12:06:39.261000+00:00,6.37,DoorDash,complet
 Rocket #5436,2025-04-08 12:05:17.495000+00:00,11.95,DoorDash,completed
 Circle K (8060 GA-85),2025-04-08 12:03:58.431000+00:00,10.67,UberEats,completed
 Jacksons Food Stores (#505),2025-04-08 12:02:28.823000+00:00,20.57,UberEats,completed
-Circle K (6629 Jonesboro Rd),2025-04-08 11:42:55.887000+00:00,7.18,DoorDash,completed
-North Salisbury Tiger Mart,2025-04-08 11:38:11.702000+00:00,6.18,DoorDash,completed
-Eagle Stores (Fairborn),2025-04-08 11:25:09.332000+00:00,29.98,UberEats,completed
-Jacksons Food Stores (#525),2025-04-08 11:25:04.129000+00:00,9.27,DoorDash,completed
-Rocket #5534,2025-04-08 11:24:49.937000+00:00,17.37,DoorDash,completed
