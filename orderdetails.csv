@@ -1,7 +1,8 @@
 store_name,order_date,order_total,delivery_platform,status
-Double Kwik - 2051,2025-05-09 10:56:59.060000+00:00,10.67,DoorDash,waiting
-U-Stop Convenience Shop 27th & E,2025-05-09 10:54:39.476000+00:00,16.75,DoorDash,waiting
-Circle K (6629 Jonesboro Rd),2025-05-09 10:52:24.724000+00:00,13.06,UberEats,waiting
+Yazzy's Market - 1372 Union Street,2025-05-09 10:59:34.082000+00:00,25.99,GrubHub,incoming
+Double Kwik - 2051,2025-05-09 10:56:59.060000+00:00,10.67,DoorDash,ready_for_pickup
+U-Stop Convenience Shop 27th & E,2025-05-09 10:54:39.476000+00:00,16.75,DoorDash,ready_for_pickup
+Circle K (6629 Jonesboro Rd),2025-05-09 10:52:24.724000+00:00,10.27,UberEats,ready_for_pickup
 Jacksons Food Stores #805,2025-05-09 10:52:07.563000+00:00,11.27,DoorDash,ready_for_pickup
 Circle K Franchise (Oscar) - Bear Valley & 3rd,2025-05-09 10:45:48.613000+00:00,1.99,DoorDash,completed
 Jacksons Food Stores (#502),2025-05-09 10:42:28.089000+00:00,4.88,DoorDash,ready_for_pickup
@@ -17,7 +18,7 @@ Clipper Petroleum #77,2025-05-09 10:27:04.593000+00:00,6.28,DoorDash,completed
 Jacksons Food Stores #87,2025-05-09 10:26:21.083000+00:00,8.27,DoorDash,completed
 Clipper Petroleum #49,2025-05-09 10:17:02.967000+00:00,6.28,DoorDash,completed
 Circle K (1600 Pike Ave),2025-05-09 10:16:41.849000+00:00,13.92,UberEats,incoming
-Double Kwik - 2051,2025-05-09 10:15:02.369000+00:00,15.94,UberEats,waiting
+Double Kwik - 2051,2025-05-09 10:15:02.369000+00:00,15.94,UberEats,pickup_completed
 Jacksons Food Stores #633,2025-05-09 10:13:54.965000+00:00,6.68,UberEats,pickup_completed
 Clipper Petroleum #57,2025-05-09 10:12:26.578000+00:00,15.05,DoorDash,completed
 Jacksons Food Stores #615,2025-05-09 10:05:23.308000+00:00,7.08,DoorDash,completed
