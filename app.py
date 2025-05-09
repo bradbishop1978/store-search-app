@@ -4,12 +4,13 @@ st.set_page_config(layout="wide")
 import pandas as pd
 from datetime import datetime, timezone
 
-# Add cache control to ensure fresh data
-@st.cache_data(ttl=0, persist=False, show_spinner=False)
+# Clear any existing cache to ensure fresh data loading
+st.cache_data.clear()
+
+# Direct data loading function with no caching
 def load_data(file_path):
-    # Force reload by adding a timestamp parameter that changes each time
-    timestamp = datetime.now().timestamp()
-    print(f"Loading data from {file_path} at {timestamp}")
+    # Direct read with no caching
+    print(f"Loading data directly from {file_path}")
     return pd.read_csv(file_path)
 
 # Logo URL
@@ -30,14 +31,14 @@ with col:
         unsafe_allow_html=True
     )
 
-# Load CSV data with cache control
+# Load CSV data directly without caching
 try:
     data = load_data('merged_df.csv')
 except FileNotFoundError:
     st.error("Store data file not found. Please ensure 'merged_df.csv' is in the correct path.")
     st.stop()
 
-# Load additional CSV data with cache control
+# Load additional CSV data directly without caching
 try:
     order_details = load_data('orderdetails.csv')
 except FileNotFoundError:
@@ -322,7 +323,7 @@ with tab1:
     pass  # Placeholder - all the code above remains unchanged for Store Search
 
 with tab2:
-    # Load performance data with cache control
+    # Load performance data directly without caching
     try:
         performance_data = load_data('performancedata.csv')
     except FileNotFoundError:
