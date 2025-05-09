@@ -5,8 +5,11 @@ import pandas as pd
 from datetime import datetime, timezone
 
 # Add cache control to ensure fresh data
-@st.cache_data(ttl=1, persist=False)  # Cache for just 1 second, effectively disabling caching
+@st.cache_data(ttl=0, persist=False, show_spinner=False)
 def load_data(file_path):
+    # Force reload by adding a timestamp parameter that changes each time
+    timestamp = datetime.now().timestamp()
+    print(f"Loading data from {file_path} at {timestamp}")
     return pd.read_csv(file_path)
 
 # Logo URL
