@@ -4,6 +4,11 @@ st.set_page_config(layout="wide")
 import pandas as pd
 from datetime import datetime, timezone
 
+# Add cache control to ensure fresh data
+@st.cache_data(ttl=1, persist=False)  # Cache for just 1 second, effectively disabling caching
+def load_data(file_path):
+    return pd.read_csv(file_path)
+
 # Logo URL
 logo_url = "https://raw.githubusercontent.com/bradbishop1978/store-search-app/16a6f28ccce5db3711f78c060c1f29b98a84f8c1/Primary%20Logo.jpg"
 
@@ -22,16 +27,16 @@ with col:
         unsafe_allow_html=True
     )
 
-# Load CSV data
+# Load CSV data with cache control
 try:
-    data = pd.read_csv('merged_df.csv')
+    data = load_data('merged_df.csv')
 except FileNotFoundError:
     st.error("Store data file not found. Please ensure 'merged_df.csv' is in the correct path.")
     st.stop()
 
-# Load additional CSV data
+# Load additional CSV data with cache control
 try:
-    order_details = pd.read_csv('orderdetails.csv')
+    order_details = load_data('orderdetails.csv')
 except FileNotFoundError:
     st.error("Order details file not found. Please ensure 'orderdetails.csv' is in the correct path.")
     st.stop()
@@ -314,9 +319,9 @@ with tab1:
     pass  # Placeholder - all the code above remains unchanged for Store Search
 
 with tab2:
-    # Load performance data
+    # Load performance data with cache control
     try:
-        performance_data = pd.read_csv('performancedata.csv')
+        performance_data = load_data('performancedata.csv')
     except FileNotFoundError:
         st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
         st.stop()
