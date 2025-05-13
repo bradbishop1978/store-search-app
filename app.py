@@ -4,13 +4,14 @@ st.set_page_config(layout="wide")
 import pandas as pd
 from datetime import datetime, timezone
 
-# Clear any existing cache to ensure fresh data loading
-st.cache_data.clear()
-
-# Direct data loading function with no caching
-def load_data(file_path):
-    # Direct read with no caching
-    print(f"Loading data directly from {file_path}")
+# Define a caching function with TTL=0 (no caching) and a timestamp parameter to force reloads
+@st.cache_data(ttl=0, show_spinner=False)
+def load_data(file_path, _timestamp=None):
+    """
+    Load data from CSV with explicit cache busting.
+    The _timestamp parameter forces a cache miss when it changes.
+    """
+    print(f"Loading data from {file_path} at {_timestamp}")
     return pd.read_csv(file_path)
 
 # Logo URL
@@ -31,16 +32,26 @@ with col:
         unsafe_allow_html=True
     )
 
-# Load CSV data directly without caching
+# Add a refresh button to explicitly reload data
+if st.button("🔄 Refresh Data"):
+    # Clear any existing cache
+    st.cache_data.clear()
+    # Force page rerun
+    st.rerun()
+
+# Generate a timestamp for cache busting
+current_timestamp = datetime.now().strftime('%Y%m%d%H%M%S%f')
+
+# Load CSV data with timestamp to force fresh load
 try:
-    data = load_data('merged_df.csv')
+    data = load_data('merged_df.csv', _timestamp=current_timestamp)
 except FileNotFoundError:
     st.error("Store data file not found. Please ensure 'merged_df.csv' is in the correct path.")
     st.stop()
 
-# Load additional CSV data directly without caching
+# Load additional CSV data with timestamp to force fresh load
 try:
-    order_details = load_data('orderdetails.csv')
+    order_details = load_data('orderdetails.csv', _timestamp=current_timestamp)
 except FileNotFoundError:
     st.error("Order details file not found. Please ensure 'orderdetails.csv' is in the correct path.")
     st.stop()
@@ -66,6 +77,8 @@ if st.button("Clear"):
     st.session_state.full_address_input = ""
     store_name = ""
     full_address = ""
+    # Force data reload after clearing
+    st.cache_data.clear()
 
 # Reset the selected store if either the store name or full address is typed
 if store_name != st.session_state.store_name_input or full_address != st.session_state.full_address_input:
@@ -91,6 +104,9 @@ if store_name:
                     st.session_state.selected_store = row['store_name']
                     st.session_state.store_name_input = row['store_name']
                     st.session_state.full_address_input = ""  # Clear address input
+                    # Force data reload after selection
+                    st.cache_data.clear()
+                    st.rerun()
                     break  # Reset suggestions on selection
 
 # Check if the user input matches any full address
@@ -106,6 +122,9 @@ if full_address:
                 st.session_state.selected_store = row['store_name']
                 st.session_state.store_name_input = row['store_name']
                 st.session_state.full_address_input = ""  # Clear address input
+                # Force data reload after selection
+                st.cache_data.clear()
+                st.rerun()
                 break  # Reset suggestions on selection
 
 # Assign values for the text inputs from the session state
@@ -127,12 +146,6 @@ def format_price(value):
         return f"${float(value) / 100:.2f}"  # Convert to float and divide by 100 for cents
     except (ValueError, TypeError):
         return "$0.00"
-
-# Example usage to demonstrate the fix
-print(format_price(1000))         # Should print: $10.00
-print(format_price('-'))          # Should print: $0.00
-print(format_price(None))         # Should print: $0.00
-print(format_price('invalid'))    # Should print: $0.00
 
 def format_date(date_value):
     # Convert to datetime, coercing errors
@@ -323,9 +336,9 @@ with tab1:
     pass  # Placeholder - all the code above remains unchanged for Store Search
 
 with tab2:
-    # Load performance data directly without caching
+    # Load performance data with timestamp to force fresh load
     try:
-        performance_data = load_data('performancedata.csv')
+        performance_data = load_data('performancedata.csv', _timestamp=current_timestamp)
     except FileNotFoundError:
         st.error("Performance data file not found. Please ensure 'performancedata.csv' is in the correct path.")
         st.stop()
