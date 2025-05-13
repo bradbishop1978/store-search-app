@@ -1,7 +1,9 @@
 store_name,order_date,order_total,delivery_platform,status
-Jacksons Food Stores #667,2025-05-13 11:00:25.620000+00:00,6.79,DoorDash,incoming
+Rocket #5529,2025-05-13 11:05:59.306000+00:00,9.47,DoorDash,incoming
+Rocket #5459,2025-05-13 11:01:14.408000+00:00,18.64,DoorDash,incoming
+Jacksons Food Stores #667,2025-05-13 11:00:25.620000+00:00,6.79,DoorDash,waiting
 Clipper Petroleum #40,2025-05-13 11:00:12.686000+00:00,3.48,UberEats,incoming
-Jacksons Food Stores #27,2025-05-13 10:59:52.565000+00:00,11.37,DoorDash,incoming
+Jacksons Food Stores #27,2025-05-13 10:59:52.565000+00:00,11.37,DoorDash,ready_for_pickup
 Daily Mart,2025-05-13 10:49:39.951000+00:00,20.0,UberEats,waiting
 Jacksons Food Stores #117,2025-05-13 10:43:54.375000+00:00,7.98,DoorDash,ready_for_pickup
 Clipper Petroleum #47,2025-05-13 10:39:42.834000+00:00,6.57,UberEats,ready_for_pickup
@@ -18,7 +20,7 @@ Rotten Robbie #66,2025-05-13 10:17:35.034000+00:00,8.58,UberEats,pickup_complete
 Jacksons Food Stores (#542),2025-05-13 10:13:59.550000+00:00,33.4,DoorDash,completed
 Rocket #6332,2025-05-13 10:13:03.959000+00:00,27.55,DoorDash,completed
 Rocket #4206,2025-05-13 10:09:49.223000+00:00,3.19,DoorDash,completed
-Circle K (2457 Whitesville Rd),2025-05-13 10:07:14.524000+00:00,19.72,UberEats,incoming
+Circle K (2457 Whitesville Rd),2025-05-13 10:07:14.524000+00:00,19.72,UberEats,cancelled
 Clipper Petroleum #45,2025-05-13 10:05:54.099000+00:00,9.76,DoorDash,completed
 Jacksons Food Stores #633,2025-05-13 10:03:44.155000+00:00,11.17,DoorDash,completed
 Circle K (1176 Chattahoochee Ave NW),2025-05-13 10:02:42.441000+00:00,14.24,DoorDash,completed
@@ -39856,5 +39858,3 @@ Circle K (1307 Federal Dr),2025-04-13 11:17:05.103000+00:00,3.49,UberEats,comple
 Big Boss Country Store,2025-04-13 11:14:59.018000+00:00,17.33,UberEats,completed
 Circle K (1896 Piedmont Rd NE),2025-04-13 11:11:07.555000+00:00,14.36,DoorDash,completed
 Clipper Petroleum #47,2025-04-13 11:09:37.401000+00:00,11.27,DoorDash,completed
-Jacksons Food Stores #18,2025-04-13 11:05:28.241000+00:00,13.56,DoorDash,completed
-Circle K (3601 Flat Shoals Rd),2025-04-13 11:04:54.420000+00:00,9.98,UberEats,completed
