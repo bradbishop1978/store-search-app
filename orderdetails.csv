@@ -1,8 +1,32 @@
 store_name,order_date,order_total,delivery_platform,status
-Circle K (983 GA-124),2025-05-15 11:47:20.902000+00:00,13.46,DoorDash,ready_for_pickup
+Atlantis Fresh Market #190,2025-05-15 13:00:24.855000+00:00,2.43,UberEats,incoming
+La Vista Food Mart,2025-05-15 12:56:50.509000+00:00,2.49,UberEats,waiting
+Rocket #226,2025-05-15 12:55:40.801000+00:00,35.19,DoorDash,waiting
+Jacksons Food Stores #144,2025-05-15 12:54:28.884000+00:00,10.75,DoorDash,ready_for_pickup
+Circle K (1106 N Jefferson St),2025-05-15 12:48:03.174000+00:00,14.27,DoorDash,ready_for_pickup
+Energy Mart 10 - Long Shoals Rd,2025-05-15 12:47:50.984000+00:00,25.98,DoorDash,completed
+Rocket #1971,2025-05-15 12:42:12.604000+00:00,20.93,DoorDash,completed
+Jacksons Food Stores (#525),2025-05-15 12:40:00.842000+00:00,13.95,DoorDash,completed
+Don's Xpress Center Central,2025-05-15 12:37:45.413000+00:00,13.96,DoorDash,completed
+Par Mar Stores - 238 (Coshocton Ave),2025-05-15 12:37:13.991000+00:00,7.97,DoorDash,completed
+Jacksons Food Stores #665,2025-05-15 12:35:24.557000+00:00,12.26,DoorDash,completed
+Circle K (3106 Jenny Lind Rd),2025-05-15 12:33:25.268000+00:00,16.14,UberEats,waiting
+Shop & Save Market,2025-05-15 12:32:16.213000+00:00,17.94,DoorDash,completed
+Top Shelf,2025-05-15 12:25:31.604000+00:00,19.99,UberEats,ready_for_pickup
+Quickmart #3,2025-05-15 12:21:51.849000+00:00,16.37,UberEats,pickup_completed
+Clipper Petroleum #26,2025-05-15 12:21:19.239000+00:00,22.99,UberEats,ready_for_pickup
+Isabella Tiger Mart & Subway,2025-05-15 12:18:58.967000+00:00,6.99,UberEats,pickup_completed
+Jacksons Food Stores #68,2025-05-15 12:12:00.358000+00:00,17.96,DoorDash,completed
+Jacksons Food Stores (#520),2025-05-15 12:11:30.699000+00:00,11.47,DoorDash,completed
+Sandri - StopSmart W Lebanon,2025-05-15 12:10:07.947000+00:00,8.17,DoorDash,ready_for_pickup
+Clipper Petroleum #47,2025-05-15 12:07:19.769000+00:00,5.98,UberEats,pickup_completed
+Circle K (10200 N Rodney Parham Rd),2025-05-15 12:05:44.889000+00:00,5.65,DoorDash,completed
+Rocket #4222,2025-05-15 12:03:19.361000+00:00,10.71,DoorDash,completed
+Rocket #7953,2025-05-15 12:03:07.879000+00:00,15.46,DoorDash,completed
+Circle K (983 GA-124),2025-05-15 11:47:20.902000+00:00,13.46,DoorDash,completed
 Jacksons Food Stores #667,2025-05-15 11:47:13.249000+00:00,4.49,DoorDash,completed
-Circle K (3601 Flat Shoals Rd),2025-05-15 11:46:59.161000+00:00,12.26,UberEats,waiting
-Rocket #676,2025-05-15 11:45:26.293000+00:00,44.08,DoorDash,ready_for_pickup
+Circle K (3601 Flat Shoals Rd),2025-05-15 11:46:59.161000+00:00,6.08,UberEats,ready_for_pickup
+Rocket #676,2025-05-15 11:45:26.293000+00:00,44.08,DoorDash,completed
 Rocket #4275,2025-05-15 11:42:31.814000+00:00,8.96,DoorDash,completed
 Circle K (1307 Federal Dr),2025-05-15 11:36:37.269000+00:00,19.96,DoorDash,completed
 Jacksons Food Stores (#533),2025-05-15 11:34:01.206000+00:00,28.12,UberEats,ready_for_pickup
@@ -32,7 +56,7 @@ Rocket #5082,2025-05-15 10:11:44.690000+00:00,8.48,DoorDash,denied
 Rocket #7965,2025-05-15 09:56:53.014000+00:00,12.37,DoorDash,completed
 Rocket #6502,2025-05-15 09:55:21.010000+00:00,21.52,UberEats,incoming
 Circle K (1720 Marietta Blvd NW),2025-05-15 09:48:12.461000+00:00,8.76,UberEats,ready_for_pickup
-Circle K (8060 GA-85),2025-05-15 09:48:07.762000+00:00,8.07,UberEats,waiting
+Circle K (8060 GA-85),2025-05-15 09:48:07.762000+00:00,8.07,UberEats,ready_for_pickup
 Rocket #239,2025-05-15 09:48:06.731000+00:00,12.09,DoorDash,cancelled
 Rocket #5454,2025-05-15 09:47:08.250000+00:00,10.96,DoorDash,completed
 Circle K (3285 McGinnis Ferry Rd),2025-05-15 09:45:51.698000+00:00,10.86,UberEats,pickup_completed
@@ -1336,8 +1360,8 @@ Circle K (4300 E Broadway St),2025-05-14 14:54:14.285000+00:00,13.56,UberEats,co
 Circle K (6357 Eastern Ave),2025-05-14 14:52:54.751000+00:00,36.5,DoorDash,completed
 Jacksons Food Stores #60,2025-05-14 14:51:47.477000+00:00,4.49,DoorDash,completed
 Jacksons Food Stores #625,2025-05-14 14:43:52.849000+00:00,8.97,DoorDash,completed
-Quickmart #3,2025-05-14 14:43:06.723000+00:00,8.97,DoorDash,ready_for_pickup
-Quickmart #3,2025-05-14 14:42:07.559000+00:00,19.99,DoorDash,ready_for_pickup
+Quickmart #3,2025-05-14 14:43:06.723000+00:00,8.97,DoorDash,completed
+Quickmart #3,2025-05-14 14:42:07.559000+00:00,19.99,DoorDash,completed
 Jacksons Food Stores #173,2025-05-14 14:40:14.160000+00:00,7.78,DoorDash,completed
 Rocket #7450,2025-05-14 14:38:48.243000+00:00,6.58,DoorDash,completed
 Circle K (1220 AR-35),2025-05-14 14:33:19.113000+00:00,11.27,DoorDash,completed
@@ -40506,22 +40530,3 @@ LP Food Mart,2025-04-15 13:09:17.521000+00:00,21.96,UberEats,denied
 Circle K (Westinghouse),2025-04-15 13:07:33.788000+00:00,2.99,UberEats,completed
 Rocket #251,2025-04-15 13:05:48.385000+00:00,14.48,DoorDash,completed
 Alta Convenience #6015,2025-04-15 13:01:17.971000+00:00,13.56,UberEats,completed
-Clipper Petroleum #60,2025-04-15 13:00:30.898000+00:00,13.99,UberEats,completed
-Clipper Petroleum #1,2025-04-15 12:57:33.325000+00:00,5.79,DoorDash,completed
-U-Stop Convenience Shop 73rd & Pine Lake,2025-04-15 12:55:57.764000+00:00,10.17,DoorDash,completed
-Double Kwik - 2076,2025-04-15 12:55:50.246000+00:00,17.53,DoorDash,completed
-Don's Xpress Center Central,2025-04-15 12:51:41.774000+00:00,13.96,DoorDash,denied
-Jacksons Food Stores (#551),2025-04-15 12:50:19.069000+00:00,30.4,UberEats,completed
-Big Boss Stores 4 - US-331,2025-04-15 12:47:36.287000+00:00,16.35,DoorDash,completed
-Don's Xpress Center Central,2025-04-15 12:45:48.272000+00:00,13.96,DoorDash,denied
-Chisholm Corner 2,2025-04-15 12:42:42.415000+00:00,16.45,DoorDash,completed
-Quick Track - LaMa #76,2025-04-15 12:31:49.105000+00:00,23.34,UberEats,completed
-Circle K (8060 GA-85),2025-04-15 12:30:16.875000+00:00,15.96,UberEats,completed
-Jacksons Food Stores #615,2025-04-15 12:23:16.788000+00:00,24.73,GrubHub,completed
-Energy Mart 8 - Upward Rd,2025-04-15 12:21:05.893000+00:00,17.94,DoorDash,completed
-Rocket #477,2025-04-15 12:18:34.838000+00:00,19.74,DoorDash,completed
-Atlantis Fresh Market #156,2025-04-15 12:13:53.670000+00:00,14.94,UberEats,cancelled
-Circle K Beach,2025-04-15 12:12:49.185000+00:00,14.98,UberEats,completed
-Jacksons Food Stores #166,2025-04-15 12:08:22.535000+00:00,12.49,DoorDash,completed
-Jacksons Food Stores (#502),2025-04-15 12:08:04.023000+00:00,17.95,UberEats,completed
-Rocket #6507,2025-04-15 12:07:13.145000+00:00,12.27,DoorDash,denied
